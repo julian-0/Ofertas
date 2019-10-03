@@ -16,6 +16,14 @@ BEGIN
 	IF EXISTS (
 			SELECT *
 			FROM sys.tables
+			WHERE object_name(object_id) = 'Entrega'
+				AND schema_name(schema_id) = 'NUNCA_INJOIN'
+			)
+		DROP TABLE NUNCA_INJOIN.Entrega
+
+	IF EXISTS (
+			SELECT *
+			FROM sys.tables
 			WHERE object_name(object_id) = 'FacturaProveedor'
 				AND schema_name(schema_id) = 'NUNCA_INJOIN'
 			)
@@ -68,14 +76,6 @@ BEGIN
 				AND schema_name(schema_id) = 'NUNCA_INJOIN'
 			)
 		DROP TABLE NUNCA_INJOIN.FacturaProveedor
-
-	IF EXISTS (
-			SELECT *
-			FROM sys.tables
-			WHERE object_name(object_id) = 'Entrega'
-				AND schema_name(schema_id) = 'NUNCA_INJOIN'
-			)
-		DROP TABLE NUNCA_INJOIN.Entrega
 
 	IF EXISTS (
 			SELECT *
@@ -163,7 +163,8 @@ CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY 
 
 CREATE TABLE NUNCA_INJOIN.Rol (
 	"rol_id" VARCHAR(50) PRIMARY KEY,
-	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')),
+	"habilitado" CHAR(1) NOT NULL DEFAULT 'A' CHECK (habilitado IN ('A', 'I')),
 	);
 
 CREATE TABLE NUNCA_INJOIN.FuncionalidadPorRol (
@@ -249,17 +250,28 @@ CREATE TABLE NUNCA_INJOIN.Compra (
 	compra_id NUMERIC(9) identity PRIMARY KEY,
 	oferta_id NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
 	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
-	fecha_compra datetime,
-	cantidad_comprada numeric(18,0)
+	fecha_compra DATETIME,
+	vencimiento DATETIME,
+	cantidad_comprada NUMERIC(18, 0)
 	)
 
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
-	factura_id NUMERIC(9) identity ,
-	factura_tipo char(1),
-	compra_id NUMERIC(9) references NUNCA_INJOIN.Compra,
-	proveedor_id NUMERIC(9) references NUNCA_INJOIN.Proveedor,
-	fecha datetime,
-	numero numeric(18,0),
-	importe numeric(26,2),
-	PRIMARY KEY(factura_id, factura_tipo)
-)
+	factura_id NUMERIC(9) identity,
+	factura_tipo CHAR(1),
+	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
+	fecha DATETIME,
+	numero NUMERIC(18, 0),
+	importe NUMERIC(26, 2),
+	PRIMARY KEY (
+		factura_id,
+		factura_tipo
+		)
+	)
+
+CREATE TABLE NUNCA_INJOIN.Entrega (
+	entrega_id NUMERIC(9) identity,
+	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	fecha_consumo DATETIME
+	)
