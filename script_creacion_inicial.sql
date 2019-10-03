@@ -154,8 +154,8 @@ END
 GO
 
 /*
-	CREACIÓN DE TABLAS
-*/
+ *	CREACIÓN DE TABLAS
+ */
 USE GD2C2019
 GO
 
@@ -251,8 +251,7 @@ CREATE TABLE NUNCA_INJOIN.Compra (
 	oferta_id NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
 	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	fecha_compra DATETIME,
-	vencimiento DATETIME,
-	cantidad_comprada NUMERIC(18, 0)
+	vencimiento DATETIME
 	)
 
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
@@ -274,4 +273,284 @@ CREATE TABLE NUNCA_INJOIN.Entrega (
 	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
 	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	fecha_consumo DATETIME
+	)
+
+/*
+ *
+ *	INSERTS
+ *
+ */
+/* Funcionalidades */
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('abm de rol')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('registro de usuario')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('abm de clientes')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('abm de proveedor')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('carga de credito')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('confeccion y publicacion de ofertas')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('comprar oferta')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('entrega de oferta')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('facturacion a proveedor')
+
+INSERT INTO NUNCA_INJOIN.Funcionalidad (funcionalidad_id)
+VALUES ('listado estadistico')
+GO
+
+/* Roles */
+INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+VALUES ('administrador general') -- Lo que usan durante los tests - tiene todas las funcionalidades (Pag 14)
+
+INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+VALUES ('administrativo')
+
+INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+VALUES ('cliente')
+
+INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+VALUES ('proveedor')
+GO
+
+/* Funcionalidades por rol */
+--Administrador general (Todas las funcionalidades)
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'abm de rol'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'registro de usuario'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'amb de cliente'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'abm de proveedor'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'cargar credito'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'comprar oferta'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'confeccion y publicacion de ofertas'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'entrega de oferta'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'facturacion a proveedor'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'listado estadistico'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrador general',
+	'listado estadistico'
+	)
+
+--Administrativo
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'abm de rol'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'registro de usuario'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'abm de clientes'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'abm de proveedor'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'facturacion a proveedor'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'administrativo',
+	'listado estadistico'
+	)
+
+-- Cliente
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'cliente',
+	'registro de usuario'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'cliente',
+	'abm de clientes'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'cliente',
+	'carga de credito'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'cliente',
+	'comprar oferta'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'proveedor',
+	'registro de usuario'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'proveedor',
+	'abm de proveedor'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'proveedor',
+	'confeccion y ppublicacion de ofertas'
+	)
+
+INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+	rol_id,
+	funcionalidad_id
+	)
+VALUES (
+	'proveedor',
+	'entrega de oferta'
 	)
