@@ -141,11 +141,7 @@ BEGIN
 			)
 		DROP TABLE NUNCA_INJOIN.Funcionalidad
 END
-GO
-
-DROP SCHEMA NUNCA_INJOIN
-GO
-
+ELSE
 BEGIN
 	EXEC ('create schema NUNCA_INJOIN authorization [gdCupon2019]')
 
@@ -186,7 +182,7 @@ CREATE TABLE NUNCA_INJOIN.Usuario (
 
 CREATE TABLE NUNCA_INJOIN.Cliente (
 	"cliente_id" NUMERIC(9) identity PRIMARY KEY,
-	"usuario_id" VARCHAR(50) NOT NULL REFERENCES NUNCA_INJOIN.Usuario,
+	"usuario_id" VARCHAR(50) NOT NULL REFERENCES NUNCA_INJOIN.Usuario, /* seguros que not null? y como hacemos la migracion? */
 	"nombre" NVARCHAR(255),
 	"apellido" NVARCHAR(255),
 	"dni" NUMERIC(18, 0),
@@ -275,3 +271,17 @@ CREATE TABLE NUNCA_INJOIN.Entrega (
 	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	fecha_consumo DATETIME
 	)
+
+
+/*
+MIGRACION
+*/
+
+/* CLIENTES */
+INSERT INTO NUNCA_INJOIN.Cliente(nombre, apellido, dni, mail, telefono, domicilio, localidad, fecha_nac)
+	SELECT Cli_Nombre, Cli_Apellido, Cli_Dni, Cli_Mail, Cli_Telefono, Cli_Direccion, Cli_Ciudad, Cli_Fecha_Nac
+	FROM gd_esquema.Maestra
+	/* que where pondriamos? */
+
+
+GO
