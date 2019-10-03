@@ -182,7 +182,7 @@ CREATE TABLE NUNCA_INJOIN.Usuario (
 
 CREATE TABLE NUNCA_INJOIN.Cliente (
 	"cliente_id" NUMERIC(9) identity PRIMARY KEY,
-	"usuario_id" VARCHAR(50) NOT NULL REFERENCES NUNCA_INJOIN.Usuario, /* seguros que not null? y como hacemos la migracion? */
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
 	"nombre" NVARCHAR(255),
 	"apellido" NVARCHAR(255),
 	"dni" NUMERIC(18, 0),
@@ -348,7 +348,7 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	)
 VALUES (
 	'administrador general',
-	'amb de cliente'
+	'abm de clientes'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
@@ -366,7 +366,7 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	)
 VALUES (
 	'administrador general',
-	'cargar credito'
+	'carga de credito'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
@@ -403,15 +403,6 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 VALUES (
 	'administrador general',
 	'facturacion a proveedor'
-	)
-
-INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id,
-	funcionalidad_id
-	)
-VALUES (
-	'administrador general',
-	'listado estadistico'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
@@ -539,7 +530,7 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	)
 VALUES (
 	'proveedor',
-	'confeccion y ppublicacion de ofertas'
+	'confeccion y publicacion de ofertas'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
@@ -550,6 +541,27 @@ VALUES (
 	'proveedor',
 	'entrega de oferta'
 	)
+
+/*
+ * Contraseñas
+ */
+DECLARE @PassGeneral NVARCHAR(32)
+SET @PassGeneral = 'w23e'
+DECLARE @HashedPass VARBINARY(32)
+SET @HashedPass = hashbytes('SHA2_256', @PassGeneral)
+
+--ADMINISTRADOR GENERAL
+INSERT INTO NUNCA_INJOIN.Usuario (
+	usuario_id,
+	rol_id,
+	contrasenia
+	)
+VALUES (
+	'admin',
+	'administrador general',
+	@HashedPass
+	)
+
 
 /*
  *MIGRACION
