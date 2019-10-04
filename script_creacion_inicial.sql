@@ -258,11 +258,12 @@ CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
 	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
 	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
 	fecha DATETIME,
-	numero NUMERIC(18, 0),
+	factura_numero NUMERIC(18, 0),
 	importe NUMERIC(26, 2),
 	PRIMARY KEY (
 		factura_id,
-		factura_tipo
+		factura_tipo,
+		factura_numero
 		)
 	)
 
@@ -649,6 +650,32 @@ SELECT DISTINCT Oferta_Codigo,
 FROM gd_esquema.Maestra
 WHERE Oferta_Codigo IS NOT NULL
 
+/* FACTURAS */
+INSERT INTO NUNCA_INJOIN.FacturaProveedor (
+	factura_tipo,
+	proveedor_id,
+	fecha,
+	factura_numero,
+	importe
+	)
+SELECT 'A',
+	(
+		SELECT proveedor_id
+		FROM NUNCA_INJOIN.Proveedor
+		WHERE Provee_RS = razon_social
+			AND Provee_CUIT = cuit
+		),
+	Factura_Fecha,
+	Factura_Nro,
+	sum(Oferta_Precio)
+FROM gd_esquema.Maestra
+WHERE Factura_Fecha IS NOT NULL
+	AND Factura_Nro IS NOT NULL
+GROUP BY Factura_Fecha,
+	Factura_Nro,
+	Provee_RS,
+	Provee_CUIT
+
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
 INSERT INTO NUNCA_INJOIN.Compra (
@@ -664,6 +691,7 @@ SELECT Oferta_Codigo,
 			AND Cli_Nombre = nombre
 			AND Cli_Apellido = apellido
 			AND Cli_Mail = mail
+			AND Cli_Ciudad = localidad
 		),
 	Oferta_Fecha_Compra
 FROM gd_esquema.Maestra
