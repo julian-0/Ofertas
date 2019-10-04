@@ -158,145 +158,119 @@ GO
 CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY KEY);
 
 CREATE TABLE NUNCA_INJOIN.Rol (
-	"rol_id" VARCHAR(50) PRIMARY KEY
-	,"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (
-		baja_logica IN (
-			'S'
-			,'N'
-			)
-		)
-	,"habilitado" CHAR(1) NOT NULL DEFAULT 'A' CHECK (
-		habilitado IN (
-			'A'
-			,'I'
-			)
-		)
-	,
+	"rol_id" VARCHAR(50) PRIMARY KEY,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')),
+	"habilitado" CHAR(1) NOT NULL DEFAULT 'A' CHECK (habilitado IN ('A', 'I')),
 	);
 
 CREATE TABLE NUNCA_INJOIN.FuncionalidadPorRol (
-	"funcionalidad_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Funcionalidad
-	,"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol
-	,PRIMARY KEY (
-		rol_id
-		,funcionalidad_id
+	"funcionalidad_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Funcionalidad,
+	"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol,
+	PRIMARY KEY (
+		rol_id,
+		funcionalidad_id
 		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Usuario (
-	"usuario_id" VARCHAR(50) PRIMARY KEY
-	,"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol
-	,"contrasenia" VARBINARY(32) NOT NULL
-	,"intentos_fallidos" SMALLINT DEFAULT 0
-	,"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (
-		baja_logica IN (
-			'S'
-			,'N'
-			)
-		)
+	"usuario_id" VARCHAR(50) PRIMARY KEY,
+	"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol,
+	"contrasenia" VARBINARY(32) NOT NULL,
+	"intentos_fallidos" SMALLINT DEFAULT 0,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.Cliente (
-	"cliente_id" NUMERIC(9) identity PRIMARY KEY
-	,"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario
-	,"nombre" NVARCHAR(255)
-	,"apellido" NVARCHAR(255)
-	,"dni" NUMERIC(18, 0)
-	,"mail" NVARCHAR(255)
-	,"telefono" NUMERIC(18, 0)
-	,"domicilio" NVARCHAR(255)
-	,"localidad" NVARCHAR(255)
-	,"codigo_postal" NVARCHAR(8)
-	,"fecha_nac" DATETIME
-	,"credito" NUMERIC(18, 2) NOT NULL DEFAULT 200
-	,"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (
-		baja_logica IN (
-			'S'
-			,'N'
-			)
-		)
+	"cliente_id" NUMERIC(9) identity PRIMARY KEY,
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
+	"nombre" NVARCHAR(255),
+	"apellido" NVARCHAR(255),
+	"dni" NUMERIC(18, 0),
+	"mail" NVARCHAR(255),
+	"telefono" NUMERIC(18, 0),
+	"domicilio" NVARCHAR(255),
+	"localidad" NVARCHAR(255),
+	"codigo_postal" NVARCHAR(8),
+	"fecha_nac" DATETIME,
+	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 200,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.Tarjeta (
-	"tarjeta_id" NUMERIC(9) identity PRIMARY KEY
-	,"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente
-	,"duenio" NVARCHAR(255)
-	,numero NUMERIC(19)
+	"tarjeta_id" NUMERIC(9) identity PRIMARY KEY,
+	"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	"duenio" NVARCHAR(255),
+	numero NUMERIC(19)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Carga (
-	"carga_id" NUMERIC(9) identity PRIMARY KEY
-	,"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente
-	,"tarjeta_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Tarjeta
-	,"fecha" DATETIME NOT NULL
-	,"tipo_pago" NVARCHAR(100)
-	,"monto" NUMERIC(18, 2)
+	"carga_id" NUMERIC(9) identity PRIMARY KEY,
+	"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	"tarjeta_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Tarjeta,
+	"fecha" DATETIME NOT NULL,
+	"tipo_pago" NVARCHAR(100),
+	"monto" NUMERIC(18, 2)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Rubro (
-	"rubro_id" NUMERIC(9) identity PRIMARY KEY
-	,"nombre_rubro" NVARCHAR(100)
+	"rubro_id" NUMERIC(9) identity PRIMARY KEY,
+	"nombre_rubro" NVARCHAR(100)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Proveedor (
-	"proveedor_id" NUMERIC(9) identity PRIMARY KEY
-	,"rubro_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rubro
-	,"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario
-	,"razon_social" NVARCHAR(100)
-	,"mail" NVARCHAR(255)
-	,"telefono" NUMERIC(18, 0)
-	,"domicilio" NVARCHAR(255)
-	,"localidad" NVARCHAR(255)
-	,"ciudad" NVARCHAR(255)
-	,"codigo_postal" NVARCHAR(8)
-	,"cuit" NVARCHAR(20)
-	,"nombre_contacto" NVARCHAR(255)
-	,"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (
-		baja_logica IN (
-			'S'
-			,'N'
-			)
-		)
+	"proveedor_id" NUMERIC(9) identity PRIMARY KEY,
+	"rubro_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rubro,
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
+	"razon_social" NVARCHAR(100),
+	"mail" NVARCHAR(255),
+	"telefono" NUMERIC(18, 0),
+	"domicilio" NVARCHAR(255),
+	"localidad" NVARCHAR(255),
+	"ciudad" NVARCHAR(255),
+	"codigo_postal" NVARCHAR(8),
+	"cuit" NVARCHAR(20),
+	"nombre_contacto" NVARCHAR(255),
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.Oferta (
-	oferta_codigo NVARCHAR(50) PRIMARY KEY
-	,proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor
-	,descripcion NVARCHAR(255)
-	,fecha_publicacion DATETIME
-	,fecha_vencimiento DATETIME
-	,precio_oferta NUMERIC(18, 2)
-	,precio_lista NUMERIC(18, 2)
-	,cantidad_disponible NUMERIC(18, 0)
+	oferta_codigo NVARCHAR(50) PRIMARY KEY,
+	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
+	descripcion NVARCHAR(255),
+	fecha_publicacion DATETIME,
+	fecha_vencimiento DATETIME,
+	precio_oferta NUMERIC(18, 2),
+	precio_lista NUMERIC(18, 2),
+	cantidad_disponible NUMERIC(18, 0)
 	)
 
 CREATE TABLE NUNCA_INJOIN.Compra (
-	compra_id NUMERIC(9) identity PRIMARY KEY
-	,oferta_id NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta
-	,cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente
-	,fecha_compra DATETIME
-	,vencimiento DATETIME
+	compra_id NUMERIC(9) identity PRIMARY KEY,
+	oferta_id NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
+	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	fecha_compra DATETIME,
+	vencimiento DATETIME
 	)
 
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
-	factura_id NUMERIC(9) identity
-	,factura_tipo CHAR(1)
-	,compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra
-	,proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor
-	,fecha DATETIME
-	,numero NUMERIC(18, 0)
-	,importe NUMERIC(26, 2)
-	,PRIMARY KEY (
-		factura_id
-		,factura_tipo
+	factura_id NUMERIC(9) identity,
+	factura_tipo CHAR(1),
+	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
+	fecha DATETIME,
+	numero NUMERIC(18, 0),
+	importe NUMERIC(26, 2),
+	PRIMARY KEY (
+		factura_id,
+		factura_tipo
 		)
 	)
 
 CREATE TABLE NUNCA_INJOIN.Entrega (
-	entrega_id NUMERIC(9) identity
-	,compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra
-	,cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente
-	,fecha_consumo DATETIME
+	entrega_id NUMERIC(9) identity,
+	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	fecha_consumo DATETIME
 	)
 
 /*
@@ -353,221 +327,221 @@ GO
 /* Funcionalidades por rol */
 --Administrador general (Todas las funcionalidades)
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'abm de rol'
+	'administrador general',
+	'abm de rol'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'registro de usuario'
+	'administrador general',
+	'registro de usuario'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'abm de clientes'
+	'administrador general',
+	'abm de clientes'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'abm de proveedor'
+	'administrador general',
+	'abm de proveedor'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'carga de credito'
+	'administrador general',
+	'carga de credito'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'comprar oferta'
+	'administrador general',
+	'comprar oferta'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'confeccion y publicacion de ofertas'
+	'administrador general',
+	'confeccion y publicacion de ofertas'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'entrega de oferta'
+	'administrador general',
+	'entrega de oferta'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'facturacion a proveedor'
+	'administrador general',
+	'facturacion a proveedor'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrador general'
-	,'listado estadistico'
+	'administrador general',
+	'listado estadistico'
 	)
 
 --Administrativo
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'abm de rol'
+	'administrativo',
+	'abm de rol'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'registro de usuario'
+	'administrativo',
+	'registro de usuario'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'abm de clientes'
+	'administrativo',
+	'abm de clientes'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'abm de proveedor'
+	'administrativo',
+	'abm de proveedor'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'facturacion a proveedor'
+	'administrativo',
+	'facturacion a proveedor'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'administrativo'
-	,'listado estadistico'
+	'administrativo',
+	'listado estadistico'
 	)
 
 -- Cliente
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'cliente'
-	,'registro de usuario'
+	'cliente',
+	'registro de usuario'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'cliente'
-	,'abm de clientes'
+	'cliente',
+	'abm de clientes'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'cliente'
-	,'carga de credito'
+	'cliente',
+	'carga de credito'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'cliente'
-	,'comprar oferta'
+	'cliente',
+	'comprar oferta'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'proveedor'
-	,'registro de usuario'
+	'proveedor',
+	'registro de usuario'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'proveedor'
-	,'abm de proveedor'
+	'proveedor',
+	'abm de proveedor'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'proveedor'
-	,'confeccion y publicacion de ofertas'
+	'proveedor',
+	'confeccion y publicacion de ofertas'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id
-	,funcionalidad_id
+	rol_id,
+	funcionalidad_id
 	)
 VALUES (
-	'proveedor'
-	,'entrega de oferta'
+	'proveedor',
+	'entrega de oferta'
 	)
 
 /*
@@ -583,14 +557,14 @@ SET @HashedPass = hashbytes('SHA2_256', @PassGeneral)
 
 --ADMINISTRADOR GENERAL
 INSERT INTO NUNCA_INJOIN.Usuario (
-	usuario_id
-	,rol_id
-	,contrasenia
+	usuario_id,
+	rol_id,
+	contrasenia
 	)
 VALUES (
-	'admin'
-	,'administrador general'
-	,@HashedPass
+	'admin',
+	'administrador general',
+	@HashedPass
 	)
 
 /*
@@ -598,23 +572,23 @@ VALUES (
  */
 /* CLIENTES */
 INSERT INTO NUNCA_INJOIN.Cliente (
-	nombre
-	,apellido
-	,dni
-	,mail
-	,telefono
-	,domicilio
-	,localidad
-	,fecha_nac
+	nombre,
+	apellido,
+	dni,
+	mail,
+	telefono,
+	domicilio,
+	localidad,
+	fecha_nac
 	)
-SELECT DISTINCT Cli_Nombre
-	,Cli_Apellido
-	,Cli_Dni
-	,Cli_Mail
-	,Cli_Telefono
-	,Cli_Direccion
-	,Cli_Ciudad
-	,Cli_Fecha_Nac
+SELECT DISTINCT Cli_Nombre,
+	Cli_Apellido,
+	Cli_Dni,
+	Cli_Mail,
+	Cli_Telefono,
+	Cli_Direccion,
+	Cli_Ciudad,
+	Cli_Fecha_Nac
 FROM gd_esquema.Maestra
 GO
 
@@ -628,19 +602,19 @@ GO
 
 /* PROVEEDORES */
 INSERT INTO NUNCA_INJOIN.Proveedor (
-	razon_social
-	,telefono
-	,domicilio
-	,ciudad
-	,cuit
-	,rubro_id
+	razon_social,
+	telefono,
+	domicilio,
+	ciudad,
+	cuit,
+	rubro_id
 	)
-SELECT DISTINCT Provee_RS
-	,Provee_Telefono
-	,Provee_Dom
-	,Provee_Ciudad
-	,Provee_CUIT
-	,(
+SELECT DISTINCT Provee_RS,
+	Provee_Telefono,
+	Provee_Dom,
+	Provee_Ciudad,
+	Provee_CUIT,
+	(
 		SELECT rubro_id
 		FROM NUNCA_INJOIN.Rubro
 		WHERE Provee_Rubro = nombre_rubro
@@ -650,49 +624,51 @@ WHERE Provee_CUIT IS NOT NULL
 
 /* OFERTAS */
 INSERT INTO NUNCA_INJOIN.Oferta (
-	oferta_codigo
-	,proveedor_id
-	,descripcion
-	,fecha_publicacion
-	,fecha_vencimiento
-	,precio_oferta
-	,precio_lista
-	,cantidad_disponible
+	oferta_codigo,
+	proveedor_id,
+	descripcion,
+	fecha_publicacion,
+	fecha_vencimiento,
+	precio_oferta,
+	precio_lista,
+	cantidad_disponible
 	)
-SELECT DISTINCT Oferta_Codigo
-	,(
+SELECT DISTINCT Oferta_Codigo,
+	(
 		SELECT proveedor_id
 		FROM NUNCA_INJOIN.Proveedor
 		WHERE Provee_RS = razon_social
 			AND Provee_CUIT = cuit
-		)
-	,Oferta_Descripcion
-	,Oferta_Fecha
-	,Oferta_Fecha_Venc
-	,Oferta_Precio
-	,Oferta_Precio_Ficticio
-	,Oferta_Cantidad
+		),
+	Oferta_Descripcion,
+	Oferta_Fecha,
+	Oferta_Fecha_Venc,
+	Oferta_Precio,
+	Oferta_Precio_Ficticio,
+	Oferta_Cantidad
 FROM gd_esquema.Maestra
 WHERE Oferta_Codigo IS NOT NULL
 
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
 INSERT INTO NUNCA_INJOIN.Compra (
-	oferta_id
-	,cliente_compra_id
-	,fecha_compra
+	oferta_id,
+	cliente_compra_id,
+	fecha_compra
 	)
-SELECT Oferta_Codigo
-	,(
+SELECT Oferta_Codigo,
+	(
 		SELECT DISTINCT cliente_id
 		FROM NUNCA_INJOIN.Cliente
 		WHERE Cli_Dni = dni
 			AND Cli_Nombre = nombre
 			AND Cli_Apellido = apellido
 			AND Cli_Mail = mail
-		)
-	,Oferta_Fecha_Compra
+		),
+	Oferta_Fecha_Compra
 FROM gd_esquema.Maestra
 WHERE Oferta_Fecha_Compra IS NOT NULL
+	AND Oferta_Entregado_Fecha IS NULL
+	AND Factura_Fecha IS NULL
+	AND Factura_Nro IS NULL
 	/* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
-	
