@@ -568,7 +568,24 @@ VALUES (
  */
 
 /* CLIENTES */
-INSERT INTO NUNCA_INJOIN.Cliente(nombre, apellido, dni, mail, telefono, domicilio, localidad, fecha_nac)
-	SELECT Cli_Nombre, Cli_Apellido, Cli_Dni, Cli_Mail, Cli_Telefono, Cli_Direccion, Cli_Ciudad, Cli_Fecha_Nac
-	FROM gd_esquema.Maestra
-	/* que where pondriamos? */
+INSERT INTO NUNCA_INJOIN.Cliente (
+	nombre
+	,apellido
+	,dni
+	,mail
+	,telefono
+	,domicilio
+	,localidad
+	,fecha_nac
+	,credito
+	)
+SELECT DISTINCT Cli_Nombre
+	,Cli_Apellido
+	,Cli_Dni
+	,Cli_Mail
+	,Cli_Telefono
+	,Cli_Direccion
+	,Cli_Ciudad
+	,Cli_Fecha_Nac
+FROM gd_esquema.Maestra
+GO
