@@ -618,3 +618,26 @@ SELECT DISTINCT Provee_RS
 	, (SELECT rubro_id FROM NUNCA_INJOIN.Rubro WHERE Provee_Rubro = nombre_rubro)
 FROM gd_esquema.Maestra
 WHERE Provee_CUIT IS NOT NULL
+
+/* OFERTAS */
+
+INSERT INTO NUNCA_INJOIN.Oferta (oferta_codigo
+	,proveedor_id
+	,descripcion
+	,fecha_publicacion
+	,fecha_vencimiento
+	,precio_oferta
+	,precio_lista
+	,cantidad_disponible
+	)
+SELECT DISTINCT Oferta_Codigo
+,(SELECT proveedor_id FROM NUNCA_INJOIN.Proveedor WHERE Provee_RS = razon_social AND Provee_CUIT = cuit)
+,Oferta_Descripcion
+,Oferta_Fecha
+,Oferta_Fecha_Venc
+,Oferta_Precio
+,Oferta_Precio_Ficticio
+,Oferta_Cantidad
+FROM gd_esquema.Maestra
+WHERE Oferta_Codigo IS NOT NULL
+/* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */	
