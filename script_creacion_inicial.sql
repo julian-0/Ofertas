@@ -192,7 +192,8 @@ CREATE TABLE NUNCA_INJOIN.Cliente (
 	"localidad" NVARCHAR(255),
 	"codigo_postal" NVARCHAR(8),
 	"fecha_nac" DATETIME,
-	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 200
+	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 200,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.Tarjeta (
@@ -219,7 +220,7 @@ CREATE TABLE NUNCA_INJOIN.Rubro (
 CREATE TABLE NUNCA_INJOIN.Proveedor (
 	"proveedor_id" NUMERIC(9) identity PRIMARY KEY,
 	"rubro_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rubro,
-	"usuario_id" VARCHAR(50) NOT NULL REFERENCES NUNCA_INJOIN.Usuario,
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
 	"razon_social" NVARCHAR(100),
 	"mail" NVARCHAR(255),
 	"telefono" NUMERIC(18, 0),
@@ -227,8 +228,9 @@ CREATE TABLE NUNCA_INJOIN.Proveedor (
 	"localidad" NVARCHAR(255),
 	"ciudad" NVARCHAR(255),
 	"codigo_postal" NVARCHAR(8),
-	"ciut" NVARCHAR(20),
-	"nombre_contacto" NVARCHAR(255)
+	"cuit" NVARCHAR(20),
+	"nombre_contacto" NVARCHAR(255),
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.Oferta (
@@ -577,7 +579,6 @@ INSERT INTO NUNCA_INJOIN.Cliente (
 	,domicilio
 	,localidad
 	,fecha_nac
-	,credito
 	)
 SELECT DISTINCT Cli_Nombre
 	,Cli_Apellido
@@ -589,3 +590,31 @@ SELECT DISTINCT Cli_Nombre
 	,Cli_Fecha_Nac
 FROM gd_esquema.Maestra
 GO
+/* VER QUE HACER CON LAS CARGAS DE MARGA SUAREZ */
+
+/* RUBROS */
+INSERT INTO NUNCA_INJOIN.Rubro (nombre_rubro) 
+SELECT DISTINCT Provee_Rubro
+FROM gd_esquema.Maestra
+WHERE Provee_Rubro IS NOT NULL
+
+GO
+
+/* PROVEEDORES */
+
+INSERT INTO NUNCA_INJOIN.Proveedor (
+	razon_social,
+	telefono,
+	domicilio,
+	ciudad,
+	cuit,
+	rubro_id
+	)
+SELECT DISTINCT Provee_RS
+	, Provee_Telefono
+	, Provee_Dom
+	, Provee_Ciudad
+	, Provee_CUIT
+	, (SELECT rubro_id FROM NUNCA_INJOIN.Rubro WHERE Provee_Rubro = nombre_rubro)
+FROM gd_esquema.Maestra
+WHERE Provee_CUIT IS NOT NULL
