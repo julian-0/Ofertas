@@ -24,18 +24,18 @@ BEGIN
 	IF EXISTS (
 			SELECT *
 			FROM sys.tables
-			WHERE object_name(object_id) = 'FacturaProveedor'
+			WHERE object_name(object_id) = 'Cupon'
 				AND schema_name(schema_id) = 'NUNCA_INJOIN'
 			)
-		DROP TABLE NUNCA_INJOIN.FacturaProveedor
+		DROP TABLE NUNCA_INJOIN.Cupon
 
 	IF EXISTS (
 			SELECT *
 			FROM sys.tables
-			WHERE object_name(object_id) = 'Compra'
+			WHERE object_name(object_id) = 'FacturaProveedor'
 				AND schema_name(schema_id) = 'NUNCA_INJOIN'
 			)
-		DROP TABLE NUNCA_INJOIN.Compra
+		DROP TABLE NUNCA_INJOIN.FacturaProveedor
 
 	IF EXISTS (
 			SELECT *
@@ -60,30 +60,6 @@ BEGIN
 				AND schema_name(schema_id) = 'NUNCA_INJOIN'
 			)
 		DROP TABLE NUNCA_INJOIN.Rubro
-
-	IF EXISTS (
-			SELECT *
-			FROM sys.tables
-			WHERE object_name(object_id) = 'Oferta'
-				AND schema_name(schema_id) = 'NUNCA_INJOIN'
-			)
-		DROP TABLE NUNCA_INJOIN.Oferta
-
-	IF EXISTS (
-			SELECT *
-			FROM sys.tables
-			WHERE object_name(object_id) = 'FacturaProveedor'
-				AND schema_name(schema_id) = 'NUNCA_INJOIN'
-			)
-		DROP TABLE NUNCA_INJOIN.FacturaProveedor
-
-	IF EXISTS (
-			SELECT *
-			FROM sys.tables
-			WHERE object_name(object_id) = 'Compra'
-				AND schema_name(schema_id) = 'NUNCA_INJOIN'
-			)
-		DROP TABLE NUNCA_INJOIN.Compra
 
 	IF EXISTS (
 			SELECT *
@@ -244,32 +220,27 @@ CREATE TABLE NUNCA_INJOIN.Oferta (
 	cantidad_disponible NUMERIC(18, 0)
 	)
 
-CREATE TABLE NUNCA_INJOIN.Compra (
-	compra_id NUMERIC(9) identity PRIMARY KEY,
-	oferta_id NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
-	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
-	fecha_compra DATETIME,
-	vencimiento DATETIME
-	)
-
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
-	factura_id NUMERIC(9) identity,
-	factura_tipo CHAR(1),
-	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	factura_numero NUMERIC(18, 0) identity PRIMARY KEY,
 	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
 	fecha DATETIME,
-	factura_numero NUMERIC(18, 0),
-	importe NUMERIC(26, 2),
-	PRIMARY KEY (
-		factura_id,
-		factura_tipo,
-		factura_numero
-		)
+	importe NUMERIC(26, 2)
+	)
+SET IDENTITY_INSERT NUNCA_INJOIN.FacturaProveedor ON
+
+CREATE TABLE NUNCA_INJOIN.Cupon (
+	Cupon_id NUMERIC(9) identity PRIMARY KEY,
+	oferta_codigo NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
+	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
+	fecha_compra DATETIME,
+	fue_entregado CHAR(1) NOT NULL DEFAULT 'N' CHECK (fue_entregado IN ('S', 'N')),
+	vencimiento DATETIME
 	)
 
 CREATE TABLE NUNCA_INJOIN.Entrega (
 	entrega_id NUMERIC(9) identity,
-	compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Compra,
+	Cupon_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cupon,
 	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	fecha_consumo DATETIME
 	)
@@ -652,13 +623,12 @@ WHERE Oferta_Codigo IS NOT NULL
 
 /* FACTURAS */
 INSERT INTO NUNCA_INJOIN.FacturaProveedor (
-	factura_tipo,
+	factura_numero,
 	proveedor_id,
 	fecha,
-	factura_numero,
 	importe
 	)
-SELECT 'A',
+SELECT Factura_Nro,
 	(
 		SELECT proveedor_id
 		FROM NUNCA_INJOIN.Proveedor
@@ -666,7 +636,6 @@ SELECT 'A',
 			AND Provee_CUIT = cuit
 		),
 	Factura_Fecha,
-	Factura_Nro,
 	sum(Oferta_Precio)
 FROM gd_esquema.Maestra
 WHERE Factura_Fecha IS NOT NULL
@@ -678,10 +647,12 @@ GROUP BY Factura_Fecha,
 
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
-INSERT INTO NUNCA_INJOIN.Compra (
-	oferta_id,
+INSERT INTO NUNCA_INJOIN.Cupon (
+	oferta_codigo,
 	cliente_compra_id,
-	fecha_compra
+	factura_id,
+	fecha_compra,
+	fue_entregado
 	)
 SELECT Oferta_Codigo,
 	(
@@ -693,10 +664,13 @@ SELECT Oferta_Codigo,
 			AND Cli_Mail = mail
 			AND Cli_Ciudad = localidad
 		),
-	Oferta_Fecha_Compra
+	Factura_Nro,
+	Oferta_Fecha_Compra,
+	CASE 
+		WHEN Oferta_Entregado_Fecha > convert(DATETIME, '5-5-2020')
+			THEN 'S'
+		ELSE 'N'
+		END
 FROM gd_esquema.Maestra
 WHERE Oferta_Fecha_Compra IS NOT NULL
-	AND Oferta_Entregado_Fecha IS NULL
-	AND Factura_Fecha IS NULL
-	AND Factura_Nro IS NULL
 	/* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
