@@ -226,10 +226,11 @@ CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
 	fecha DATETIME,
 	importe NUMERIC(26, 2)
 	)
+
 SET IDENTITY_INSERT NUNCA_INJOIN.FacturaProveedor ON
 
 CREATE TABLE NUNCA_INJOIN.Cupon (
-	Cupon_id NUMERIC(9) identity PRIMARY KEY,
+	cupon_id NUMERIC(9) identity PRIMARY KEY,
 	oferta_codigo NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
 	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
@@ -240,7 +241,7 @@ CREATE TABLE NUNCA_INJOIN.Cupon (
 
 CREATE TABLE NUNCA_INJOIN.Entrega (
 	entrega_id NUMERIC(9) identity,
-	Cupon_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cupon,
+	cupon_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cupon,
 	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	fecha_consumo DATETIME
 	)
@@ -564,6 +565,27 @@ SELECT DISTINCT Cli_Nombre,
 FROM gd_esquema.Maestra
 GO
 
+INSERT INTO NUNCA_INJOIN.Cliente (
+	nombre,
+	apellido,
+	dni,
+	mail,
+	telefono,
+	domicilio,
+	localidad,
+	fecha_nac
+	)
+SELECT DISTINCT Cli_Nombre,
+	Cli_Dest_Apellido,
+	Cli_Dest_Dni,
+	Cli_Dest_Mail,
+	Cli_Dest_Telefono,
+	Cli_Dest_Direccion,
+	Cli_Dest_Ciudad,
+	Cli_Dest_Fecha_Nac
+FROM gd_esquema.Maestra
+GO
+
 /* VER QUE HACER CON LAS CARGAS DE MARGA SUAREZ */
 /* RUBROS */
 INSERT INTO NUNCA_INJOIN.Rubro (nombre_rubro)
@@ -647,6 +669,8 @@ GROUP BY Factura_Fecha,
 
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
+DECLARE @fechaConfig DATETIME = convert(DATETIME, '5-5-2020') --TODO: Tomar del .config
+
 INSERT INTO NUNCA_INJOIN.Cupon (
 	oferta_codigo,
 	cliente_compra_id,
@@ -664,13 +688,34 @@ SELECT Oferta_Codigo,
 			AND Cli_Mail = mail
 			AND Cli_Ciudad = localidad
 		),
-	Factura_Nro,
+	numero_factura,
 	Oferta_Fecha_Compra,
 	CASE 
-		WHEN Oferta_Entregado_Fecha > convert(DATETIME, '5-5-2020')
+		WHEN fecha_entregado > @fechaConfig
 			THEN 'S'
 		ELSE 'N'
 		END
-FROM gd_esquema.Maestra
+FROM (
+	SELECT [Cli_Nombre],
+		[Cli_Apellido],
+		[Cli_Dni],
+		[Oferta_Codigo],
+		[Cli_Mail],
+		[Cli_Ciudad],
+		Max([Oferta_Entregado_Fecha]) AS fecha_entregado,
+		Max([Factura_Nro]) AS numero_factura,
+		Max([Factura_Fecha]) AS fecha_factura,
+		Oferta_Fecha_Compra
+	FROM [GD2C2019].[gd_esquema].[Maestra]
+	GROUP BY [Cli_Nombre],
+		[Cli_Apellido],
+		[Cli_Dni],
+		[Oferta_Codigo],
+		[Cli_Mail],
+		[Cli_Ciudad],
+		Oferta_Fecha_Compra
+	) cupones_normales
 WHERE Oferta_Fecha_Compra IS NOT NULL
-	/* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
+GO
+
+/* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
