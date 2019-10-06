@@ -236,7 +236,8 @@ CREATE TABLE NUNCA_INJOIN.Cupon (
 	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
 	fecha_compra DATETIME,
 	fue_entregado CHAR(1) NOT NULL DEFAULT 'N' CHECK (fue_entregado IN ('S', 'N')),
-	vencimiento DATETIME
+	vencimiento DATETIME,
+	fecha_entrega DATETIME -- Droppeada al terminar la migración
 	)
 
 CREATE TABLE NUNCA_INJOIN.Entrega (
@@ -676,7 +677,8 @@ INSERT INTO NUNCA_INJOIN.Cupon (
 	cliente_compra_id,
 	factura_id,
 	fecha_compra,
-	fue_entregado
+	fue_entregado,
+	fecha_entrega -- Droppeado al terminar la migracion de Entrega
 	)
 SELECT Oferta_Codigo,
 	(
@@ -694,7 +696,8 @@ SELECT Oferta_Codigo,
 		WHEN fecha_entregado > @fechaConfig
 			THEN 'S'
 		ELSE 'N'
-		END
+		END,
+	fecha_entregado
 FROM (
 	SELECT [Cli_Nombre],
 		[Cli_Apellido],
@@ -719,3 +722,20 @@ WHERE Oferta_Fecha_Compra IS NOT NULL
 GO
 
 /* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
+INSERT INTO NUNCA_INJOIN.Entrega (
+	cupon_id,
+	--cliente_entrega_id, No vale la pena - no estaba implementado en el sist anterior
+	fecha_consumo
+	)
+SELECT cupon_id,
+	fecha_entrega
+FROM NUNCA_INJOIN.Cupon
+WHERE fecha_entrega IS NOT NULL
+GO
+
+ALTER TABLE NUNCA_INJOIN.Cupon
+
+DROP COLUMN fecha_entrega
+GO
+
+
