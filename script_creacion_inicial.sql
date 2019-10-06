@@ -671,7 +671,10 @@ GROUP BY Factura_Fecha,
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
 DECLARE @fechaConfig DATETIME = convert(DATETIME, '5-5-2020') --TODO: Tomar del .config
-
+/*
+Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
+[Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como un solo cupon
+*/
 INSERT INTO NUNCA_INJOIN.Cupon (
 	oferta_codigo,
 	cliente_compra_id,
@@ -682,7 +685,7 @@ INSERT INTO NUNCA_INJOIN.Cupon (
 	)
 SELECT Oferta_Codigo,
 	(
-		SELECT DISTINCT cliente_id
+		SELECT cliente_id
 		FROM NUNCA_INJOIN.Cliente
 		WHERE Cli_Dni = dni
 			AND Cli_Nombre = nombre
@@ -738,4 +741,24 @@ ALTER TABLE NUNCA_INJOIN.Cupon
 DROP COLUMN fecha_entrega
 GO
 
-
+INSERT INTO NUNCA_INJOIN.Carga (
+	cliente_id,
+	fecha,
+	tipo_pago,
+	monto
+	)
+SELECT (
+		SELECT cliente_id
+		FROM NUNCA_INJOIN.Cliente
+		WHERE Cli_Dni = dni
+			AND Cli_Nombre = nombre
+			AND Cli_Apellido = apellido
+			AND Cli_Mail = mail
+			AND Cli_Ciudad = localidad
+		),
+	Carga_Fecha,
+	Tipo_Pago_Desc,
+	Carga_Credito
+FROM gd_esquema.Maestra
+WHERE Carga_Credito IS NOT NULL
+	AND Carga_Fecha IS NOT NULL
