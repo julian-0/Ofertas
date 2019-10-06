@@ -134,14 +134,14 @@ GO
 CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY KEY);
 
 CREATE TABLE NUNCA_INJOIN.Rol (
-	"rol_id" VARCHAR(50) PRIMARY KEY,
-	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')),
-	"habilitado" CHAR(1) NOT NULL DEFAULT 'A' CHECK (habilitado IN ('A', 'I')),
+	"rol_id" NUMERIC(9) identity PRIMARY KEY,
+	nombre_rol VARCHAR(50) NOT NULL,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
 CREATE TABLE NUNCA_INJOIN.FuncionalidadPorRol (
 	"funcionalidad_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Funcionalidad,
-	"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol,
+	"rol_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rol,
 	PRIMARY KEY (
 		rol_id,
 		funcionalidad_id
@@ -150,7 +150,7 @@ CREATE TABLE NUNCA_INJOIN.FuncionalidadPorRol (
 
 CREATE TABLE NUNCA_INJOIN.Usuario (
 	"usuario_id" VARCHAR(50) PRIMARY KEY,
-	"rol_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Rol,
+	"rol_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rol,
 	"contrasenia" VARBINARY(32) NOT NULL,
 	"intentos_fallidos" SMALLINT DEFAULT 0,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
@@ -285,16 +285,16 @@ VALUES ('listado estadistico')
 GO
 
 /* Roles */
-INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+INSERT INTO NUNCA_INJOIN.Rol (nombre_rol)
 VALUES ('administrador general') -- Lo que usan durante los tests - tiene todas las funcionalidades (Pag 14)
 
-INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+INSERT INTO NUNCA_INJOIN.Rol (nombre_rol)
 VALUES ('administrativo')
 
-INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+INSERT INTO NUNCA_INJOIN.Rol (nombre_rol)
 VALUES ('cliente')
 
-INSERT INTO NUNCA_INJOIN.Rol (rol_id)
+INSERT INTO NUNCA_INJOIN.Rol (nombre_rol)
 VALUES ('proveedor')
 GO
 
@@ -305,7 +305,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'abm de rol'
 	)
 
@@ -314,7 +318,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'registro de usuario'
 	)
 
@@ -323,7 +331,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'abm de clientes'
 	)
 
@@ -332,7 +344,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'abm de proveedor'
 	)
 
@@ -341,7 +357,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'carga de credito'
 	)
 
@@ -350,7 +370,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'comprar oferta'
 	)
 
@@ -359,7 +383,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'confeccion y publicacion de ofertas'
 	)
 
@@ -368,7 +396,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'entrega de oferta'
 	)
 
@@ -377,7 +409,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'facturacion a proveedor'
 	)
 
@@ -386,7 +422,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	'listado estadistico'
 	)
 
@@ -396,7 +436,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'abm de rol'
 	)
 
@@ -405,7 +449,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'registro de usuario'
 	)
 
@@ -414,7 +462,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'abm de clientes'
 	)
 
@@ -423,7 +475,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'abm de proveedor'
 	)
 
@@ -432,7 +488,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'facturacion a proveedor'
 	)
 
@@ -441,7 +501,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'administrativo',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrativo'
+		),
 	'listado estadistico'
 	)
 
@@ -451,7 +515,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'cliente',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'cliente'
+		),
 	'registro de usuario'
 	)
 
@@ -460,7 +528,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'cliente',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'cliente'
+		),
 	'abm de clientes'
 	)
 
@@ -469,7 +541,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'cliente',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'cliente'
+		),
 	'carga de credito'
 	)
 
@@ -478,7 +554,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'cliente',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'cliente'
+		),
 	'comprar oferta'
 	)
 
@@ -487,7 +567,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'proveedor',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'proveedor'
+		),
 	'registro de usuario'
 	)
 
@@ -496,7 +580,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'proveedor',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'proveedor'
+		),
 	'abm de proveedor'
 	)
 
@@ -505,7 +593,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'proveedor',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'proveedor'
+		),
 	'confeccion y publicacion de ofertas'
 	)
 
@@ -514,7 +606,11 @@ INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	funcionalidad_id
 	)
 VALUES (
-	'proveedor',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'proveedor'
+		),
 	'entrega de oferta'
 	)
 
@@ -537,7 +633,11 @@ INSERT INTO NUNCA_INJOIN.Usuario (
 	)
 VALUES (
 	'admin',
-	'administrador general',
+	(
+		SELECT rol_id
+		FROM NUNCA_INJOIN.Rol
+		WHERE nombre_rol = 'administrador general'
+		),
 	@HashedPass
 	)
 
@@ -671,10 +771,11 @@ GROUP BY Factura_Fecha,
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
 DECLARE @fechaConfig DATETIME = convert(DATETIME, '5-5-2020') --TODO: Tomar del .config
-/*
+	/*
 Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
 [Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como un solo cupon
 */
+
 INSERT INTO NUNCA_INJOIN.Cupon (
 	oferta_codigo,
 	cliente_compra_id,
@@ -762,3 +863,168 @@ SELECT (
 FROM gd_esquema.Maestra
 WHERE Carga_Credito IS NOT NULL
 	AND Carga_Fecha IS NOT NULL
+GO
+
+/*
+ * VIEWS Y FUNCIONES
+ */
+/*Drops*/
+--Views
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'RolesActivos'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.RolesActivos
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'UsuariosHabilitados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.UsuariosHabilitados
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'CuponesEntregados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.CuponesEntregados
+END
+GO
+
+--Functions
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'OfertasActivas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.OfertasActivas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CargasRealizadas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CargasRealizadas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'FacturasEmitidas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.FacturasEmitidas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CuponesReales'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CuponesReales
+END
+GO
+
+--Roles activos
+USE GD2C2019
+GO
+
+CREATE VIEW NUNCA_INJOIN.RolesActivos
+AS
+SELECT rol_id
+FROM NUNCA_INJOIN.Rol
+WHERE baja_logica = 'N'
+GO
+
+--Usuarios habilitados
+USE GD2C2019
+GO
+
+CREATE VIEW NUNCA_INJOIN.UsuariosHabilitados
+AS
+SELECT usuario_id
+FROM NUNCA_INJOIN.Usuario
+WHERE baja_logica = 'N'
+	AND intentos_fallidos <= 3
+GO
+
+--Cupones Entregados
+CREATE VIEW NUNCA_INJOIN.CuponesEntregados
+AS
+SELECT cupon_id
+FROM NUNCA_INJOIN.Cupon
+WHERE fue_entregado = 'S'
+GO
+
+--Ofertas Activas (Es una funcion para que pueda recibir la fecha y tratarse como view)
+CREATE FUNCTION NUNCA_INJOIN.OfertasActivas (@fechaActual DATETIME)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Oferta
+		WHERE @fechaActual BETWEEN fecha_publicacion AND fecha_vencimiento
+		)
+GO
+
+-- Cargas que ya se acreditaron
+CREATE FUNCTION NUNCA_INJOIN.CargasRealizadas (@fechaActual DATETIME)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Carga
+		WHERE fecha < @fechaActual
+		)
+GO
+
+-- Facturas que ya se emitieron
+CREATE FUNCTION NUNCA_INJOIN.FacturasEmitidas (@fechaActual DATETIME)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.FacturaProveedor
+		WHERE fecha < @fechaActual
+		)
+GO
+
+-- Cupones que verdaderamente ya se compraron
+CREATE FUNCTION NUNCA_INJOIN.CuponesReales (@fechaActual DATETIME)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Cupon
+		WHERE fecha_compra < @fechaActual
+		)
+GO
+
+/*
+ * PROCEDURES
+ */
+USE GD2C2019
+GO
