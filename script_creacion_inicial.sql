@@ -1028,3 +1028,94 @@ GO
  */
 USE GD2C2019
 GO
+
+--Procedure para validar usuario y contrasenia ingresados
+alter procedure sp_validarUsuario(@id_ingresado nvarchar(50), @contra_ingresada nvarchar(32))
+
+as
+
+	begin
+
+		declare @intentos_fallidos smallint,
+
+				@contra_hasheada varbinary(32), 
+
+				@contra_real varbinary(32),
+
+				@valor_retorno smallint,
+
+				@baja_logica nchar(1)
+
+		set @intentos_fallidos = (select intentos_fallidos from [NUNCA_INJOIN].Usuario where usuario_id = @id_ingresado)
+
+		set	@contra_hasheada = hashbytes('SHA2_256',@contra_ingresada)
+
+		set @contra_real = (select contrasenia from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado)
+
+		set @baja_logica = (select baja_logica from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado)
+
+		if not exists(select usuario_id from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado and baja_logica = 'N') --veo si no existe el usuario
+
+			set @valor_retorno = -2						--no pudo loggear, no existe el usuario
+
+		else if(@intentos_fallidos<3 and @baja_logica = 'N')					--usuario existe y puede intentar todavia
+
+			begin 
+
+				if(@contra_real = @contra_hasheada)
+
+				begin
+
+					set @valor_retorno = 1				--logg posible, salio todo bien 
+
+					update [NUNCA_INJOIN].Usuario 
+
+						set intentos_fallidos = 0 
+
+					where usuario_id=@id_ingresado
+
+				end
+
+				else
+
+				begin
+
+					set @valor_retorno = 0				--ingreso mal la contra pero tiene intentos posibles
+
+					update [NUNCA_INJOIN].Usuario 
+
+						set intentos_fallidos = intentos_fallidos +1
+
+					where usuario_id=@id_ingresado
+
+				end
+
+			end
+
+		else 
+
+			begin
+
+				update [NUNCA_INJOIN].Usuario 
+
+				set baja_logica = 'S'
+
+				where usuario_id = @id_ingresado
+
+			set @valor_retorno = -1						--El usuario excedio esas tres oportunidades y fue dado de baja (por ahora borrado)
+
+			end
+
+		return @valor_retorno
+
+	end
+
+go
+
+EXECUTE sp_validarUsuario 'admin', 'w23e';
+
+select * from NUNCA_INJOIN.Usuario;
+
+update NUNCA_INJOIN.Usuario
+set baja_logica ='N'
+where usuario_id = 'admin';
