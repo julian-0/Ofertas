@@ -125,6 +125,94 @@ BEGIN
 END
 GO
 
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'RolesActivos'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.RolesActivos
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'UsuariosHabilitados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.UsuariosHabilitados
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.VIEWS
+		WHERE object_name(object_id) = 'CuponesEntregados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP VIEW NUNCA_INJOIN.CuponesEntregados
+END
+GO
+
+--Functions
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'OfertasActivas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.OfertasActivas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CargasRealizadas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CargasRealizadas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'FacturasEmitidas'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.FacturasEmitidas
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CuponesReales'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CuponesReales
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'sp_validarUsuario'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.sp_validarUsuario
+END
+GO
+
 /*
  *	CREACIÓN DE TABLAS
  */
@@ -235,6 +323,7 @@ CREATE TABLE NUNCA_INJOIN.Cupon (
 	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
 	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
 	fecha_compra DATETIME,
+	cantidad_comprada NUMERIC(18, 0),
 	fue_entregado CHAR(1) NOT NULL DEFAULT 'N' CHECK (fue_entregado IN ('S', 'N')),
 	vencimiento DATETIME,
 	fecha_entrega DATETIME -- Droppeada al terminar la migración
@@ -770,10 +859,13 @@ GROUP BY Factura_Fecha,
 
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
+USE GD2C2019
+GO
+
 DECLARE @fechaConfig DATETIME = convert(DATETIME, '5-5-2020') --TODO: Tomar del .config
 	/*
 Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
-[Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como un solo cupon
+[Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como una sola compra
 */
 
 INSERT INTO NUNCA_INJOIN.Cupon (
@@ -782,7 +874,8 @@ INSERT INTO NUNCA_INJOIN.Cupon (
 	factura_id,
 	fecha_compra,
 	fue_entregado,
-	fecha_entrega -- Droppeado al terminar la migracion de Entrega
+	fecha_entrega, -- Droppeado al terminar la migracion de Entrega
+	cantidad_comprada
 	)
 SELECT Oferta_Codigo,
 	(
@@ -793,15 +886,18 @@ SELECT Oferta_Codigo,
 			AND Cli_Apellido = apellido
 			AND Cli_Mail = mail
 			AND Cli_Ciudad = localidad
-		),
+		) id_cli,
 	numero_factura,
 	Oferta_Fecha_Compra,
-	CASE 
-		WHEN fecha_entregado > @fechaConfig
-			THEN 'S'
-		ELSE 'N'
-		END,
-	fecha_entregado
+	(
+		CASE 
+			WHEN fecha_entregado > @fechaConfig
+				THEN 'S'
+			ELSE 'N'
+			END
+		) entregado,
+	fecha_entregado,
+	cant_compra
 FROM (
 	SELECT [Cli_Nombre],
 		[Cli_Apellido],
@@ -812,7 +908,15 @@ FROM (
 		Max([Oferta_Entregado_Fecha]) AS fecha_entregado,
 		Max([Factura_Nro]) AS numero_factura,
 		Max([Factura_Fecha]) AS fecha_factura,
-		Oferta_Fecha_Compra
+		Oferta_Fecha_Compra,
+		-- Consideramos que cada nueva compra en la Maestra siempre tiene esos 3 campos en NULL
+		SUM(CASE 
+				WHEN [Oferta_Entregado_Fecha] IS NULL
+					AND [Factura_Nro] IS NULL
+					AND [Factura_Fecha] IS NULL
+					THEN 1
+				ELSE 0
+				END) AS cant_compra
 	FROM [GD2C2019].[gd_esquema].[Maestra]
 	GROUP BY [Cli_Nombre],
 		[Cli_Apellido],
@@ -823,9 +927,7 @@ FROM (
 		Oferta_Fecha_Compra
 	) cupones_normales
 WHERE Oferta_Fecha_Compra IS NOT NULL
-GO
 
-/* HAY CUPONES (COMPRAS) REPETIDOS, CREO QUE TIENE SENTIDO YA QUE SERIA LA CANTIDAD QUE COMPRO */
 INSERT INTO NUNCA_INJOIN.Entrega (
 	cupon_id,
 	--cliente_entrega_id, No vale la pena - no estaba implementado en el sist anterior
@@ -870,84 +972,6 @@ GO
  */
 /*Drops*/
 --Views
-IF EXISTS (
-		SELECT *
-		FROM sys.VIEWS
-		WHERE object_name(object_id) = 'RolesActivos'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP VIEW NUNCA_INJOIN.RolesActivos
-END
-GO
-
-IF EXISTS (
-		SELECT *
-		FROM sys.VIEWS
-		WHERE object_name(object_id) = 'UsuariosHabilitados'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP VIEW NUNCA_INJOIN.UsuariosHabilitados
-END
-GO
-
-IF EXISTS (
-		SELECT *
-		FROM sys.VIEWS
-		WHERE object_name(object_id) = 'CuponesEntregados'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP VIEW NUNCA_INJOIN.CuponesEntregados
-END
-GO
-
---Functions
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_name(object_id) = 'OfertasActivas'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP FUNCTION NUNCA_INJOIN.OfertasActivas
-END
-GO
-
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_name(object_id) = 'CargasRealizadas'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP FUNCTION NUNCA_INJOIN.CargasRealizadas
-END
-GO
-
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_name(object_id) = 'FacturasEmitidas'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP FUNCTION NUNCA_INJOIN.FacturasEmitidas
-END
-GO
-
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_name(object_id) = 'CuponesReales'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP FUNCTION NUNCA_INJOIN.CuponesReales
-END
-GO
-
 --Roles activos
 USE GD2C2019
 GO
@@ -1030,92 +1054,83 @@ USE GD2C2019
 GO
 
 --Procedure para validar usuario y contrasenia ingresados
-alter procedure sp_validarUsuario(@id_ingresado nvarchar(50), @contra_ingresada nvarchar(32))
+CREATE PROCEDURE NUNCA_INJOIN.sp_validarUsuario (
+	@id_ingresado NVARCHAR(50),
+	@contra_ingresada NVARCHAR(32)
+	)
+AS
+BEGIN
+	DECLARE @intentos_fallidos SMALLINT,
+		@contra_hasheada VARBINARY(32),
+		@contra_real VARBINARY(32),
+		@valor_retorno SMALLINT,
+		@baja_logica NCHAR(1)
 
-as
+	SET @intentos_fallidos = (
+			SELECT intentos_fallidos
+			FROM [NUNCA_INJOIN].Usuario
+			WHERE usuario_id = @id_ingresado
+			)
+	SET @contra_hasheada = hashbytes('SHA2_256', @contra_ingresada)
+	SET @contra_real = (
+			SELECT contrasenia
+			FROM [NUNCA_INJOIN].Usuario
+			WHERE usuario_id = @id_ingresado
+			)
+	SET @baja_logica = (
+			SELECT baja_logica
+			FROM [NUNCA_INJOIN].Usuario
+			WHERE usuario_id = @id_ingresado
+			)
 
-	begin
+	IF NOT EXISTS (
+			SELECT usuario_id
+			FROM [NUNCA_INJOIN].Usuario
+			WHERE usuario_id = @id_ingresado
+				AND baja_logica = 'N'
+			) --veo si no existe el usuario
+		SET @valor_retorno = - 2 --no pudo loggear, no existe el usuario
+	ELSE IF (
+			@intentos_fallidos < 3
+			AND @baja_logica = 'N'
+			) --usuario existe y puede intentar todavia
+	BEGIN
+		IF (@contra_real = @contra_hasheada)
+		BEGIN
+			SET @valor_retorno = 1 --logg posible, salio todo bien 
 
-		declare @intentos_fallidos smallint,
+			UPDATE [NUNCA_INJOIN].Usuario
+			SET intentos_fallidos = 0
+			WHERE usuario_id = @id_ingresado
+		END
+		ELSE
+		BEGIN
+			SET @valor_retorno = 0 --ingreso mal la contra pero tiene intentos posibles
 
-				@contra_hasheada varbinary(32), 
+			UPDATE [NUNCA_INJOIN].Usuario
+			SET intentos_fallidos = intentos_fallidos + 1
+			WHERE usuario_id = @id_ingresado
+		END
+	END
+	ELSE
+	BEGIN
+		UPDATE [NUNCA_INJOIN].Usuario
+		SET baja_logica = 'S'
+		WHERE usuario_id = @id_ingresado
 
-				@contra_real varbinary(32),
+		SET @valor_retorno = - 1 --El usuario excedio esas tres oportunidades y fue dado de baja (por ahora borrado)
+	END
 
-				@valor_retorno smallint,
+	RETURN @valor_retorno
+END
+GO
 
-				@baja_logica nchar(1)
+EXECUTE sp_validarUsuario 'admin',
+	'w23e';
 
-		set @intentos_fallidos = (select intentos_fallidos from [NUNCA_INJOIN].Usuario where usuario_id = @id_ingresado)
+SELECT *
+FROM NUNCA_INJOIN.Usuario;
 
-		set	@contra_hasheada = hashbytes('SHA2_256',@contra_ingresada)
-
-		set @contra_real = (select contrasenia from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado)
-
-		set @baja_logica = (select baja_logica from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado)
-
-		if not exists(select usuario_id from [NUNCA_INJOIN].Usuario where usuario_id=@id_ingresado and baja_logica = 'N') --veo si no existe el usuario
-
-			set @valor_retorno = -2						--no pudo loggear, no existe el usuario
-
-		else if(@intentos_fallidos<3 and @baja_logica = 'N')					--usuario existe y puede intentar todavia
-
-			begin 
-
-				if(@contra_real = @contra_hasheada)
-
-				begin
-
-					set @valor_retorno = 1				--logg posible, salio todo bien 
-
-					update [NUNCA_INJOIN].Usuario 
-
-						set intentos_fallidos = 0 
-
-					where usuario_id=@id_ingresado
-
-				end
-
-				else
-
-				begin
-
-					set @valor_retorno = 0				--ingreso mal la contra pero tiene intentos posibles
-
-					update [NUNCA_INJOIN].Usuario 
-
-						set intentos_fallidos = intentos_fallidos +1
-
-					where usuario_id=@id_ingresado
-
-				end
-
-			end
-
-		else 
-
-			begin
-
-				update [NUNCA_INJOIN].Usuario 
-
-				set baja_logica = 'S'
-
-				where usuario_id = @id_ingresado
-
-			set @valor_retorno = -1						--El usuario excedio esas tres oportunidades y fue dado de baja (por ahora borrado)
-
-			end
-
-		return @valor_retorno
-
-	end
-
-go
-
-EXECUTE sp_validarUsuario 'admin', 'w23e';
-
-select * from NUNCA_INJOIN.Usuario;
-
-update NUNCA_INJOIN.Usuario
-set baja_logica ='N'
-where usuario_id = 'admin';
+UPDATE NUNCA_INJOIN.Usuario
+SET baja_logica = 'N'
+WHERE usuario_id = 'admin';
