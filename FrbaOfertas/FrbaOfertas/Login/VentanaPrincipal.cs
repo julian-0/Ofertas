@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.Menu;
 
 namespace FrbaOfertas
 {
@@ -52,16 +53,18 @@ namespace FrbaOfertas
             procedure.Parameters.Add("@contra_ingresada", SqlDbType.NVarChar).Value = password.Text;
             procedure.Parameters.Add("@retorno", SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             procedure.ExecuteNonQuery();
+            conexion.CerrarConexion();
 
             int retorno = (int)procedure.Parameters["@retorno"].Value;
 
             if (retorno == 1)
             {//todo bien
 
-                //VentanaMenu menu = new VentanaMenu();
+                VentanaMenu menu = new VentanaMenu(usuarioTxt.Text);
                 this.Hide();
+                menu.Closed += (s, args) => this.Close();
                 MessageBox.Show("Logueo correcto", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //menu.Show();
+                menu.Show();
             }
             else if (retorno == 0)
             { //hay intentos todavia
