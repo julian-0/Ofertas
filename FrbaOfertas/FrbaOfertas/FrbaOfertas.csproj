@@ -45,11 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\AltaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\AltaCliente.Designer.cs">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\GestionarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\GestionarClientes.Designer.cs">
+      <DependentUpon>GestionarClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmProveedor\Form1.cs">
       <SubType>Form</SubType>
@@ -63,6 +69,7 @@
     <Compile Include="AbmRol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\ValidadorCampos.cs" />
     <Compile Include="ComprarOferta\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,8 +120,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\AltaCliente.resx">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\GestionarClientes.resx">
+      <DependentUpon>GestionarClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmProveedor\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
