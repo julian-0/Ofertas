@@ -213,6 +213,50 @@ BEGIN
 END
 GO
 
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'altaProveedor'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.altaProveedor
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'altaCliente'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.altaCliente
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'esUsuarioExistente'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.esUsuarioExistente
+END
+GO
+
+IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL  
+   DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;  
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'yaExistePersona'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.yaExistePersona
+END
+GO
+
 /*
  *	CREACIÓN DE TABLAS
  */
@@ -223,7 +267,7 @@ CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY 
 
 CREATE TABLE NUNCA_INJOIN.Rol (
 	"rol_id" NUMERIC(9) identity PRIMARY KEY,
-	nombre_rol VARCHAR(50) NOT NULL,
+	nombre_rol VARCHAR(50) UNIQUE NOT NULL,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
@@ -978,7 +1022,7 @@ GO
 
 CREATE VIEW NUNCA_INJOIN.RolesActivos
 AS
-SELECT rol_id
+SELECT nombre_rol
 FROM NUNCA_INJOIN.Rol
 WHERE baja_logica = 'N'
 GO
@@ -1197,3 +1241,182 @@ begin
 				where rol_id = @idRol and funcionalidad_id = 'listado estadistico')
 				set @puedeEst = 1
 end
+go
+
+CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50))
+AS
+BEGIN
+	IF NOT EXISTS (
+			SELECT Usuario.usuario_id
+			FROM usuario
+			WHERE usuario_id = @usuario_id
+			)
+	BEGIN
+			;
+
+		throw 51234,
+			'No existe el usuario solicitado',
+			1
+	END
+END
+GO
+
+
+-- Dos usuarios son iguales si tienen mismo DNI/CUIT y el mismo rol
+CREATE FUNCTION NUNCA_INJOIN.yaExistePersona (
+	@CUI NVARCHAR(20),
+	@nombre_rol VARCHAR(50)
+	)
+RETURNS SMALLINT
+AS
+BEGIN
+	RETURN CASE 
+			WHEN (
+					EXISTS (
+						SELECT rol_id
+						FROM usuario
+						JOIN cliente ON cliente.usuario_id = usuario.usuario_id
+						JOIN proveedor ON proveedor.usuario_id = usuario.usuario_id
+						WHERE rol_id = @nombre_rol
+							AND (
+								convert(NVARCHAR(20), cliente.dni) LIKE @CUI
+								OR proveedor.cuit LIKE @CUI
+								)
+						)
+					)
+				THEN 1
+			ELSE 0
+			END
+END
+GO
+
+USE GD2C2019
+GO
+
+CREATE PROCEDURE NUNCA_INJOIN.altaProveedor (
+	@nombre_rubro NVARCHAR(100),
+	@usuario_id VARCHAR(50),
+	@razon_social NVARCHAR(100),
+	@mail NVARCHAR(255),
+	@telefono NUMERIC(18, 0),
+	@domicilio NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@codigo_postal NVARCHAR(8),
+	@cuit NVARCHAR(20),
+	@nombre_contacto NVARCHAR(255)
+	)
+AS
+BEGIN
+	IF (NUNCA_INJOIN.yaExistePersona(@CUIT, 'proveedor') = 0)
+	BEGIN
+		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
+		INSERT INTO NUNCA_INJOIN.Proveedor (
+			"rubro_id",
+			"usuario_id",
+			"razon_social",
+			"mail",
+			"telefono",
+			"domicilio",
+			"localidad",
+			"ciudad",
+			"codigo_postal",
+			"cuit",
+			"nombre_contacto"
+			)
+		VALUES (
+			(
+				SELECT rubro_id
+				FROM RUBRO
+				WHERE Rubro.nombre_rubro LIKE @nombre_rubro
+				),
+			
+			(
+				SELECT @usuario_id
+				FROM Usuario
+				WHERE Usuario.usuario_id LIKE @usuario_id
+				),
+			@razon_social,
+			@mail,
+			@telefono,
+			@domicilio,
+			@localidad,
+			@ciudad,
+			@codigo_postal,
+			@cuit,
+			@nombre_contacto
+			)
+	END
+	ELSE
+	BEGIN
+			;
+
+		throw 51234,
+			'Ya existe un usuario para ese proveedor',
+			1
+	END
+END
+
+GO
+
+USE GD2C2019
+GO
+
+CREATE PROCEDURE NUNCA_INJOIN.altaCliente (
+	@usuario_id VARCHAR(50),
+	@nombre NVARCHAR(255),
+	@apellido NVARCHAR(255),
+	@dni NUMERIC(18, 0),
+	@mail NVARCHAR(255),
+	@telefono NUMERIC(18, 0),
+	@domicilio NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@codigo_postal NVARCHAR(8),
+	@fecha_nac DATETIME
+	)
+AS
+BEGIN
+	IF (NUNCA_INJOIN.yaExistePersona(convert(NVARCHAR(20), @dni), 'cliente') = 0)
+	BEGIN
+		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
+
+		INSERT INTO NUNCA_INJOIN.Cliente (
+			"usuario_id",
+			"nombre",
+			"apellido",
+			"dni",
+			"mail",
+			"telefono",
+			"domicilio",
+			"localidad",
+			"codigo_postal",
+			"fecha_nac",
+			"credito"
+			)
+		VALUES (
+			@usuario_id,
+			@nombre,
+			@apellido,
+			@dni,
+			@mail,
+			@telefono,
+			@domicilio,
+			@localidad,
+			@codigo_postal,
+			@fecha_nac,
+			200
+			)
+	END
+	ELSE
+	BEGIN
+			;
+
+		throw 51234,
+			'Ya existe un usuario para ese cliente',
+			1
+	END
+END
+GO
+
+USE GD2C2019
+GO
