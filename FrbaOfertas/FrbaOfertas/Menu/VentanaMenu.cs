@@ -27,7 +27,8 @@ namespace FrbaOfertas.Menu
 
         private void VentanaMenu_Load(object sender, EventArgs e)
         {
-            cargarGrilla();
+            labelBienvenida.Text = "Bienvenidx " + id_usuario + "!";
+            ocultarBotones(id_usuario);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -42,15 +43,59 @@ namespace FrbaOfertas.Menu
             procedure.Connection = conexion.AbrirConexion();
             procedure.Parameters.Clear();
 
-            procedure.CommandText = "sp_obtenerFuncionalidades";
+            procedure.CommandText = "NUNCA_INJOIN.sp_obtenerFuncionalidades";
             procedure.CommandType = CommandType.StoredProcedure;
-            procedure.Parameters.AddWithValue("@id_ingresado", SqlDbType.NVarChar).Value = id_usuario;
+            procedure.Parameters.AddWithValue("@id_usuario", SqlDbType.NVarChar).Value = id_usuario;
             procedure.Parameters.Add("@retorno", SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             SqlDataReader sqlr = procedure.ExecuteReader();
+
+
             tabla.Load(sqlr);
             conexion.CerrarConexion();
-
             funcionalidadesGrid.DataSource = tabla;
+        }
+        public void ocultarBotones(string usuario)
+        {
+            SqlCommand procedure = new SqlCommand();
+            procedure.Connection = conexion.AbrirConexion();
+            procedure.Parameters.Clear();
+
+            procedure.CommandText = "NUNCA_INJOIN.sp_obtenerFuncionalidades";
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.Add("@id_usuario", SqlDbType.NVarChar).Value = usuario;
+            procedure.Parameters.Add("@puedeRol", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeRegUser", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeAbmCli", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeAbmPro", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeCargar", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeComprar", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeOfertar", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeFacturar", SqlDbType.Int).Direction = ParameterDirection.Output;
+            procedure.Parameters.Add("@puedeEst", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            procedure.ExecuteNonQuery();
+            conexion.CerrarConexion();
+
+            int rol         = Convert.ToInt32(procedure.Parameters["@puedeRol"].Value);
+            int regUser     = Convert.ToInt32(procedure.Parameters["@puedeRegUser"].Value);
+            int abmCli      = Convert.ToInt32(procedure.Parameters["@puedeAbmCli"].Value);
+            int abmPro      = Convert.ToInt32(procedure.Parameters["@puedeAbmPro"].Value);
+            int cargar      = Convert.ToInt32(procedure.Parameters["@puedeCargar"].Value);
+            int comprar     = Convert.ToInt32(procedure.Parameters["@puedeComprar"].Value);
+            int ofertar     = Convert.ToInt32(procedure.Parameters["@puedeOfertar"].Value);
+            int facturar    = Convert.ToInt32(procedure.Parameters["@puedeFacturar"].Value);
+            int est         = Convert.ToInt32(procedure.Parameters["@puedeEst"].Value);
+
+            if (rol == 0)       btnRoles.Hide();
+            if (regUser == 0)   btnRegis.Hide();
+            if (abmCli == 0)    btnAbmCli.Hide();
+            if (abmPro == 0)    btnAbmPro.Hide();
+            if (cargar == 0)    btnCarga.Hide();
+            if (comprar == 0)   btnComprar.Hide();
+            if (ofertar== 0)    btnOfertar.Hide();
+            if (facturar == 0)  btnFacturar.Hide();
+            if (est == 0)       btnEst.Hide();
+
         }
     }
 }
