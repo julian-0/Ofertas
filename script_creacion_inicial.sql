@@ -243,8 +243,8 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL  
-   DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;  
+IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;
 
 IF EXISTS (
 		SELECT *
@@ -1098,9 +1098,10 @@ USE GD2C2019
 GO
 
 --Procedure para validar usuario y contrasenia ingresados
-IF OBJECT_ID('NUNCA_INJOIN.sp_validarUsuario', 'P') IS NOT NULL  
-   DROP PROCEDURE NUNCA_INJOIN.sp_validarUsuario;  
-GO  
+IF OBJECT_ID('NUNCA_INJOIN.sp_validarUsuario', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.sp_validarUsuario;
+GO
+
 CREATE PROCEDURE NUNCA_INJOIN.sp_validarUsuario (
 	@id_ingresado NVARCHAR(50),
 	@contra_ingresada NVARCHAR(32)
@@ -1172,7 +1173,6 @@ BEGIN
 END
 GO
 
-
 EXECUTE sp_validarUsuario 'admin',
 	'w23e';
 
@@ -1183,106 +1183,185 @@ UPDATE NUNCA_INJOIN.Usuario
 SET baja_logica = 'N'
 WHERE usuario_id = 'admin';
 
-
 USE GD2C2019
+GO
 
-go
+IF OBJECT_ID('NUNCA_INJOIN.sp_cargarProveedor', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.sp_cargarProveedor;
+GO
 
-alter procedure [NUNCA_INJOIN].sp_cargarProveedor(@rubro_id numeric(9,0), @razon_social nvarchar(100), @mail nvarchar(255),
-	@telefono numeric, @domicilio nvarchar(255), @localidad nvarchar(255), @ciudad nvarchar(255), @codigo_postal nvarchar(8),
-	@cuit nvarchar(20), @nombre_contacto nvarchar(255))
+CREATE PROCEDURE [NUNCA_INJOIN].sp_cargarProveedor (
+	@rubro_id NUMERIC(9, 0),
+	@razon_social NVARCHAR(100),
+	@mail NVARCHAR(255),
+	@telefono NUMERIC,
+	@domicilio NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@codigo_postal NVARCHAR(8),
+	@cuit NVARCHAR(20),
+	@nombre_contacto NVARCHAR(255)
+	)
+AS
+BEGIN
+	DECLARE @usuario_id NVARCHAR(50),
+		@baja_logica CHAR(1)
 
-as
+	SET @usuario_id = 'admin'
+	SET @baja_logica = 'N'
 
-begin
-	declare @usuario_id nvarchar(50), @baja_logica char(1)
-	set @usuario_id = 'admin'
-	set @baja_logica = 'N'
-	insert into NUNCA_INJOIN.Proveedor(rubro_id, usuario_id, razon_social, mail, telefono,
-			domicilio, localidad, ciudad, codigo_postal, cuit, nombre_contacto, baja_logica)
-				
-	values(@rubro_id, @usuario_id, @razon_social, @mail, @telefono, @domicilio, @localidad, @ciudad, @codigo_postal,
-		@cuit, @nombre_contacto, @baja_logica)
+	INSERT INTO NUNCA_INJOIN.Proveedor (
+		rubro_id,
+		usuario_id,
+		razon_social,
+		mail,
+		telefono,
+		domicilio,
+		localidad,
+		ciudad,
+		codigo_postal,
+		cuit,
+		nombre_contacto,
+		baja_logica
+		)
+	VALUES (
+		@rubro_id,
+		@usuario_id,
+		@razon_social,
+		@mail,
+		@telefono,
+		@domicilio,
+		@localidad,
+		@ciudad,
+		@codigo_postal,
+		@cuit,
+		@nombre_contacto,
+		@baja_logica
+		)
+END
+GO
 
-end
-go
-
-EXECUTE [NUNCA_INJOIN].sp_cargarProveedor 2, 'manu', 'manu', 1111, 'caba', 'reco', 'ba', '1422', '21212', 'manu';
+EXECUTE [NUNCA_INJOIN].sp_cargarProveedor 2,
+	'manu',
+	'manu',
+	1111,
+	'caba',
+	'reco',
+	'ba',
+	'1422',
+	'21212',
+	'manu';
 
 SELECT *
 FROM NUNCA_INJOIN.Proveedor;
 
-IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL  
-   DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;  
-GO  
-CREATE PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades (@id_usuario NVARCHAR(50),@puedeRol smallint out,@puedeRegUser smallint out,
-@puedeAbmCli smallint out,@puedeAbmPro smallint out,@puedeCargar smallint out,@puedeComprar smallint out,@puedeOfertar smallint out,
-@puedeFacturar smallint out,@puedeEst smallint out)
-as
-begin
-	declare @idRol nvarchar(255)
-	
-	select @idRol = rol_id
-	from NUNCA_INJOIN.Usuario
-	where usuario_id = @id_usuario
-	
-	set @puedeRol = 0
-	set @puedeRegUser=0
-	set @puedeAbmCli=0
-	set @puedeAbmPro=0
-	set @puedeCargar=0
-	set @puedeComprar=0
-	set @puedeOfertar=0
-	set @puedeFacturar=0
-	set @puedeEst=0
+IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;
+GO
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'abm de rol')
-				set @puedeRol = 1
+CREATE PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades (
+	@id_usuario NVARCHAR(50),
+	@puedeRol SMALLINT OUT,
+	@puedeRegUser SMALLINT OUT,
+	@puedeAbmCli SMALLINT OUT,
+	@puedeAbmPro SMALLINT OUT,
+	@puedeCargar SMALLINT OUT,
+	@puedeComprar SMALLINT OUT,
+	@puedeOfertar SMALLINT OUT,
+	@puedeFacturar SMALLINT OUT,
+	@puedeEst SMALLINT OUT
+	)
+AS
+BEGIN
+	DECLARE @idRol NVARCHAR(255)
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'registro de usuario')
-				set @puedeRegUser = 1
+	SELECT @idRol = rol_id
+	FROM NUNCA_INJOIN.Usuario
+	WHERE usuario_id = @id_usuario
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'abm de clientes')
-				set @puedeAbmCli = 1
+	SET @puedeRol = 0
+	SET @puedeRegUser = 0
+	SET @puedeAbmCli = 0
+	SET @puedeAbmPro = 0
+	SET @puedeCargar = 0
+	SET @puedeComprar = 0
+	SET @puedeOfertar = 0
+	SET @puedeFacturar = 0
+	SET @puedeEst = 0
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'abm de proveedor')
-				set @puedeAbmPro = 1
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'abm de rol'
+			)
+		SET @puedeRol = 1
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'carga de credito')
-				set @puedeCargar = 1
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'registro de usuario'
+			)
+		SET @puedeRegUser = 1
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'comprar oferta')
-				set @puedeComprar = 1
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'abm de clientes'
+			)
+		SET @puedeAbmCli = 1
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'confeccion y publicacion de ofertas')
-				set @puedeOfertar = 1
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'abm de proveedor'
+			)
+		SET @puedeAbmPro = 1
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'facturacion a proveedor')
-				set @puedeFacturar = 1
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'carga de credito'
+			)
+		SET @puedeCargar = 1
 
-	if exists (select 1
-				from NUNCA_INJOIN.FuncionalidadPorRol
-				where rol_id = @idRol and funcionalidad_id = 'listado estadistico')
-				set @puedeEst = 1
-==== BASE ====
-end
-go
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'comprar oferta'
+			)
+		SET @puedeComprar = 1
+
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'confeccion y publicacion de ofertas'
+			)
+		SET @puedeOfertar = 1
+
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'facturacion a proveedor'
+			)
+		SET @puedeFacturar = 1
+
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'listado estadistico'
+			)
+		SET @puedeEst = 1
+END
+GO
 
 CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50))
 AS
@@ -1301,7 +1380,6 @@ BEGIN
 	END
 END
 GO
-
 
 -- Dos usuarios son iguales si tienen mismo DNI/CUIT y el mismo rol
 CREATE FUNCTION NUNCA_INJOIN.yaExistePersona (
@@ -1352,6 +1430,7 @@ BEGIN
 	IF (NUNCA_INJOIN.yaExistePersona(@CUIT, 'proveedor') = 0)
 	BEGIN
 		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
+
 		INSERT INTO NUNCA_INJOIN.Proveedor (
 			"rubro_id",
 			"usuario_id",
@@ -1371,7 +1450,6 @@ BEGIN
 				FROM RUBRO
 				WHERE Rubro.nombre_rubro LIKE @nombre_rubro
 				),
-			
 			(
 				SELECT @usuario_id
 				FROM Usuario
@@ -1397,7 +1475,6 @@ BEGIN
 			1
 	END
 END
-
 GO
 
 USE GD2C2019
@@ -1461,3 +1538,5 @@ GO
 
 USE GD2C2019
 GO
+
+
