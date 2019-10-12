@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaOfertas.ListadoEstadistico
+namespace FrbaOfertas.ComprarOferta
 {
-    public partial class Form1 : Form
+    public partial class ComprarOferta : Form
     {
-        public Form1()
+        public ComprarOferta()
         {
             InitializeComponent();
         }

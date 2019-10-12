@@ -45,48 +45,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\Form1.cs">
+    <Compile Include="AbmCliente\ABMCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmCliente\ABMCliente.Designer.cs">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.cs">
+    <Compile Include="AbmProveedor\ABMProv.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmProveedor\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\ABMProv.Designer.cs">
+      <DependentUpon>ABMProv.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmProveedor\ModProv.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmProveedor\ModProv.Designer.cs">
+      <DependentUpon>ModProv.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.cs">
+    <Compile Include="AbmRol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComprarOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Conexion\Class1.cs" />
-    <Compile Include="CragaCredito\Form1.cs">
+    <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
+    <Compile Include="ComprarOferta\ComprarOferta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CragaCredito\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ComprarOferta\ComprarOferta.Designer.cs">
+      <DependentUpon>ComprarOferta.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrearOferta\Form1.cs">
+    <Compile Include="Conexion\Conexiones.cs" />
+    <Compile Include="CragaCredito\CargarCredito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CrearOferta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CragaCredito\CargarCredito.Designer.cs">
+      <DependentUpon>CargarCredito.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturar\Form1.cs">
+    <Compile Include="CrearOferta\CreacionOferta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CrearOferta\CreacionOferta.Designer.cs">
+      <DependentUpon>CreacionOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\Facturar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\Facturar.Designer.cs">
+      <DependentUpon>Facturar.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\VentanaPrincipal.cs">
       <SubType>Form</SubType>
@@ -99,11 +106,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2019DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu\VentanaMenu.cs">
       <SubType>Form</SubType>
@@ -113,11 +120,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\ABMCliente.resx">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmProveedor\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmProveedor\ABMProv.resx">
+      <DependentUpon>ABMProv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmProveedor\ModProv.resx">
+      <DependentUpon>ModProv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

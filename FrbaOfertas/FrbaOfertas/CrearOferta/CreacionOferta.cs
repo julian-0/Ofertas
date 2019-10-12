@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FrbaOfertas.CrearOferta
 {
-    public partial class Form1 : Form
+    public partial class CreacionOferta : Form
     {
-        public Form1()
+        public CreacionOferta()
         {
             InitializeComponent();
         }

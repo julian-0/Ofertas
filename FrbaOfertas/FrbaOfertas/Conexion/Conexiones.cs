@@ -8,19 +8,19 @@ using System.Data.SqlClient;
 
 namespace FrbaOfertas.Conexion
 {
-    public class c_Conexion
+    public class Conexiones
     {
-        SqlConnection conexion = new SqlConnection(@"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD2C2019;Persist Security Info=True;User ID=gdCupon2019;Password=gd2019");
+        public static SqlConnection conexion = new SqlConnection(@"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD2C2019;Persist Security Info=True;User ID=gdCupon2019;Password=gd2019");
 
         //Se conecta con la base de datos
-        public SqlConnection AbrirConexion()
+        public static SqlConnection AbrirConexion()
         {
             if (conexion.State == ConnectionState.Closed)
                 conexion.Open();
             return conexion;
         }
 
-        public SqlConnection CerrarConexion()
+        public static SqlConnection CerrarConexion()
         {
             if (conexion.State == ConnectionState.Open)
                 conexion.Close();

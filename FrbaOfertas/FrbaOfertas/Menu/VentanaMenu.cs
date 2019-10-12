@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.AbmProveedor;
 
 namespace FrbaOfertas.Menu
 {
@@ -17,7 +18,7 @@ namespace FrbaOfertas.Menu
     {
         private String id_usuario;
         private Login login;
-        private c_Conexion conexion = new c_Conexion();
+        private Conexiones conexion = new Conexiones();
 
         public VentanaMenu(Login log,String usuario)
         {
@@ -40,7 +41,7 @@ namespace FrbaOfertas.Menu
         public void ocultarBotones(string usuario)
         {
             SqlCommand procedure = new SqlCommand();
-            procedure.Connection = conexion.AbrirConexion();
+            procedure.Connection = Conexiones.AbrirConexion();
             procedure.Parameters.Clear();
 
             procedure.CommandText = "NUNCA_INJOIN.sp_obtenerFuncionalidades";
@@ -57,7 +58,7 @@ namespace FrbaOfertas.Menu
             procedure.Parameters.Add("@puedeEst", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             procedure.ExecuteNonQuery();
-            conexion.CerrarConexion();
+            Conexiones.CerrarConexion();
 
             int rol         = Convert.ToInt32(procedure.Parameters["@puedeRol"].Value);
             int regUser     = Convert.ToInt32(procedure.Parameters["@puedeRegUser"].Value);
@@ -90,6 +91,12 @@ namespace FrbaOfertas.Menu
         private void VentanaMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
             login.Show();
+        }
+
+        private void btnAbmPro_Click(object sender, EventArgs e)
+        {
+            ABMProv abmProveedor = new ABMProv();
+            abmProveedor.Show();
         }
     }
 }

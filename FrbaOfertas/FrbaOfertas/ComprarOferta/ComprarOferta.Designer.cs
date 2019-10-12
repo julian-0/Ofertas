@@ -1,6 +1,6 @@
-﻿namespace FrbaOfertas.CrearOferta
+﻿namespace FrbaOfertas.ComprarOferta
 {
-    partial class Form1
+    partial class ComprarOferta
     {
         /// <summary>
         /// Required designer variable.

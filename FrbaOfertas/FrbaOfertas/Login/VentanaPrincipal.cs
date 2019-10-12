@@ -15,7 +15,6 @@ namespace FrbaOfertas
 {
     public partial class Login : Form
     {
-        c_Conexion conexion = new c_Conexion();
 
         public Login()
         {
@@ -45,7 +44,7 @@ namespace FrbaOfertas
 
         private void Signinbutton_Click(object sender, EventArgs e)
         {
-            SqlConnection conex = conexion.AbrirConexion();
+            SqlConnection conex = Conexiones.AbrirConexion();
 
             SqlCommand procedure = new SqlCommand("NUNCA_INJOIN.sp_validarUsuario", conex);
             procedure.CommandType = CommandType.StoredProcedure;
@@ -53,7 +52,7 @@ namespace FrbaOfertas
             procedure.Parameters.Add("@contra_ingresada", SqlDbType.NVarChar).Value = password.Text;
             procedure.Parameters.Add("@retorno", SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             procedure.ExecuteNonQuery();
-            conexion.CerrarConexion();
+            Conexiones.CerrarConexion();
 
             int retorno = (int)procedure.Parameters["@retorno"].Value;
 

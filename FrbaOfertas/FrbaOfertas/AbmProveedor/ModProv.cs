@@ -13,11 +13,11 @@ using FrbaOfertas.Menu;
 
 namespace FrbaOfertas.AbmProveedor
 {
-    public partial class Form1 : Form
+    public partial class ModProv : Form
     {
-        c_Conexion conexion = new c_Conexion();
+        Conexiones conexion = new Conexiones();
 
-        public Form1()
+        public ModProv()
         {
             InitializeComponent();
         }
@@ -73,7 +73,7 @@ namespace FrbaOfertas.AbmProveedor
 
         private void Signinbutton_Click(object sender, EventArgs e)
         {
-            SqlConnection conex = conexion.AbrirConexion();
+            SqlConnection conex = Conexiones.AbrirConexion();
             try
             {
                 if (CamposCompletos())
@@ -91,7 +91,7 @@ namespace FrbaOfertas.AbmProveedor
                         procedure.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit.Text;
                         procedure.Parameters.Add("@nombre_contacto", SqlDbType.NVarChar).Value = nombre_de_contacto.Text;
                         procedure.ExecuteNonQuery();
-                        conexion.CerrarConexion();
+                        Conexiones.CerrarConexion();
                 }
                 else
                     MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);

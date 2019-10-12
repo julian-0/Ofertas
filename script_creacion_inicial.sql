@@ -205,6 +205,17 @@ GO
 
 IF EXISTS (
 		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'verProveedores'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.verProveedores
+END
+GO
+
+IF EXISTS (
+		SELECT *
 		FROM sys.procedures
 		WHERE name = 'sp_validarUsuario'
 		)
@@ -1088,6 +1099,33 @@ RETURN (
 		SELECT *
 		FROM NUNCA_INJOIN.Cupon
 		WHERE fecha_compra < @fechaActual
+		)
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.VerProveedores (@MostrarInhabilitados INT)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT razon_social AS [Razon Social],
+			usuario_id AS Usuario,
+			r.nombre_rubro AS [Rubro],
+			cuit AS CUIT,
+			telefono AS Telefono,
+			mail AS Email,
+			localidad AS Localidad,
+			nombre_contacto AS Nombre,
+			ciudad AS Ciudad,
+			codigo_postal AS [Codigo Postal]
+		FROM NUNCA_INJOIN.Proveedor,
+			Rubro r
+		WHERE Proveedor.rubro_id = r.rubro_id
+			AND baja_logica LIKE (
+				CASE 
+					WHEN @MostrarInhabilitados = 0
+						THEN 'N'
+					ELSE 'S'
+					END
+				)
 		)
 GO
 
