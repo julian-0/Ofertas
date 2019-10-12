@@ -60,9 +60,8 @@ namespace FrbaOfertas
             if (retorno == 1)
             {//todo bien
 
-                VentanaMenu menu = new VentanaMenu(usuarioTxt.Text);
+                VentanaMenu menu = new VentanaMenu(this,usuarioTxt.Text);
                 this.Hide();
-                menu.Closed += (s, args) => this.Close();
                 MessageBox.Show("Logueo correcto", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 menu.Show();
             }

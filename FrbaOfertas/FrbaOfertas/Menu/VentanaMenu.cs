@@ -16,12 +16,13 @@ namespace FrbaOfertas.Menu
     public partial class VentanaMenu : Form
     {
         private String id_usuario;
+        private Login login;
         private c_Conexion conexion = new c_Conexion();
 
-        public VentanaMenu(String usuario)
+        public VentanaMenu(Login log,String usuario)
         {
+            login = log;
             id_usuario = usuario;
-
             InitializeComponent();
         }
 
@@ -36,24 +37,6 @@ namespace FrbaOfertas.Menu
 
         }
 
-        private void cargarGrilla()
-        {
-            DataTable tabla = new DataTable();
-            SqlCommand procedure = new SqlCommand();
-            procedure.Connection = conexion.AbrirConexion();
-            procedure.Parameters.Clear();
-
-            procedure.CommandText = "NUNCA_INJOIN.sp_obtenerFuncionalidades";
-            procedure.CommandType = CommandType.StoredProcedure;
-            procedure.Parameters.AddWithValue("@id_usuario", SqlDbType.NVarChar).Value = id_usuario;
-            procedure.Parameters.Add("@retorno", SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
-            SqlDataReader sqlr = procedure.ExecuteReader();
-
-
-            tabla.Load(sqlr);
-            conexion.CerrarConexion();
-            funcionalidadesGrid.DataSource = tabla;
-        }
         public void ocultarBotones(string usuario)
         {
             SqlCommand procedure = new SqlCommand();
@@ -96,6 +79,17 @@ namespace FrbaOfertas.Menu
             if (facturar == 0)  btnFacturar.Hide();
             if (est == 0)       btnEst.Hide();
 
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            login.Show();
+            this.Hide();
+        }
+
+        private void VentanaMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            login.Show();
         }
     }
 }

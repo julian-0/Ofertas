@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.funcionalidadesGrid = new System.Windows.Forms.DataGridView();
             this.labelBienvenida = new System.Windows.Forms.Label();
             this.btnRoles = new System.Windows.Forms.Button();
             this.btnAbmCli = new System.Windows.Forms.Button();
@@ -40,23 +39,15 @@
             this.btnFacturar = new System.Windows.Forms.Button();
             this.btnEst = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // funcionalidadesGrid
-            // 
-            this.funcionalidadesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.funcionalidadesGrid.Location = new System.Drawing.Point(119, 215);
-            this.funcionalidadesGrid.Name = "funcionalidadesGrid";
-            this.funcionalidadesGrid.Size = new System.Drawing.Size(360, 60);
-            this.funcionalidadesGrid.TabIndex = 0;
             // 
             // labelBienvenida
             // 
             this.labelBienvenida.AutoSize = true;
-            this.labelBienvenida.Location = new System.Drawing.Point(257, 30);
+            this.labelBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBienvenida.Location = new System.Drawing.Point(245, 20);
             this.labelBienvenida.Name = "labelBienvenida";
-            this.labelBienvenida.Size = new System.Drawing.Size(60, 13);
+            this.labelBienvenida.Size = new System.Drawing.Size(109, 25);
             this.labelBienvenida.TabIndex = 1;
             this.labelBienvenida.Text = "Bienvenide";
             this.labelBienvenida.Click += new System.EventHandler(this.label1_Click);
@@ -144,18 +135,19 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(229, 297);
+            this.btnSalir.Location = new System.Drawing.Point(21, 195);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(141, 23);
             this.btnSalir.TabIndex = 11;
-            this.btnSalir.Text = "Salir";
+            this.btnSalir.Text = "Cerrar sesión";
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // VentanaMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 345);
+            this.ClientSize = new System.Drawing.Size(566, 236);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnEst);
             this.Controls.Add(this.btnFacturar);
@@ -167,11 +159,10 @@
             this.Controls.Add(this.btnAbmCli);
             this.Controls.Add(this.btnRoles);
             this.Controls.Add(this.labelBienvenida);
-            this.Controls.Add(this.funcionalidadesGrid);
             this.Name = "VentanaMenu";
             this.Text = "Menu";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VentanaMenu_FormClosed);
             this.Load += new System.EventHandler(this.VentanaMenu_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,7 +170,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView funcionalidadesGrid;
         private System.Windows.Forms.Label labelBienvenida;
         private System.Windows.Forms.Button btnRoles;
         private System.Windows.Forms.Button btnAbmCli;
