@@ -47,7 +47,7 @@ namespace FrbaOfertas
         {
             SqlConnection conex = conexion.AbrirConexion();
 
-            SqlCommand procedure = new SqlCommand("sp_validarUsuario", conex);
+            SqlCommand procedure = new SqlCommand("NUNCA_INJOIN.sp_validarUsuario", conex);
             procedure.CommandType = CommandType.StoredProcedure;
             procedure.Parameters.AddWithValue("@id_ingresado", SqlDbType.NVarChar).Value = usuarioTxt.Text;
             procedure.Parameters.Add("@contra_ingresada", SqlDbType.NVarChar).Value = password.Text;
@@ -60,9 +60,8 @@ namespace FrbaOfertas
             if (retorno == 1)
             {//todo bien
 
-                VentanaMenu menu = new VentanaMenu(usuarioTxt.Text);
+                VentanaMenu menu = new VentanaMenu(this,usuarioTxt.Text);
                 this.Hide();
-                menu.Closed += (s, args) => this.Close();
                 MessageBox.Show("Logueo correcto", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 menu.Show();
             }

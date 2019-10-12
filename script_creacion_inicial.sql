@@ -1054,6 +1054,9 @@ USE GD2C2019
 GO
 
 --Procedure para validar usuario y contrasenia ingresados
+IF OBJECT_ID('NUNCA_INJOIN.sp_validarUsuario', 'P') IS NOT NULL  
+   DROP PROCEDURE NUNCA_INJOIN.sp_validarUsuario;  
+GO  
 CREATE PROCEDURE NUNCA_INJOIN.sp_validarUsuario (
 	@id_ingresado NVARCHAR(50),
 	@contra_ingresada NVARCHAR(32)
@@ -1125,6 +1128,7 @@ BEGIN
 END
 GO
 
+
 EXECUTE sp_validarUsuario 'admin',
 	'w23e';
 
@@ -1163,3 +1167,74 @@ EXECUTE [NUNCA_INJOIN].sp_cargarProveedor 2, 'manu', 'manu', 1111, 'caba', 'reco
 
 SELECT *
 FROM NUNCA_INJOIN.Proveedor;
+
+IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL  
+   DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;  
+GO  
+CREATE PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades (@id_usuario NVARCHAR(50),@puedeRol smallint out,@puedeRegUser smallint out,
+@puedeAbmCli smallint out,@puedeAbmPro smallint out,@puedeCargar smallint out,@puedeComprar smallint out,@puedeOfertar smallint out,
+@puedeFacturar smallint out,@puedeEst smallint out)
+as
+begin
+	declare @idRol nvarchar(255)
+	
+	select @idRol = rol_id
+	from NUNCA_INJOIN.Usuario
+	where usuario_id = @id_usuario
+	
+	set @puedeRol = 0
+	set @puedeRegUser=0
+	set @puedeAbmCli=0
+	set @puedeAbmPro=0
+	set @puedeCargar=0
+	set @puedeComprar=0
+	set @puedeOfertar=0
+	set @puedeFacturar=0
+	set @puedeEst=0
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'abm de rol')
+				set @puedeRol = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'registro de usuario')
+				set @puedeRegUser = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'abm de clientes')
+				set @puedeAbmCli = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'abm de proveedor')
+				set @puedeAbmPro = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'carga de credito')
+				set @puedeCargar = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'comprar oferta')
+				set @puedeComprar = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'confeccion y publicacion de ofertas')
+				set @puedeOfertar = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'facturacion a proveedor')
+				set @puedeFacturar = 1
+
+	if exists (select 1
+				from NUNCA_INJOIN.FuncionalidadPorRol
+				where rol_id = @idRol and funcionalidad_id = 'listado estadistico')
+				set @puedeEst = 1
+end
+
