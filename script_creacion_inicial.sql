@@ -1172,6 +1172,46 @@ BEGIN
 END
 GO
 
+
+EXECUTE sp_validarUsuario 'admin',
+	'w23e';
+
+SELECT *
+FROM NUNCA_INJOIN.Usuario;
+
+UPDATE NUNCA_INJOIN.Usuario
+SET baja_logica = 'N'
+WHERE usuario_id = 'admin';
+
+
+USE GD2C2019
+
+go
+
+alter procedure [NUNCA_INJOIN].sp_cargarProveedor(@rubro_id numeric(9,0), @razon_social nvarchar(100), @mail nvarchar(255),
+	@telefono numeric, @domicilio nvarchar(255), @localidad nvarchar(255), @ciudad nvarchar(255), @codigo_postal nvarchar(8),
+	@cuit nvarchar(20), @nombre_contacto nvarchar(255))
+
+as
+
+begin
+	declare @usuario_id nvarchar(50), @baja_logica char(1)
+	set @usuario_id = 'admin'
+	set @baja_logica = 'N'
+	insert into NUNCA_INJOIN.Proveedor(rubro_id, usuario_id, razon_social, mail, telefono,
+			domicilio, localidad, ciudad, codigo_postal, cuit, nombre_contacto, baja_logica)
+				
+	values(@rubro_id, @usuario_id, @razon_social, @mail, @telefono, @domicilio, @localidad, @ciudad, @codigo_postal,
+		@cuit, @nombre_contacto, @baja_logica)
+
+end
+go
+
+EXECUTE [NUNCA_INJOIN].sp_cargarProveedor 2, 'manu', 'manu', 1111, 'caba', 'reco', 'ba', '1422', '21212', 'manu';
+
+SELECT *
+FROM NUNCA_INJOIN.Proveedor;
+
 IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL  
    DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;  
 GO  
@@ -1240,6 +1280,7 @@ begin
 				from NUNCA_INJOIN.FuncionalidadPorRol
 				where rol_id = @idRol and funcionalidad_id = 'listado estadistico')
 				set @puedeEst = 1
+==== BASE ====
 end
 go
 
