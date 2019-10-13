@@ -1102,7 +1102,10 @@ RETURN (
 		)
 GO
 
-CREATE FUNCTION NUNCA_INJOIN.VerProveedores (@MostrarInhabilitados INT)
+CREATE FUNCTION NUNCA_INJOIN.VerProveedores (
+	@MostrarHabilitados INT,
+	@MostrarInhabilitados INT
+	)
 RETURNS TABLE
 AS
 RETURN (
@@ -1115,15 +1118,24 @@ RETURN (
 			localidad AS Localidad,
 			nombre_contacto AS Nombre,
 			ciudad AS Ciudad,
-			codigo_postal AS [Codigo Postal]
+			codigo_postal AS [Codigo Postal],
+			baja_logica AS [Inhabilitado]
 		FROM NUNCA_INJOIN.Proveedor,
 			Rubro r
 		WHERE Proveedor.rubro_id = r.rubro_id
 			AND baja_logica LIKE (
 				CASE 
-					WHEN @MostrarInhabilitados = 0
-						THEN 'N'
-					ELSE 'S'
+					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1
+						THEN '%'
+					ELSE CASE 
+							WHEN @MostrarHabilitados = 1
+								THEN 'N'
+							ELSE CASE 
+									WHEN @MostrarInhabilitados = 1
+										THEN 'S'
+									ELSE 'VACIO'
+									END
+							END
 					END
 				)
 		)

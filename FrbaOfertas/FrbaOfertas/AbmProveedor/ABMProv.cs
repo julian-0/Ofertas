@@ -59,7 +59,8 @@ namespace FrbaOfertas.AbmProveedor
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores("+verInhabilitados+")", conexion);
+            char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados + ")", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
