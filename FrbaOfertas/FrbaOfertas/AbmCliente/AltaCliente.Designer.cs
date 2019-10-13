@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtCiudad = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtLocalidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtCodP = new System.Windows.Forms.TextBox();
@@ -73,8 +71,6 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox1.Controls.Add(this.txtCiudad);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtLocalidad);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtCodP);
@@ -84,35 +80,15 @@
             this.groupBox1.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(318, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(282, 252);
+            this.groupBox1.Size = new System.Drawing.Size(282, 194);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de domicilio";
             // 
-            // txtCiudad
-            // 
-            this.txtCiudad.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCiudad.Location = new System.Drawing.Point(6, 56);
-            this.txtCiudad.Name = "txtCiudad";
-            this.txtCiudad.Size = new System.Drawing.Size(241, 22);
-            this.txtCiudad.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 38);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 15);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Ciudad";
-            // 
             // txtLocalidad
             // 
             this.txtLocalidad.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLocalidad.Location = new System.Drawing.Point(6, 107);
+            this.txtLocalidad.Location = new System.Drawing.Point(10, 56);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(241, 22);
             this.txtLocalidad.TabIndex = 11;
@@ -122,7 +98,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label5.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 89);
+            this.label5.Location = new System.Drawing.Point(7, 38);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 15);
@@ -132,7 +108,7 @@
             // txtCodP
             // 
             this.txtCodP.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCodP.Location = new System.Drawing.Point(6, 161);
+            this.txtCodP.Location = new System.Drawing.Point(10, 110);
             this.txtCodP.Name = "txtCodP";
             this.txtCodP.Size = new System.Drawing.Size(241, 22);
             this.txtCodP.TabIndex = 13;
@@ -143,7 +119,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label7.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(7, 196);
+            this.label7.Location = new System.Drawing.Point(11, 145);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 15);
@@ -155,7 +131,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label6.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 143);
+            this.label6.Location = new System.Drawing.Point(11, 92);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 15);
@@ -165,7 +141,7 @@
             // txtDom
             // 
             this.txtDom.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDom.Location = new System.Drawing.Point(6, 214);
+            this.txtDom.Location = new System.Drawing.Point(10, 163);
             this.txtDom.Name = "txtDom";
             this.txtDom.Size = new System.Drawing.Size(241, 22);
             this.txtDom.TabIndex = 14;
@@ -386,12 +362,13 @@
             this.signinbutton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.signinbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signinbutton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.signinbutton.Location = new System.Drawing.Point(318, 398);
+            this.signinbutton.Location = new System.Drawing.Point(318, 362);
             this.signinbutton.Name = "signinbutton";
             this.signinbutton.Size = new System.Drawing.Size(282, 45);
             this.signinbutton.TabIndex = 29;
             this.signinbutton.Text = "New Cliente";
             this.signinbutton.UseVisualStyleBackColor = false;
+            this.signinbutton.Click += new System.EventHandler(this.signinbutton_Click);
             // 
             // AltaCliente
             // 
@@ -425,8 +402,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtCiudad;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtLocalidad;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtCodP;
