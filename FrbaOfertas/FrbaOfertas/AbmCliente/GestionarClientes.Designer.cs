@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupMasFiltros = new System.Windows.Forms.GroupBox();
             this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
@@ -39,11 +39,9 @@
             this.ciudad = new System.Windows.Forms.TextBox();
             this.telefono = new System.Windows.Forms.TextBox();
             this.nombre_de_contacto = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.text3 = new System.Windows.Forms.Label();
-            this.codigo_postal = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ProvExistentes = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -87,11 +85,9 @@
             this.groupMasFiltros.Controls.Add(this.ciudad);
             this.groupMasFiltros.Controls.Add(this.telefono);
             this.groupMasFiltros.Controls.Add(this.nombre_de_contacto);
-            this.groupMasFiltros.Controls.Add(this.label6);
             this.groupMasFiltros.Controls.Add(this.label4);
             this.groupMasFiltros.Controls.Add(this.label8);
             this.groupMasFiltros.Controls.Add(this.text3);
-            this.groupMasFiltros.Controls.Add(this.codigo_postal);
             this.groupMasFiltros.Controls.Add(this.label5);
             this.groupMasFiltros.Location = new System.Drawing.Point(11, 570);
             this.groupMasFiltros.Margin = new System.Windows.Forms.Padding(2);
@@ -150,9 +146,9 @@
             this.label11.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(346, 24);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 15);
+            this.label11.Size = new System.Drawing.Size(45, 15);
             this.label11.TabIndex = 33;
-            this.label11.Text = "Email";
+            this.label11.Text = "Ciudad";
             // 
             // ciudad
             // 
@@ -181,17 +177,6 @@
             this.nombre_de_contacto.Size = new System.Drawing.Size(174, 22);
             this.nombre_de_contacto.TabIndex = 39;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(562, 66);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 15);
-            this.label6.TabIndex = 47;
-            this.label6.Text = "Codigo Postal";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -199,9 +184,9 @@
             this.label4.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(347, 66);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 15);
+            this.label4.Size = new System.Drawing.Size(61, 15);
             this.label4.TabIndex = 44;
-            this.label4.Text = "Ciudad";
+            this.label4.Text = "Localidad";
             // 
             // label8
             // 
@@ -210,9 +195,9 @@
             this.label8.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(137, 65);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(118, 15);
+            this.label8.Size = new System.Drawing.Size(50, 15);
             this.label8.TabIndex = 40;
-            this.label8.Text = "Nombre de contacto";
+            this.label8.Text = "Usuario";
             // 
             // text3
             // 
@@ -225,15 +210,6 @@
             this.text3.TabIndex = 35;
             this.text3.Text = "Telefono";
             // 
-            // codigo_postal
-            // 
-            this.codigo_postal.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codigo_postal.Location = new System.Drawing.Point(565, 80);
-            this.codigo_postal.Margin = new System.Windows.Forms.Padding(2);
-            this.codigo_postal.Name = "codigo_postal";
-            this.codigo_postal.Size = new System.Drawing.Size(174, 22);
-            this.codigo_postal.TabIndex = 48;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -241,9 +217,9 @@
             this.label5.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(562, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 15);
+            this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 45;
-            this.label5.Text = "Localidad";
+            this.label5.Text = "Codigo Postal";
             // 
             // ProvExistentes
             // 
@@ -420,8 +396,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(914, 294);
@@ -464,11 +440,9 @@
         private System.Windows.Forms.TextBox ciudad;
         private System.Windows.Forms.TextBox telefono;
         private System.Windows.Forms.TextBox nombre_de_contacto;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label text3;
-        private System.Windows.Forms.TextBox codigo_postal;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox ProvExistentes;
         private System.Windows.Forms.Button button4;
