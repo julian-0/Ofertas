@@ -145,6 +145,9 @@
     <EmbeddedResource Include="AbmProveedor\ModProv.resx">
       <DependentUpon>ModProv.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrearOferta\CreacionOferta.resx">
+      <DependentUpon>CreacionOferta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gestionUsuarios\ABMUsuarios.resx">
       <DependentUpon>ABMUsuarios.cs</DependentUpon>
     </EmbeddedResource>

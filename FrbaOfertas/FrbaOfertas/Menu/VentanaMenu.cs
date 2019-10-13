@@ -13,6 +13,7 @@ using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.gestionUsuarios;
 using FrbaOfertas.Datos;
+using FrbaOfertas.CrearOferta;
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -114,6 +115,12 @@ namespace FrbaOfertas.Menu
         {
             ABMUsuarios abmUsuarios = new ABMUsuarios();
             abmUsuarios.Show();
+        }
+
+        private void btnOfertar_Click(object sender, EventArgs e)
+        {
+            CreacionOferta ventanaOferta = new CreacionOferta();
+            ventanaOferta.Show();
         }
     }
 }

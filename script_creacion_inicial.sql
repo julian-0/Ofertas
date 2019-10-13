@@ -421,7 +421,6 @@ CREATE TABLE NUNCA_INJOIN.Cupon (
 	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
 	fecha_compra DATETIME,
 	cantidad_comprada NUMERIC(18, 0),
-	fue_entregado CHAR(1) NOT NULL DEFAULT 'N' CHECK (fue_entregado IN ('S', 'N')),
 	vencimiento DATETIME,
 	fecha_entrega DATETIME -- Droppeada al terminar la migración
 	)
@@ -837,7 +836,7 @@ INSERT INTO NUNCA_INJOIN.Cliente (
 	localidad,
 	fecha_nac
 	)
-SELECT DISTINCT Cli_Nombre,
+SELECT DISTINCT Cli_Dest_Nombre,
 	Cli_Dest_Apellido,
 	Cli_Dest_Dni,
 	Cli_Dest_Mail,
@@ -934,8 +933,7 @@ GROUP BY Factura_Fecha,
 USE GD2C2019
 GO
 
-DECLARE @fechaConfig DATETIME = convert(DATETIME, '5-5-2020') --TODO: Tomar del .config
-	/*
+/*
 Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
 [Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como una sola compra
 */
@@ -945,7 +943,6 @@ INSERT INTO NUNCA_INJOIN.Cupon (
 	cliente_compra_id,
 	factura_id,
 	fecha_compra,
-	fue_entregado,
 	fecha_entrega, -- Droppeado al terminar la migracion de Entrega
 	cantidad_comprada
 	)
@@ -961,13 +958,6 @@ SELECT Oferta_Codigo,
 		) id_cli,
 	numero_factura,
 	Oferta_Fecha_Compra,
-	(
-		CASE 
-			WHEN fecha_entregado > @fechaConfig
-				THEN 'S'
-			ELSE 'N'
-			END
-		) entregado,
 	fecha_entregado,
 	cant_compra
 FROM (
@@ -1065,14 +1055,6 @@ SELECT usuario_id
 FROM NUNCA_INJOIN.Usuario
 WHERE baja_logica = 'N'
 	AND intentos_fallidos <= 3
-GO
-
---Cupones Entregados
-CREATE VIEW NUNCA_INJOIN.CuponesEntregados
-AS
-SELECT cupon_id
-FROM NUNCA_INJOIN.Cupon
-WHERE fue_entregado = 'S'
 GO
 
 --Ofertas Activas (Es una funcion para que pueda recibir la fecha y tratarse como view)

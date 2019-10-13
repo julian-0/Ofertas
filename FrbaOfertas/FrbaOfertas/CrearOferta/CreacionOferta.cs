@@ -12,9 +12,16 @@ namespace FrbaOfertas.CrearOferta
 {
     public partial class CreacionOferta : Form
     {
+        public DateTime fechaConfig = DateTime.Parse(System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"]);
+
         public CreacionOferta()
         {
             InitializeComponent();
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }
