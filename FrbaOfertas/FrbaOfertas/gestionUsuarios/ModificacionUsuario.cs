@@ -110,11 +110,11 @@ namespace FrbaOfertas.gestionUsuarios
                         switch (Int32.Parse(comboBox1.SelectedValue.ToString()))
                         {
                             case 3:
-                                ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString());
+                                ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString(), null);
                                 ventanaModificacionCliente.Show();
                                 break;
                             case 4:
-                                ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString());
+                                ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString(), null);
                                 ventanaModificacionProveedor.Show();
                                 break;
                         }
