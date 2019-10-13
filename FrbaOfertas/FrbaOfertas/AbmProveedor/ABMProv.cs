@@ -26,9 +26,7 @@ namespace FrbaOfertas.AbmProveedor
 
         private void mostrarMas_Click(object sender, EventArgs e)
         {
-            if (groupBox1.Visible == false)
-                groupBox1.Visible = true;
-            else groupBox1.Visible = false;
+            groupBox1.Visible = !groupBox1.Visible;
         }
 
         private void ABMProv_Load(object sender, EventArgs e)
