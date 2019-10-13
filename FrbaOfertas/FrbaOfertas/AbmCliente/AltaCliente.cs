@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Clases;
 using FrbaOfertas.gestionUsuarios;
+using System.Data.SqlClient;
+using FrbaOfertas.Conexion;
+
 
 namespace FrbaOfertas.AbmCliente
 {
@@ -60,7 +63,68 @@ namespace FrbaOfertas.AbmCliente
 
         private void signinbutton_Click(object sender, EventArgs e)
         {
- 
+            /*
+            SqlConnection conex = Conexiones.AbrirConexion();
+            try
+            {
+                if (CamposCompletos())
+                {
+                    SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaCliente", conex);
+                    procedure.CommandType = CommandType.StoredProcedure;
+                    procedure.Parameters.Add("@nombre_rubro", SqlDbType.Int).Value = rubro.SelectedValue;
+                    procedure.Parameters.Add("@usuario_id", SqlDbType.Int).Value = textBox1.Text;
+                    procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
+
+                    procedure.ExecuteNonQuery();
+                    Conexiones.CerrarConexion();
+                    MessageBox.Show("Cliente creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                    MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Verifique el formato de los campos completados", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+             * */
+        }
+        
+        private bool camposValidos()
+        {
+            return noTienenError() && estanCompletos();
+        }
+        
+        private bool noTienenError()
+        {
+            return errorNombre.GetError(txtNom)+errorApe.GetError(txtApe)+errorDni.GetError(txtDni)+
+                    errorTel.GetError(txtTel)+errorCodP.GetError(txtCodP) == "";
+        }
+
+        private bool estanCompletos()
+        {
+            return txtNom.Text != "" && txtApe.Text != "" && txtDni.Text != "" && txtTel.Text != ""
+                && txtMail.Text != "" && fechaNac.Text != "" && textIdUsuario.Text != "" && 
+                txtLocalidad.Text != "" && txtCodP.Text != "" && txtDom.Text != "" ;
+        }
+
+        private void textIdUsuario_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnection conex = Conexiones.AbrirConexion();
+                SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].esUsuarioExistente", conex);
+                procedure.CommandType = CommandType.StoredProcedure;
+                procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = textIdUsuario.Text;
+                procedure.Parameters.Add("@rol_id", SqlDbType.Int).Value = "3";
+                procedure.ExecuteNonQuery();
+                Conexiones.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                errorUserId.Clear();
+                errorUserId.SetError(textIdUsuario, ex.Message);
+            }
         }
     }
 }
