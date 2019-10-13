@@ -22,15 +22,39 @@ namespace FrbaOfertas.AbmProveedor
         public ModProv(String usuario_id, List<string> datosOriginales)
         {
             InitializeComponent();
-            if (usuario_id != null || (datosOriginales != null && datosOriginales[1] != ""))
+            if (usuario_id != null) ///Llega desde crear cuenta
             {
                 textBox1.Text = usuario_id;
                 textBox1.ReadOnly = true;
                 button1.Hide();
                 textBox2.Hide();
-                MessageBox.Show(datosOriginales[3]);
             }
+            else if ((datosOriginales != null)) //Llega de modificacion
+            {
+                this.autocompletarCampos(datosOriginales);
+                if (datosOriginales[1] != "")
+                {
+                    textBox1.Text = datosOriginales[1];
+                    textBox1.ReadOnly = true;
+                    button1.Hide();
+                    textBox2.Text = "Ya tiene usuario";
+                }
+            }
+            
             this.cargarComboRubro();
+        }
+
+        private void autocompletarCampos(List<string> datosOriginales)
+        {
+            razonSocial.Text = datosOriginales[0];
+            rubro.SelectedText = datosOriginales[2];
+            cuit.Text = datosOriginales[3];
+            telefono.Text = datosOriginales[4];
+            email.Text = datosOriginales[5];
+            localidad.Text = datosOriginales[6];
+            nombre_de_contacto.Text = datosOriginales[7];
+            ciudad.Text = datosOriginales[8];
+            codigo_postal.Text = datosOriginales[9];
         }
 
         private void cargarComboRubro()
