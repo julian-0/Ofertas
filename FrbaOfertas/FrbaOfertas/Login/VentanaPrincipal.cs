@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.Menu;
+using FrbaOfertas.gestionUsuarios;
 
 namespace FrbaOfertas
 {
@@ -86,6 +87,13 @@ namespace FrbaOfertas
         private void UsuarioTxt_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CreacionUsuario ventanaCreacion = new CreacionUsuario(this);
+            ventanaCreacion.Show();
+            this.Hide();
         }
     }
 }

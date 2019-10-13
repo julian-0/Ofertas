@@ -173,6 +173,17 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
+		WHERE object_name(object_id) = 'VerUsuarios'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.VerUsuarios
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
 		WHERE object_name(object_id) = 'CargasRealizadas'
 			AND schema_name(schema_id) = 'NUNCA_INJOIN'
 		)
@@ -223,6 +234,27 @@ BEGIN
 	DROP PROCEDURE NUNCA_INJOIN.sp_validarUsuario
 END
 GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'nombreUsuarioDisponible'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.nombreUsuarioDisponible
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'registrarUsuario'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.registrarUsuario
+END
+GO
+
 
 IF EXISTS (
 		SELECT *
@@ -664,19 +696,6 @@ VALUES (
 		FROM NUNCA_INJOIN.Rol
 		WHERE nombre_rol = 'cliente'
 		),
-	'registro de usuario'
-	)
-
-INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id,
-	funcionalidad_id
-	)
-VALUES (
-	(
-		SELECT rol_id
-		FROM NUNCA_INJOIN.Rol
-		WHERE nombre_rol = 'cliente'
-		),
 	'abm de clientes'
 	)
 
@@ -704,19 +723,6 @@ VALUES (
 		WHERE nombre_rol = 'cliente'
 		),
 	'comprar oferta'
-	)
-
-INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
-	rol_id,
-	funcionalidad_id
-	)
-VALUES (
-	(
-		SELECT rol_id
-		FROM NUNCA_INJOIN.Rol
-		WHERE nombre_rol = 'proveedor'
-		),
-	'registro de usuario'
 	)
 
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
@@ -1141,6 +1147,36 @@ RETURN (
 		)
 GO
 
+
+CREATE FUNCTION NUNCA_INJOIN.VerUsuarios (
+	@MostrarHabilitados INT,
+	@MostrarInhabilitados INT
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT usuario_id AS Usuario,
+			rol_id as Rol,
+			baja_logica AS [Inhabilitado]
+		FROM NUNCA_INJOIN.Usuario
+		WHERE baja_logica LIKE (
+				CASE 
+					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1
+						THEN '%'
+					ELSE CASE 
+							WHEN @MostrarHabilitados = 1
+								THEN 'N'
+							ELSE CASE 
+									WHEN @MostrarInhabilitados = 1
+										THEN 'S'
+									ELSE 'VACIO'
+									END
+							END
+					END
+				)
+		)
+GO
+
 /*
  * PROCEDURES
  */
@@ -1413,7 +1449,7 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50))
+CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50), @rol_id NUMERIC(9))
 AS
 BEGIN
 	IF NOT EXISTS (
@@ -1428,13 +1464,24 @@ BEGIN
 			'No existe el usuario solicitado',
 			1
 	END
+	ELSE IF NOT EXISTS (
+			SELECT Usuario.usuario_id
+			FROM usuario
+			WHERE usuario_id = @usuario_id
+			AND rol_id = @rol_id
+			) BEGIN ;
+
+		throw 51238,
+			'No se pudo crear. El usuario tiene otro rol asignado.',
+			1
+			END
 END
 GO
 
 -- Dos usuarios son iguales si tienen mismo DNI/CUIT y el mismo rol
 CREATE FUNCTION NUNCA_INJOIN.yaExistePersona (
 	@CUI NVARCHAR(20),
-	@nombre_rol VARCHAR(50)
+	@rol_id VARCHAR(50) -- Se usa el numero de rol porque el nombre del rol puede ser modificado
 	)
 RETURNS SMALLINT
 AS
@@ -1446,7 +1493,7 @@ BEGIN
 						FROM usuario
 						JOIN cliente ON cliente.usuario_id = usuario.usuario_id
 						JOIN proveedor ON proveedor.usuario_id = usuario.usuario_id
-						WHERE rol_id = @nombre_rol
+						WHERE rol_id = @rol_id
 							AND (
 								convert(NVARCHAR(20), cliente.dni) LIKE @CUI
 								OR proveedor.cuit LIKE @CUI
@@ -1477,7 +1524,7 @@ CREATE PROCEDURE NUNCA_INJOIN.altaProveedor (
 	)
 AS
 BEGIN
-	IF (NUNCA_INJOIN.yaExistePersona(@CUIT, 'proveedor') = 0)
+	IF (NUNCA_INJOIN.yaExistePersona(@CUIT, 4) = 0)
 	BEGIN
 		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
 
@@ -1544,10 +1591,9 @@ CREATE PROCEDURE NUNCA_INJOIN.altaCliente (
 	)
 AS
 BEGIN
-	IF (NUNCA_INJOIN.yaExistePersona(convert(NVARCHAR(20), @dni), 'cliente') = 0)
+	IF (NUNCA_INJOIN.yaExistePersona(convert(NVARCHAR(20), @dni), 3) = 0)
 	BEGIN
-		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
-
+		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id, 3
 		INSERT INTO NUNCA_INJOIN.Cliente (
 			"usuario_id",
 			"nombre",
@@ -1587,6 +1633,50 @@ END
 GO
 
 USE GD2C2019
+GO
+
+CREATE PROC NUNCA_INJOIN.nombreUsuarioDisponible (@usuario_id VARCHAR(50))
+AS
+BEGIN
+	IF EXISTS (
+			SELECT Usuario.usuario_id
+			FROM usuario
+			WHERE usuario_id = @usuario_id
+			)
+	BEGIN
+			;
+
+		throw 51234,
+			'Nombre de usuario no disponible',
+			1
+	END
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.registrarUsuario (
+	@usuario_id VARCHAR(50),
+	@rol_id NUMERIC(6),
+	@contrasenia NVARCHAR(32)
+	)
+AS
+BEGIN
+	DECLARE @HashedPass VARBINARY(32)
+
+	SET @HashedPass = hashbytes('SHA2_256', @contrasenia)
+
+	EXEC NUNCA_INJOIN.nombreUsuarioDisponible @usuario_id
+
+	INSERT INTO NUNCA_INJOIN.Usuario (
+		usuario_id,
+		rol_id,
+		contrasenia
+		)
+	VALUES (
+		@usuario_id,
+		@rol_id,
+		@HashedPass
+		)
+END
 GO
 
 

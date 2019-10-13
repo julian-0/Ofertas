@@ -41,15 +41,6 @@ namespace FrbaOfertas.AbmProveedor
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            BaseDeDatos bd = new BaseDeDatos();
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Conexiones.CerrarConexion();
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)

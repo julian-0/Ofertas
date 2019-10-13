@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
+using FrbaOfertas.gestionUsuarios;
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -55,7 +56,7 @@ namespace FrbaOfertas.Menu
             procedure.Parameters.Add("@puedeOfertar", SqlDbType.Int).Direction = ParameterDirection.Output;
             procedure.Parameters.Add("@puedeFacturar", SqlDbType.Int).Direction = ParameterDirection.Output;
             procedure.Parameters.Add("@puedeEst", SqlDbType.Int).Direction = ParameterDirection.Output;
-
+            
             procedure.ExecuteNonQuery();
             Conexiones.CerrarConexion();
 
@@ -102,6 +103,12 @@ namespace FrbaOfertas.Menu
         {
             ABMProv abmProveedor = new ABMProv();
             abmProveedor.Show();
+        }
+
+        private void btnRegis_Click(object sender, EventArgs e)
+        {
+            ABMUsuarios abmUsuarios = new ABMUsuarios();
+            abmUsuarios.Show();
         }
     }
 }

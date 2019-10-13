@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
             this.mostrarInhabilitados = new System.Windows.Forms.CheckBox();
             this.localidad = new System.Windows.Forms.TextBox();
             this.email = new System.Windows.Forms.TextBox();
@@ -60,7 +60,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.ProvExistentes.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,6 +89,18 @@
             this.groupBox1.TabIndex = 52;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // mostrarHabilitados
+            // 
+            this.mostrarHabilitados.AutoSize = true;
+            this.mostrarHabilitados.Checked = true;
+            this.mostrarHabilitados.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mostrarHabilitados.Location = new System.Drawing.Point(1067, 69);
+            this.mostrarHabilitados.Name = "mostrarHabilitados";
+            this.mostrarHabilitados.Size = new System.Drawing.Size(152, 21);
+            this.mostrarHabilitados.TabIndex = 50;
+            this.mostrarHabilitados.Text = "Mostrar Habilitados";
+            this.mostrarHabilitados.UseVisualStyleBackColor = true;
             // 
             // mostrarInhabilitados
             // 
@@ -381,14 +392,6 @@
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(26, 48);
@@ -396,8 +399,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1219, 362);
@@ -414,22 +417,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // mostrarHabilitados
-            // 
-            this.mostrarHabilitados.AutoSize = true;
-            this.mostrarHabilitados.Checked = true;
-            this.mostrarHabilitados.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mostrarHabilitados.Location = new System.Drawing.Point(1067, 69);
-            this.mostrarHabilitados.Name = "mostrarHabilitados";
-            this.mostrarHabilitados.Size = new System.Drawing.Size(152, 21);
-            this.mostrarHabilitados.TabIndex = 50;
-            this.mostrarHabilitados.Text = "Mostrar Habilitados";
-            this.mostrarHabilitados.UseVisualStyleBackColor = true;
-            // 
             // ABMProv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -438,6 +430,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ProvExistentes);
             this.Name = "ABMProv";
+            this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ABMProv_Load);
             this.groupBox1.ResumeLayout(false);

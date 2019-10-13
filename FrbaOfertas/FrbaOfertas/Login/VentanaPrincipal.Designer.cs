@@ -33,6 +33,7 @@
             this.usuarioTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // signinbutton
@@ -42,9 +43,10 @@
             this.signinbutton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.signinbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signinbutton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.signinbutton.Location = new System.Drawing.Point(12, 196);
+            this.signinbutton.Location = new System.Drawing.Point(16, 204);
+            this.signinbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.signinbutton.Name = "signinbutton";
-            this.signinbutton.Size = new System.Drawing.Size(238, 45);
+            this.signinbutton.Size = new System.Drawing.Size(317, 55);
             this.signinbutton.TabIndex = 14;
             this.signinbutton.Text = "Sign in Cupones";
             this.signinbutton.UseVisualStyleBackColor = false;
@@ -52,17 +54,19 @@
             // 
             // password
             // 
-            this.password.Location = new System.Drawing.Point(12, 122);
+            this.password.Location = new System.Drawing.Point(16, 150);
+            this.password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.password.Name = "password";
-            this.password.Size = new System.Drawing.Size(238, 20);
+            this.password.Size = new System.Drawing.Size(316, 22);
             this.password.TabIndex = 13;
             this.password.TextChanged += new System.EventHandler(this.UsuarioTxt_TextChanged);
             // 
             // usuarioTxt
             // 
-            this.usuarioTxt.Location = new System.Drawing.Point(12, 53);
+            this.usuarioTxt.Location = new System.Drawing.Point(16, 65);
+            this.usuarioTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usuarioTxt.Name = "usuarioTxt";
-            this.usuarioTxt.Size = new System.Drawing.Size(238, 20);
+            this.usuarioTxt.Size = new System.Drawing.Size(316, 22);
             this.usuarioTxt.TabIndex = 12;
             this.usuarioTxt.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
@@ -70,9 +74,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 33);
+            this.label3.Location = new System.Drawing.Point(16, 41);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 17);
+            this.label3.Size = new System.Drawing.Size(92, 22);
             this.label3.TabIndex = 10;
             this.label3.Text = "Username";
             // 
@@ -80,23 +85,42 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 102);
+            this.label2.Location = new System.Drawing.Point(16, 126);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 17);
+            this.label2.Size = new System.Drawing.Size(90, 22);
             this.label2.TabIndex = 9;
             this.label2.Text = "Password";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button1.Location = new System.Drawing.Point(15, 278);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(317, 55);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Crear Cuenta";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(276, 281);
+            this.ClientSize = new System.Drawing.Size(368, 346);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.signinbutton);
             this.Controls.Add(this.password);
             this.Controls.Add(this.usuarioTxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -112,6 +136,7 @@
         private System.Windows.Forms.TextBox usuarioTxt;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -56,7 +56,7 @@
             // btnRoles
             // 
             this.btnRoles.Location = new System.Drawing.Point(28, 78);
-            this.btnRoles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRoles.Margin = new System.Windows.Forms.Padding(4);
             this.btnRoles.Name = "btnRoles";
             this.btnRoles.Size = new System.Drawing.Size(188, 28);
             this.btnRoles.TabIndex = 2;
@@ -66,7 +66,7 @@
             // btnAbmCli
             // 
             this.btnAbmCli.Location = new System.Drawing.Point(305, 78);
-            this.btnAbmCli.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAbmCli.Margin = new System.Windows.Forms.Padding(4);
             this.btnAbmCli.Name = "btnAbmCli";
             this.btnAbmCli.Size = new System.Drawing.Size(188, 28);
             this.btnAbmCli.TabIndex = 3;
@@ -77,7 +77,7 @@
             // btnAbmPro
             // 
             this.btnAbmPro.Location = new System.Drawing.Point(551, 78);
-            this.btnAbmPro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAbmPro.Margin = new System.Windows.Forms.Padding(4);
             this.btnAbmPro.Name = "btnAbmPro";
             this.btnAbmPro.Size = new System.Drawing.Size(188, 28);
             this.btnAbmPro.TabIndex = 4;
@@ -88,17 +88,18 @@
             // btnRegis
             // 
             this.btnRegis.Location = new System.Drawing.Point(28, 133);
-            this.btnRegis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegis.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegis.Name = "btnRegis";
             this.btnRegis.Size = new System.Drawing.Size(188, 28);
             this.btnRegis.TabIndex = 5;
-            this.btnRegis.Text = "Registrar Usuario";
+            this.btnRegis.Text = "Gestionar Usuarios";
             this.btnRegis.UseVisualStyleBackColor = true;
+            this.btnRegis.Click += new System.EventHandler(this.btnRegis_Click);
             // 
             // btnCarga
             // 
             this.btnCarga.Location = new System.Drawing.Point(305, 133);
-            this.btnCarga.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCarga.Margin = new System.Windows.Forms.Padding(4);
             this.btnCarga.Name = "btnCarga";
             this.btnCarga.Size = new System.Drawing.Size(188, 28);
             this.btnCarga.TabIndex = 6;
@@ -108,7 +109,7 @@
             // btnComprar
             // 
             this.btnComprar.Location = new System.Drawing.Point(551, 133);
-            this.btnComprar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnComprar.Margin = new System.Windows.Forms.Padding(4);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(188, 28);
             this.btnComprar.TabIndex = 7;
@@ -118,7 +119,7 @@
             // btnOfertar
             // 
             this.btnOfertar.Location = new System.Drawing.Point(28, 186);
-            this.btnOfertar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOfertar.Margin = new System.Windows.Forms.Padding(4);
             this.btnOfertar.Name = "btnOfertar";
             this.btnOfertar.Size = new System.Drawing.Size(188, 28);
             this.btnOfertar.TabIndex = 8;
@@ -128,7 +129,7 @@
             // btnFacturar
             // 
             this.btnFacturar.Location = new System.Drawing.Point(305, 186);
-            this.btnFacturar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFacturar.Margin = new System.Windows.Forms.Padding(4);
             this.btnFacturar.Name = "btnFacturar";
             this.btnFacturar.Size = new System.Drawing.Size(188, 28);
             this.btnFacturar.TabIndex = 9;
@@ -138,7 +139,7 @@
             // btnEst
             // 
             this.btnEst.Location = new System.Drawing.Point(551, 186);
-            this.btnEst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEst.Margin = new System.Windows.Forms.Padding(4);
             this.btnEst.Name = "btnEst";
             this.btnEst.Size = new System.Drawing.Size(188, 28);
             this.btnEst.TabIndex = 10;
@@ -148,7 +149,7 @@
             // btnSalir
             // 
             this.btnSalir.Location = new System.Drawing.Point(28, 240);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(188, 28);
             this.btnSalir.TabIndex = 11;
@@ -172,7 +173,7 @@
             this.Controls.Add(this.btnAbmCli);
             this.Controls.Add(this.btnRoles);
             this.Controls.Add(this.labelBienvenida);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VentanaMenu";
             this.Text = "Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VentanaMenu_FormClosed);
