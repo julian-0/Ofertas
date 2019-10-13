@@ -1258,16 +1258,6 @@ BEGIN
 END
 GO
 
-EXECUTE sp_validarUsuario 'admin',
-	'w23e';
-
-SELECT *
-FROM NUNCA_INJOIN.Usuario;
-
-UPDATE NUNCA_INJOIN.Usuario
-SET baja_logica = 'N'
-WHERE usuario_id = 'admin';
-
 USE GD2C2019
 GO
 
@@ -1325,20 +1315,6 @@ BEGIN
 		)
 END
 GO
-
-EXECUTE [NUNCA_INJOIN].sp_cargarProveedor 2,
-	'manu',
-	'manu',
-	1111,
-	'caba',
-	'reco',
-	'ba',
-	'1422',
-	'21212',
-	'manu';
-
-SELECT *
-FROM NUNCA_INJOIN.Proveedor;
 
 IF OBJECT_ID('NUNCA_INJOIN.sp_obtenerFuncionalidades', 'P') IS NOT NULL
 	DROP PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades;
