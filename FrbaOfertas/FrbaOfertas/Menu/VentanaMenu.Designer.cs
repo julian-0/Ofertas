@@ -72,6 +72,7 @@
             this.btnAbmCli.TabIndex = 3;
             this.btnAbmCli.Text = "Gestionar Clientes";
             this.btnAbmCli.UseVisualStyleBackColor = true;
+            this.btnAbmCli.Click += new System.EventHandler(this.btnAbmCli_Click);
             // 
             // btnAbmPro
             // 

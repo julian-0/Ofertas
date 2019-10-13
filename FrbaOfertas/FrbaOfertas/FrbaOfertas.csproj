@@ -45,11 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbmCliente\ABMCliente.cs">
+    <Compile Include="AbmCliente\AltaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmCliente\ABMCliente.Designer.cs">
-      <DependentUpon>ABMCliente.cs</DependentUpon>
+    <Compile Include="AbmCliente\AltaCliente.Designer.cs">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCliente\GestionarClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\GestionarClientes.Designer.cs">
+      <DependentUpon>GestionarClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmProveedor\ABMProv.cs">
       <SubType>Form</SubType>
@@ -70,12 +76,7 @@
       <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
-    <Compile Include="ComprarOferta\ComprarOferta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ComprarOferta\ComprarOferta.Designer.cs">
-      <DependentUpon>ComprarOferta.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Clases\ValidadorCampos.cs" />
     <Compile Include="Conexion\Conexiones.cs" />
     <Compile Include="CragaCredito\CargarCredito.cs">
       <SubType>Form</SubType>
@@ -120,8 +121,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AbmCliente\ABMCliente.resx">
-      <DependentUpon>ABMCliente.cs</DependentUpon>
+    <EmbeddedResource Include="AbmCliente\AltaCliente.resx">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCliente\GestionarClientes.resx">
+      <DependentUpon>GestionarClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmProveedor\ABMProv.resx">
       <DependentUpon>ABMProv.cs</DependentUpon>
@@ -168,7 +172,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ComprarOferta\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

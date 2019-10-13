@@ -8,10 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Data;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
-
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -90,7 +89,13 @@ namespace FrbaOfertas.Menu
 
         private void VentanaMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            login.Show();
+            Application.Exit();
+        }
+
+        private void btnAbmCli_Click(object sender, EventArgs e)
+        {
+            new GestionarClientes(this).Show();
+            this.Hide();
         }
 
         private void btnAbmPro_Click(object sender, EventArgs e)
