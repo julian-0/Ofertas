@@ -44,7 +44,9 @@ namespace FrbaOfertas.AbmCliente
 
         private void txtCodP_Leave(object sender, EventArgs e)
         {
-            ValidadorCampos.numerico(txtCodP, errorCodP);
+            errorCodP.Clear();
+            if (txtCodP.Text.Length > 8)
+                errorCodP.SetError(txtCodP, "Máximo 8 caracteres");
         }
 
         private void btnNuevoUser_Click(object sender, EventArgs e)
@@ -63,17 +65,24 @@ namespace FrbaOfertas.AbmCliente
 
         private void signinbutton_Click(object sender, EventArgs e)
         {
-            /*
+            
             SqlConnection conex = Conexiones.AbrirConexion();
             try
             {
-                if (CamposCompletos())
+                if (camposValidos())
                 {
                     SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaCliente", conex);
                     procedure.CommandType = CommandType.StoredProcedure;
-                    procedure.Parameters.Add("@nombre_rubro", SqlDbType.Int).Value = rubro.SelectedValue;
-                    procedure.Parameters.Add("@usuario_id", SqlDbType.Int).Value = textBox1.Text;
-                    procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
+                    procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = textIdUsuario.Text;
+                    procedure.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = txtNom.Text;
+                    procedure.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = txtApe.Text;
+                    procedure.Parameters.Add("@dni", SqlDbType.Int).Value = txtDni.Text;
+                    procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = txtMail.Text;
+                    procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = txtTel.Text;
+                    procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = txtDom.Text;
+                    procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = txtLocalidad.Text;
+                    procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = txtCodP.Text;
+                    procedure.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = fechaNac.Text;
 
                     procedure.ExecuteNonQuery();
                     Conexiones.CerrarConexion();
@@ -87,7 +96,6 @@ namespace FrbaOfertas.AbmCliente
             {
                 MessageBox.Show("Verifique el formato de los campos completados", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-             * */
         }
         
         private bool camposValidos()
@@ -98,7 +106,7 @@ namespace FrbaOfertas.AbmCliente
         private bool noTienenError()
         {
             return errorNombre.GetError(txtNom)+errorApe.GetError(txtApe)+errorDni.GetError(txtDni)+
-                    errorTel.GetError(txtTel)+errorCodP.GetError(txtCodP) == "";
+                    errorTel.GetError(txtTel) + errorCodP.GetError(txtCodP)+errorUserId.GetError(textIdUsuario) == "";
         }
 
         private bool estanCompletos()
@@ -110,6 +118,7 @@ namespace FrbaOfertas.AbmCliente
 
         private void textIdUsuario_Leave(object sender, EventArgs e)
         {
+            errorUserId.Clear();
             try
             {
                 SqlConnection conex = Conexiones.AbrirConexion();
@@ -122,7 +131,6 @@ namespace FrbaOfertas.AbmCliente
             }
             catch (Exception ex)
             {
-                errorUserId.Clear();
                 errorUserId.SetError(textIdUsuario, ex.Message);
             }
         }
