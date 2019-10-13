@@ -38,10 +38,10 @@
             this.textBoxDescripcion = new System.Windows.Forms.TextBox();
             this.buttonSeleccionarProveedor = new System.Windows.Forms.Button();
             this.labelUsuario = new System.Windows.Forms.Label();
-            this.textBoxCUIT = new System.Windows.Forms.TextBox();
+            this.textBoxProveedor = new System.Windows.Forms.TextBox();
             this.buttonInformacionProveedor = new System.Windows.Forms.Button();
             this.groupCant = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxMaxUsuario = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxStock = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,8 +50,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.fechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.fechaDesde = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonCrearOferta = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -70,7 +70,7 @@
             this.groupDatos.Controls.Add(this.textBoxDescripcion);
             this.groupDatos.Controls.Add(this.buttonSeleccionarProveedor);
             this.groupDatos.Controls.Add(this.labelUsuario);
-            this.groupDatos.Controls.Add(this.textBoxCUIT);
+            this.groupDatos.Controls.Add(this.textBoxProveedor);
             this.groupDatos.Controls.Add(this.buttonInformacionProveedor);
             this.groupDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupDatos.Location = new System.Drawing.Point(22, 39);
@@ -160,12 +160,12 @@
             this.labelUsuario.TabIndex = 10;
             this.labelUsuario.Text = "Usuario del Proveedor";
             // 
-            // textBoxCUIT
+            // textBoxProveedor
             // 
-            this.textBoxCUIT.Location = new System.Drawing.Point(53, 81);
-            this.textBoxCUIT.Name = "textBoxCUIT";
-            this.textBoxCUIT.Size = new System.Drawing.Size(280, 30);
-            this.textBoxCUIT.TabIndex = 0;
+            this.textBoxProveedor.Location = new System.Drawing.Point(53, 81);
+            this.textBoxProveedor.Name = "textBoxProveedor";
+            this.textBoxProveedor.Size = new System.Drawing.Size(280, 30);
+            this.textBoxProveedor.TabIndex = 0;
             // 
             // buttonInformacionProveedor
             // 
@@ -186,7 +186,7 @@
             // 
             // groupCant
             // 
-            this.groupCant.Controls.Add(this.textBox4);
+            this.groupCant.Controls.Add(this.textBoxMaxUsuario);
             this.groupCant.Controls.Add(this.label5);
             this.groupCant.Controls.Add(this.textBoxStock);
             this.groupCant.Controls.Add(this.label4);
@@ -198,12 +198,12 @@
             this.groupCant.TabStop = false;
             this.groupCant.Text = "Cantidades";
             // 
-            // textBox4
+            // textBoxMaxUsuario
             // 
-            this.textBox4.Location = new System.Drawing.Point(41, 144);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(210, 30);
-            this.textBox4.TabIndex = 23;
+            this.textBoxMaxUsuario.Location = new System.Drawing.Point(41, 144);
+            this.textBoxMaxUsuario.Name = "textBoxMaxUsuario";
+            this.textBoxMaxUsuario.Size = new System.Drawing.Size(210, 30);
+            this.textBoxMaxUsuario.TabIndex = 23;
             // 
             // label5
             // 
@@ -242,8 +242,8 @@
             this.groupVigencia.Controls.Add(this.label8);
             this.groupVigencia.Controls.Add(this.label7);
             this.groupVigencia.Controls.Add(this.label6);
-            this.groupVigencia.Controls.Add(this.dateTimePicker1);
-            this.groupVigencia.Controls.Add(this.dateTimePicker2);
+            this.groupVigencia.Controls.Add(this.fechaHasta);
+            this.groupVigencia.Controls.Add(this.fechaDesde);
             this.groupVigencia.Controls.Add(this.label9);
             this.groupVigencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupVigencia.Location = new System.Drawing.Point(565, 255);
@@ -296,23 +296,23 @@
             this.label6.TabIndex = 24;
             this.label6.Text = "Desde";
             // 
-            // dateTimePicker1
+            // fechaHasta
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(188, 75);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(114, 22);
-            this.dateTimePicker1.TabIndex = 2;
+            this.fechaHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fechaHasta.Location = new System.Drawing.Point(188, 75);
+            this.fechaHasta.Name = "fechaHasta";
+            this.fechaHasta.Size = new System.Drawing.Size(114, 22);
+            this.fechaHasta.TabIndex = 2;
             // 
-            // dateTimePicker2
+            // fechaDesde
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(38, 75);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(114, 22);
-            this.dateTimePicker2.TabIndex = 1;
+            this.fechaDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fechaDesde.Location = new System.Drawing.Point(38, 75);
+            this.fechaDesde.Name = "fechaDesde";
+            this.fechaDesde.Size = new System.Drawing.Size(114, 22);
+            this.fechaDesde.TabIndex = 1;
             // 
             // label9
             // 
@@ -368,7 +368,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupDatos;
-        private System.Windows.Forms.TextBox textBoxCUIT;
+        private System.Windows.Forms.TextBox textBoxProveedor;
         private System.Windows.Forms.GroupBox groupCant;
         private System.Windows.Forms.GroupBox groupVigencia;
         private System.Windows.Forms.Label labelUsuario;
@@ -380,15 +380,15 @@
         private System.Windows.Forms.TextBox textBoxPrecioOferta;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxMaxUsuario;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxStock;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker fechaHasta;
+        private System.Windows.Forms.DateTimePicker fechaDesde;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonCrearOferta;
         private System.Windows.Forms.ToolTip toolTip1;

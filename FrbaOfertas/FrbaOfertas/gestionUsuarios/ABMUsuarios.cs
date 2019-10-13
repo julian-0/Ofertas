@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Datos;
 
 namespace FrbaOfertas.gestionUsuarios
 {
@@ -23,7 +24,7 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CreacionUsuario ventanaCreacion = new CreacionUsuario(this, null);
+            CreacionUsuario ventanaCreacion = new CreacionUsuario(this, null, InfoUsuario.rolUsuario == 1);
             ventanaCreacion.Show();
         }
 

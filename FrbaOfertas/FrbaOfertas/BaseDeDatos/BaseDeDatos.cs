@@ -78,5 +78,11 @@ namespace FrbaOfertas.Datos
             nombreUsuario = columna["usuario_id"].ToString();
             rolUsuario = Int32.Parse(columna["rol_id"].ToString());
         }
+
+        public static void Clear()
+        {
+            nombreUsuario=null;
+            rolUsuario = 3;
+        }
     }
 }

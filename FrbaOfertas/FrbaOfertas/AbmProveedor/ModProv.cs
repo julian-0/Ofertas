@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.Menu;
 using FrbaOfertas.gestionUsuarios;
+using FrbaOfertas.Datos;
 
 namespace FrbaOfertas.AbmProveedor
 {
@@ -162,7 +163,7 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (CreacionUsuario ventanaCreacion = new CreacionUsuario(this, "4"))
+            using (CreacionUsuario ventanaCreacion = new CreacionUsuario(this, "4", InfoUsuario.rolUsuario == 1))
             {
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {

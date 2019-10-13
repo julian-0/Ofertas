@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.Menu;
 using FrbaOfertas.gestionUsuarios;
+using FrbaOfertas.Datos;
+
 
 namespace FrbaOfertas
 {
@@ -91,7 +93,7 @@ namespace FrbaOfertas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CreacionUsuario ventanaCreacion = new CreacionUsuario(this, null);
+            CreacionUsuario ventanaCreacion = new CreacionUsuario(this, null, InfoUsuario.rolUsuario == 1);
             ventanaCreacion.Show();
             this.Hide();
         }
