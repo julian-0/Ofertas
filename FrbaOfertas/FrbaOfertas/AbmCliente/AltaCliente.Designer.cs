@@ -43,7 +43,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtApe = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -59,6 +58,8 @@
             this.textIdUsuario = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.signinbutton = new System.Windows.Forms.Button();
+            this.fechaNac = new System.Windows.Forms.DateTimePicker();
+            this.errorUserId = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).BeginInit();
@@ -66,6 +67,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorDni)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorTel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorCodP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorUserId)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -149,13 +151,13 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox2.Controls.Add(this.fechaNac);
             this.groupBox2.Controls.Add(this.txtDni);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtNom);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtApe);
-            this.groupBox2.Controls.Add(this.textBox8);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.txtTel);
             this.groupBox2.Controls.Add(this.label12);
@@ -231,14 +233,6 @@
             this.txtApe.Size = new System.Drawing.Size(224, 22);
             this.txtApe.TabIndex = 11;
             this.txtApe.Leave += new System.EventHandler(this.txtApe_Leave);
-            // 
-            // textBox8
-            // 
-            this.textBox8.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(6, 389);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(224, 22);
-            this.textBox8.TabIndex = 16;
             // 
             // label11
             // 
@@ -342,6 +336,7 @@
             this.textIdUsuario.Name = "textIdUsuario";
             this.textIdUsuario.Size = new System.Drawing.Size(230, 22);
             this.textIdUsuario.TabIndex = 25;
+            this.textIdUsuario.Leave += new System.EventHandler(this.textIdUsuario_Leave);
             // 
             // label9
             // 
@@ -370,6 +365,18 @@
             this.signinbutton.UseVisualStyleBackColor = false;
             this.signinbutton.Click += new System.EventHandler(this.signinbutton_Click);
             // 
+            // fechaNac
+            // 
+            this.fechaNac.Location = new System.Drawing.Point(6, 389);
+            this.fechaNac.Name = "fechaNac";
+            this.fechaNac.Size = new System.Drawing.Size(224, 25);
+            this.fechaNac.TabIndex = 21;
+            this.fechaNac.Value = new System.DateTime(2019, 10, 13, 0, 0, 0, 0);
+            // 
+            // errorUserId
+            // 
+            this.errorUserId.ContainerControl = this;
+            // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,6 +401,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorDni)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorTel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorCodP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorUserId)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -414,7 +422,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtApe;
-        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label label12;
@@ -431,5 +438,7 @@
         private System.Windows.Forms.TextBox textIdUsuario;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button signinbutton;
+        private System.Windows.Forms.DateTimePicker fechaNac;
+        private System.Windows.Forms.ErrorProvider errorUserId;
     }
 }
