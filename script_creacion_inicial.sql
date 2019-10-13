@@ -1695,5 +1695,3 @@ BEGIN
 		)
 END
 GO
-
-

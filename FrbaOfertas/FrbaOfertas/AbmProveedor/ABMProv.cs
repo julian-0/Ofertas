@@ -16,6 +16,8 @@ namespace FrbaOfertas.AbmProveedor
     public partial class ABMProv : Form
     {
         DataTable dt = new DataTable();
+        public List<string> datosFilaProveedor = new List<string>();
+        private bool buscarWasClicked = false;
 
         public ABMProv()
         {
@@ -45,6 +47,7 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button2_Click(object sender, EventArgs e)
         {
+            buscarWasClicked = true;
             dt.Columns.Clear();
             dt.Rows.Clear();
             dataGridView1.DataSource = dt;
@@ -60,8 +63,29 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ModProv ventanaModificacion = new ModProv(null);
+            ModProv ventanaModificacion = new ModProv(null, null);
             ventanaModificacion.Show();
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            datosFilaProveedor.Clear();
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                for(int i = 0; i<10; i++){
+                    datosFilaProveedor.Add(row.Cells[i].Value.ToString());
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (buscarWasClicked)
+            {
+                ModProv ventanaModificacion = new ModProv(null, datosFilaProveedor);
+                ventanaModificacion.Show();
+            }
+            else MessageBox.Show("Seleccione un proveedor");
         }
     }
 }
