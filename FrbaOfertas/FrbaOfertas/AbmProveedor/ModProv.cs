@@ -131,7 +131,7 @@ namespace FrbaOfertas.AbmProveedor
                         SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaProveedor", conex);
                         procedure.CommandType = CommandType.StoredProcedure;
                         procedure.Parameters.Add("@nombre_rubro", SqlDbType.Int).Value = rubro.SelectedValue;
-                        procedure.Parameters.Add("@usuario_id", SqlDbType.Int).Value = textBox1.Text;    
+                        procedure.Parameters.Add("@usuario_id", SqlDbType.VarChar).Value = textBox1.Text;    
                         procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
                         procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email.Text;
                         procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = int.Parse(telefono.Text.ToString());

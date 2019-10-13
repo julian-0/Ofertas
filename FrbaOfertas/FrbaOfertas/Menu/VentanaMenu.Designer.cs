@@ -126,6 +126,7 @@
             this.btnOfertar.TabIndex = 8;
             this.btnOfertar.Text = "Confeccionar oferta";
             this.btnOfertar.UseVisualStyleBackColor = true;
+            this.btnOfertar.Click += new System.EventHandler(this.btnOfertar_Click);
             // 
             // btnFacturar
             // 
