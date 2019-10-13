@@ -16,15 +16,25 @@ namespace FrbaOfertas.gestionUsuarios
     public partial class CreacionUsuario : Form
     {
         DataTable dt = new DataTable();
-        private Form login;
+        private Form formAnterior;
+        private String rolUsuario;
 
-        public CreacionUsuario(Form log)
+        public CreacionUsuario(Form log, String rolFijo)
         {
             InitializeComponent();
-            login = log;
+            formAnterior = log;
             this.cargarComboRoles();
+            if (rolFijo != null)
+            {
+                rolUsuario = rolFijo;
+                comboBox1.SelectedValue = rolFijo;
+                comboBox1.Enabled = false;
+            }
         }
-
+        public string nombreIngresado
+        {
+            get { return nombreUsuario.Text; }
+        }
         private void cargarComboRoles()
         {
             dt.Columns.Clear();
@@ -72,7 +82,7 @@ namespace FrbaOfertas.gestionUsuarios
         private void botonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-            login.Show();
+            formAnterior.Show();
         }
 
         private void botonCrear_Click(object sender, EventArgs e)
@@ -95,17 +105,25 @@ namespace FrbaOfertas.gestionUsuarios
                     procedure.ExecuteNonQuery();
                     Conexiones.CerrarConexion();
                     MessageBox.Show("Usuario creado correctamente! Para poder acceder, complete sus datos");
-                    switch(Int32.Parse(comboBox1.SelectedValue.ToString())){
-                        case 3:
-                            ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString());
-                            ventanaModificacionCliente.Show();
-                            break;
-                        case 4:
-                            ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString());
-                            ventanaModificacionProveedor.Show();
-                            break;
+                    if (rolUsuario == null) //Se entro desde el login
+                    {
+                        switch (Int32.Parse(comboBox1.SelectedValue.ToString()))
+                        {
+                            case 3:
+                                ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString());
+                                ventanaModificacionCliente.Show();
+                                break;
+                            case 4:
+                                ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString());
+                                ventanaModificacionProveedor.Show();
+                                break;
+                        }
                     }
-                    this.Hide();
+                    else //Se entro desde abm proveedor
+                    {
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    this.Close();
                 }
                 catch (Exception exception)
                 {
@@ -121,7 +139,7 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void CreacionUsuario_FormClosed(object sender, FormClosedEventArgs e)
         {
-            login.Show();
+            formAnterior.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -23,7 +23,7 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CreacionUsuario ventanaCreacion = new CreacionUsuario(this);
+            CreacionUsuario ventanaCreacion = new CreacionUsuario(this, null);
             ventanaCreacion.Show();
         }
 

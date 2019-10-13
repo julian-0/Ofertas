@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.Menu;
+using FrbaOfertas.gestionUsuarios;
 
 namespace FrbaOfertas.AbmProveedor
 {
@@ -24,6 +25,8 @@ namespace FrbaOfertas.AbmProveedor
             if (usuario_id != null) { 
                 textBox1.Text = usuario_id;
                 textBox1.ReadOnly = true;
+                button1.Hide();
+                textBox2.Hide();
             }
             this.cargarComboRubro();
         }
@@ -101,7 +104,7 @@ namespace FrbaOfertas.AbmProveedor
                 {
                         SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].sp_cargarProveedor", conex);
                         procedure.CommandType = CommandType.StoredProcedure;
-                        procedure.Parameters.Add("@rubro_id", SqlDbType.Int).Value = rubro.Text;
+                        procedure.Parameters.Add("@rubro_id", SqlDbType.Int).Value = rubro.SelectedValue;
                         procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
                         procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email.Text;
                         procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = int.Parse(telefono.Text.ToString());
@@ -113,6 +116,8 @@ namespace FrbaOfertas.AbmProveedor
                         procedure.Parameters.Add("@nombre_contacto", SqlDbType.NVarChar).Value = nombre_de_contacto.Text;
                         procedure.ExecuteNonQuery();
                         Conexiones.CerrarConexion();
+                        MessageBox.Show("Proveedor creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                 }
                 else
                     MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -126,6 +131,24 @@ namespace FrbaOfertas.AbmProveedor
         private void Rubro_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (CreacionUsuario ventanaCreacion = new CreacionUsuario(this, "4"))
+            {
+                if (ventanaCreacion.ShowDialog() == DialogResult.OK)
+                {
+                    textBox1.Text = ventanaCreacion.nombreIngresado;
+                    textBox1.ReadOnly = true;
+                    button1.Hide();
+                    textBox2.Hide();
+                }
+            }
+         /*   CreacionUsuario ventanaCreacion = new CreacionUsuario(this, "4");
+            ventanaCreacion.Show();
+            this.Hide();
+          */
         }
     }
 }
