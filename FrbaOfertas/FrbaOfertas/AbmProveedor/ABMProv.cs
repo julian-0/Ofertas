@@ -60,7 +60,7 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ModProv ventanaModificacion = new ModProv();
+            ModProv ventanaModificacion = new ModProv(null);
             ventanaModificacion.Show();
         }
     }

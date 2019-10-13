@@ -39,6 +39,7 @@
             this.btnFacturar = new System.Windows.Forms.Button();
             this.btnEst = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.botonEntregar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelBienvenida
@@ -148,7 +149,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(28, 240);
+            this.btnSalir.Location = new System.Drawing.Point(551, 231);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(188, 28);
@@ -157,11 +158,22 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // botonEntregar
+            // 
+            this.botonEntregar.Location = new System.Drawing.Point(28, 231);
+            this.botonEntregar.Margin = new System.Windows.Forms.Padding(4);
+            this.botonEntregar.Name = "botonEntregar";
+            this.botonEntregar.Size = new System.Drawing.Size(188, 28);
+            this.botonEntregar.TabIndex = 12;
+            this.botonEntregar.Text = "Entregar oferta";
+            this.botonEntregar.UseVisualStyleBackColor = true;
+            // 
             // VentanaMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 290);
+            this.ClientSize = new System.Drawing.Size(755, 281);
+            this.Controls.Add(this.botonEntregar);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnEst);
             this.Controls.Add(this.btnFacturar);
@@ -196,6 +208,7 @@
         private System.Windows.Forms.Button btnFacturar;
         private System.Windows.Forms.Button btnEst;
         private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.Button botonEntregar;
 
     }
 }

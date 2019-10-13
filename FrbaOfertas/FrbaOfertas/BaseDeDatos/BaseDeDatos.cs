@@ -58,4 +58,10 @@ namespace FrbaOfertas.Datos
 
 
     }
+
+    class InfoUsuario
+    {
+        public static String nombreUsuario;
+        public static int rolUsuario;
+    }
 }

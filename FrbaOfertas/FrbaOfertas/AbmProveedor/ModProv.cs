@@ -16,10 +16,31 @@ namespace FrbaOfertas.AbmProveedor
     public partial class ModProv : Form
     {
         Conexiones conexion = new Conexiones();
+        DataTable dt = new DataTable();
 
-        public ModProv()
+        public ModProv(String usuario_id)
         {
             InitializeComponent();
+            if (usuario_id != null) { 
+                textBox1.Text = usuario_id;
+                textBox1.ReadOnly = true;
+            }
+            this.cargarComboRubro();
+        }
+
+        private void cargarComboRubro()
+        {
+            dt.Columns.Clear();
+            dt.Rows.Clear();
+            rubro.DataSource = dt;
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT rubro_id, nombre_rubro FROM NUNCA_INJOIN.Rubro", conexion);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            rubro.ValueMember = "rubro_id";
+            rubro.DisplayMember = "nombre_rubro";
+            rubro.DataSource = dt;
+            Conexiones.CerrarConexion();
         }
 
         private void Label1_Click(object sender, EventArgs e)

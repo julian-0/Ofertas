@@ -255,7 +255,6 @@ BEGIN
 END
 GO
 
-
 IF EXISTS (
 		SELECT *
 		FROM sys.procedures
@@ -686,7 +685,7 @@ VALUES (
 	)
 
 -- Cliente
-INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
+/*INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	rol_id,
 	funcionalidad_id
 	)
@@ -698,7 +697,7 @@ VALUES (
 		),
 	'abm de clientes'
 	)
-
+	*/
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	rol_id,
 	funcionalidad_id
@@ -725,6 +724,7 @@ VALUES (
 	'comprar oferta'
 	)
 
+/*
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	rol_id,
 	funcionalidad_id
@@ -737,7 +737,7 @@ VALUES (
 		),
 	'abm de proveedor'
 	)
-
+	*/
 INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol (
 	rol_id,
 	funcionalidad_id
@@ -1039,7 +1039,7 @@ GO
 
 CREATE VIEW NUNCA_INJOIN.RolesActivos
 AS
-SELECT nombre_rol
+SELECT rol_id, nombre_rol
 FROM NUNCA_INJOIN.Rol
 WHERE baja_logica = 'N'
 GO
@@ -1147,7 +1147,6 @@ RETURN (
 		)
 GO
 
-
 CREATE FUNCTION NUNCA_INJOIN.VerUsuarios (
 	@MostrarHabilitados INT,
 	@MostrarInhabilitados INT
@@ -1156,7 +1155,7 @@ RETURNS TABLE
 AS
 RETURN (
 		SELECT usuario_id AS Usuario,
-			rol_id as Rol,
+			rol_id AS Rol,
 			baja_logica AS [Inhabilitado]
 		FROM NUNCA_INJOIN.Usuario
 		WHERE baja_logica LIKE (
@@ -1355,7 +1354,8 @@ CREATE PROCEDURE NUNCA_INJOIN.sp_obtenerFuncionalidades (
 	@puedeComprar SMALLINT OUT,
 	@puedeOfertar SMALLINT OUT,
 	@puedeFacturar SMALLINT OUT,
-	@puedeEst SMALLINT OUT
+	@puedeEst SMALLINT OUT,
+	@puedeEntregar SMALLINT OUT
 	)
 AS
 BEGIN
@@ -1374,6 +1374,7 @@ BEGIN
 	SET @puedeOfertar = 0
 	SET @puedeFacturar = 0
 	SET @puedeEst = 0
+	SET @puedeEntregar = 0
 
 	IF EXISTS (
 			SELECT 1
@@ -1446,10 +1447,21 @@ BEGIN
 				AND funcionalidad_id = 'listado estadistico'
 			)
 		SET @puedeEst = 1
+
+	IF EXISTS (
+			SELECT 1
+			FROM NUNCA_INJOIN.FuncionalidadPorRol
+			WHERE rol_id = @idRol
+				AND funcionalidad_id = 'entrega de oferta'
+			)
+		SET @puedeEntregar = 1
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50), @rol_id NUMERIC(9))
+CREATE PROC NUNCA_INJOIN.esUsuarioExistente (
+	@usuario_id VARCHAR(50),
+	@rol_id NUMERIC(9)
+	)
 AS
 BEGIN
 	IF NOT EXISTS (
@@ -1468,13 +1480,15 @@ BEGIN
 			SELECT Usuario.usuario_id
 			FROM usuario
 			WHERE usuario_id = @usuario_id
-			AND rol_id = @rol_id
-			) BEGIN ;
+				AND rol_id = @rol_id
+			)
+	BEGIN
+			;
 
 		throw 51238,
 			'No se pudo crear. El usuario tiene otro rol asignado.',
 			1
-			END
+	END
 END
 GO
 
@@ -1526,7 +1540,8 @@ AS
 BEGIN
 	IF (NUNCA_INJOIN.yaExistePersona(@CUIT, 4) = 0)
 	BEGIN
-		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id
+		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id,
+			4
 
 		INSERT INTO NUNCA_INJOIN.Proveedor (
 			"rubro_id",
@@ -1593,7 +1608,9 @@ AS
 BEGIN
 	IF (NUNCA_INJOIN.yaExistePersona(convert(NVARCHAR(20), @dni), 3) = 0)
 	BEGIN
-		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id, 3
+		EXEC NUNCA_INJOIN.esUsuarioExistente @usuario_id,
+			3
+
 		INSERT INTO NUNCA_INJOIN.Cliente (
 			"usuario_id",
 			"nombre",

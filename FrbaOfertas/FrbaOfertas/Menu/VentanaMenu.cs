@@ -12,6 +12,7 @@ using FrbaOfertas.Conexion;
 using FrbaOfertas.AbmCliente;
 using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.gestionUsuarios;
+using FrbaOfertas.Datos;
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -24,6 +25,7 @@ namespace FrbaOfertas.Menu
         {
             login = log;
             id_usuario = usuario;
+            InfoUsuario.nombreUsuario = usuario;
             InitializeComponent();
         }
 
@@ -56,10 +58,12 @@ namespace FrbaOfertas.Menu
             procedure.Parameters.Add("@puedeOfertar", SqlDbType.Int).Direction = ParameterDirection.Output;
             procedure.Parameters.Add("@puedeFacturar", SqlDbType.Int).Direction = ParameterDirection.Output;
             procedure.Parameters.Add("@puedeEst", SqlDbType.Int).Direction = ParameterDirection.Output;
-            
+            procedure.Parameters.Add("@puedeEntregar", SqlDbType.Int).Direction = ParameterDirection.Output;
+
             procedure.ExecuteNonQuery();
             Conexiones.CerrarConexion();
 
+            int entregar = Convert.ToInt32(procedure.Parameters["@puedeEntregar"].Value);
             int rol         = Convert.ToInt32(procedure.Parameters["@puedeRol"].Value);
             int regUser     = Convert.ToInt32(procedure.Parameters["@puedeRegUser"].Value);
             int abmCli      = Convert.ToInt32(procedure.Parameters["@puedeAbmCli"].Value);
@@ -79,6 +83,7 @@ namespace FrbaOfertas.Menu
             if (ofertar== 0)    btnOfertar.Hide();
             if (facturar == 0)  btnFacturar.Hide();
             if (est == 0)       btnEst.Hide();
+            if (entregar == 0)  botonEntregar.Hide();
 
         }
 

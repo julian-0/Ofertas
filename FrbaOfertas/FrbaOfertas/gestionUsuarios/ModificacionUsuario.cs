@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.Conexion;
+﻿using FrbaOfertas.AbmProveedor;
+using FrbaOfertas.Conexion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,30 @@ namespace FrbaOfertas.gestionUsuarios
 {
     public partial class CreacionUsuario : Form
     {
+        DataTable dt = new DataTable();
         private Form login;
+
         public CreacionUsuario(Form log)
         {
             InitializeComponent();
             login = log;
+            this.cargarComboRoles();
         }
 
+        private void cargarComboRoles()
+        {
+            dt.Columns.Clear();
+            dt.Rows.Clear();
+            comboBox1.DataSource = dt;
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT rol_id, nombre_rol FROM NUNCA_INJOIN.RolesActivos WHERE rol_id > 2", conexion);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            comboBox1.ValueMember = "rol_id";
+            comboBox1.DisplayMember = "nombre_rol";
+            comboBox1.DataSource = dt;
+            Conexiones.CerrarConexion();
+        }
         private void nombreUsuario_TextChanged(object sender, EventArgs e)
         {
 
@@ -72,10 +90,22 @@ namespace FrbaOfertas.gestionUsuarios
                     SqlCommand procedure = new SqlCommand("NUNCA_INJOIN.registrarUsuario", conex);
                     procedure.CommandType = CommandType.StoredProcedure;
                     procedure.Parameters.AddWithValue("@usuario_id", SqlDbType.NVarChar).Value = nombreUsuario.Text;
-                    procedure.Parameters.Add("@rol_id", SqlDbType.Int).Value = 4;
+                    procedure.Parameters.Add("@rol_id", SqlDbType.Int).Value = comboBox1.SelectedValue;
                     procedure.Parameters.Add("@contrasenia", SqlDbType.NVarChar).Value = password.Text;
                     procedure.ExecuteNonQuery();
                     Conexiones.CerrarConexion();
+                    MessageBox.Show("Usuario creado correctamente! Para poder acceder, complete sus datos");
+                    switch(Int32.Parse(comboBox1.SelectedValue.ToString())){
+                        case 3:
+                            ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString());
+                            ventanaModificacionCliente.Show();
+                            break;
+                        case 4:
+                            ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString());
+                            ventanaModificacionProveedor.Show();
+                            break;
+                    }
+                    this.Hide();
                 }
                 catch (Exception exception)
                 {
@@ -92,6 +122,11 @@ namespace FrbaOfertas.gestionUsuarios
         private void CreacionUsuario_FormClosed(object sender, FormClosedEventArgs e)
         {
             login.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
