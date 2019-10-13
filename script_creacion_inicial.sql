@@ -237,6 +237,17 @@ GO
 
 IF EXISTS (
 		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'verClientes'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.verClientes
+END
+GO
+
+IF EXISTS (
+		SELECT *
 		FROM sys.procedures
 		WHERE name = 'nombreUsuarioDisponible'
 		)
@@ -1158,6 +1169,44 @@ RETURN (
 			rol_id AS Rol,
 			baja_logica AS [Inhabilitado]
 		FROM NUNCA_INJOIN.Usuario
+		WHERE baja_logica LIKE (
+				CASE 
+					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1
+						THEN '%'
+					ELSE CASE 
+							WHEN @MostrarHabilitados = 1
+								THEN 'N'
+							ELSE CASE 
+									WHEN @MostrarInhabilitados = 1
+										THEN 'S'
+									ELSE 'VACIO'
+									END
+							END
+					END
+				)
+		)
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.VerClientes (
+	@MostrarHabilitados INT,
+	@MostrarInhabilitados INT
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT usuario_id AS Usuario,
+			nombre AS Nombre,
+			apellido AS Apellido,
+			dni AS DNI,
+			mail AS Email,
+			telefono AS Telefono,
+			domicilio AS Domicilio,
+			localidad AS Localidad,
+			codigo_postal AS [Codigo Postal],
+			fecha_nac AS Nacimiento,
+			credito AS Credito,
+			baja_logica AS [Inhabilitado]
+		FROM NUNCA_INJOIN.Cliente
 		WHERE baja_logica LIKE (
 				CASE 
 					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1

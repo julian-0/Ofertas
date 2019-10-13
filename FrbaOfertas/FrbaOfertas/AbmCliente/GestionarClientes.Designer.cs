@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupMasFiltros = new System.Windows.Forms.GroupBox();
             this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
@@ -49,7 +49,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.razonSocial = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.rubro = new System.Windows.Forms.ComboBox();
             this.cuit = new System.Windows.Forms.TextBox();
             this.mostrarMas = new System.Windows.Forms.Button();
@@ -263,7 +263,7 @@
             // 
             this.groupBox2.Controls.Add(this.razonSocial);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.btnBuscar);
             this.groupBox2.Controls.Add(this.rubro);
             this.groupBox2.Controls.Add(this.cuit);
             this.groupBox2.Controls.Add(this.mostrarMas);
@@ -300,15 +300,16 @@
             this.label10.TabIndex = 32;
             this.label10.Text = "Nombre";
             // 
-            // button2
+            // btnBuscar
             // 
-            this.button2.Location = new System.Drawing.Point(400, 35);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 35);
-            this.button2.TabIndex = 53;
-            this.button2.Text = "Buscar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnBuscar.Location = new System.Drawing.Point(400, 35);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(94, 35);
+            this.btnBuscar.TabIndex = 53;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // rubro
             // 
@@ -396,8 +397,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(914, 294);
@@ -450,7 +451,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox razonSocial;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.ComboBox rubro;
         private System.Windows.Forms.TextBox cuit;
         private System.Windows.Forms.Button mostrarMas;

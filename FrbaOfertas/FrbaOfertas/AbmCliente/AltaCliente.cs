@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Clases;
+using FrbaOfertas.gestionUsuarios;
 
 namespace FrbaOfertas.AbmCliente
 {
@@ -41,6 +42,20 @@ namespace FrbaOfertas.AbmCliente
         private void txtCodP_Leave(object sender, EventArgs e)
         {
             ValidadorCampos.numerico(txtCodP, errorCodP);
+        }
+
+        private void btnNuevoUser_Click(object sender, EventArgs e)
+        {
+            using (CreacionUsuario ventanaCreacion = new CreacionUsuario(this, "3"))
+            {
+                if (ventanaCreacion.ShowDialog() == DialogResult.OK)
+                {
+                    textIdUsuario.Text = ventanaCreacion.nombreIngresado;
+                    textIdUsuario.ReadOnly = true;
+                    btnNuevoUser.Hide();
+                    txtNoTieneUser.Hide();
+                }
+            }
         }
     }
 }

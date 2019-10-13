@@ -56,9 +56,9 @@
             this.errorDni = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorTel = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorCodP = new System.Windows.Forms.ErrorProvider(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnNuevoUser = new System.Windows.Forms.Button();
+            this.txtNoTieneUser = new System.Windows.Forms.TextBox();
+            this.textIdUsuario = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.signinbutton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -337,34 +337,35 @@
             // 
             this.errorCodP.ContainerControl = this;
             // 
-            // button1
+            // btnNuevoUser
             // 
-            this.button1.Font = new System.Drawing.Font("Cambria", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(434, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(131, 28);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Nuevo Usuario";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNuevoUser.Font = new System.Drawing.Font("Cambria", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevoUser.Location = new System.Drawing.Point(434, 83);
+            this.btnNuevoUser.Name = "btnNuevoUser";
+            this.btnNuevoUser.Size = new System.Drawing.Size(131, 28);
+            this.btnNuevoUser.TabIndex = 28;
+            this.btnNuevoUser.Text = "Nuevo Usuario";
+            this.btnNuevoUser.UseVisualStyleBackColor = true;
+            this.btnNuevoUser.Click += new System.EventHandler(this.btnNuevoUser_Click);
             // 
-            // textBox2
+            // txtNoTieneUser
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(355, 83);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(73, 40);
-            this.textBox2.TabIndex = 27;
-            this.textBox2.Text = "¿No tiene usuario?";
+            this.txtNoTieneUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNoTieneUser.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoTieneUser.Location = new System.Drawing.Point(355, 83);
+            this.txtNoTieneUser.Multiline = true;
+            this.txtNoTieneUser.Name = "txtNoTieneUser";
+            this.txtNoTieneUser.Size = new System.Drawing.Size(73, 40);
+            this.txtNoTieneUser.TabIndex = 27;
+            this.txtNoTieneUser.Text = "¿No tiene usuario?";
             // 
-            // textBox1
+            // textIdUsuario
             // 
-            this.textBox1.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(336, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 22);
-            this.textBox1.TabIndex = 25;
+            this.textIdUsuario.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textIdUsuario.Location = new System.Drawing.Point(336, 37);
+            this.textIdUsuario.Name = "textIdUsuario";
+            this.textIdUsuario.Size = new System.Drawing.Size(230, 22);
+            this.textIdUsuario.TabIndex = 25;
             // 
             // label9
             // 
@@ -399,9 +400,9 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(645, 455);
             this.Controls.Add(this.signinbutton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnNuevoUser);
+            this.Controls.Add(this.txtNoTieneUser);
+            this.Controls.Add(this.textIdUsuario);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -450,9 +451,9 @@
         private System.Windows.Forms.ErrorProvider errorDni;
         private System.Windows.Forms.ErrorProvider errorTel;
         private System.Windows.Forms.ErrorProvider errorCodP;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnNuevoUser;
+        private System.Windows.Forms.TextBox txtNoTieneUser;
+        private System.Windows.Forms.TextBox textIdUsuario;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button signinbutton;
     }
