@@ -81,7 +81,21 @@ namespace FrbaOfertas.AbmProveedor
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
+
+            DataView dv = new DataView(dt);
+            string filter = "";
+            if (cuit.Text != "")
+            {
+                filter += "CUIT = '" + cuit.Text + "'";
+            }
+            if (telefono.Text != "")
+            {
+                if (filter != "") filter += " AND ";
+                filter += "Telefono =" + telefono.Text;
+            }
+
+            dv.RowFilter = filter;
+            dataGridView1.DataSource = dv;
             Conexiones.CerrarConexion();
         }
 
