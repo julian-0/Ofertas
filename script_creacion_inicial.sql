@@ -1193,13 +1193,17 @@ GO
 CREATE FUNCTION NUNCA_INJOIN.VerClientes (
 	@MostrarHabilitados INT,
 	@MostrarInhabilitados INT,
-	@nombre NVARCHAR(255)
+	@nombre NVARCHAR(255),
+	@apellido NVARCHAR(255),
+	@email NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@localidad NVARCHAR(255)
 	)
 RETURNS TABLE
 AS
 RETURN (
 		SELECT 
-			usuario_id AS Usuario,
+			ISNULL(usuario_id, 'NO USER') AS Usuario,
 			nombre AS Nombre,
 			apellido AS Apellido,
 			dni AS DNI,
@@ -1207,7 +1211,7 @@ RETURN (
 			telefono AS Telefono,
 			domicilio AS Domicilio,
 			localidad AS Localidad,
-			codigo_postal AS [Codigo Postal],
+			ISNULL(codigo_postal, 'NO CP') AS Codigo_Postal,
 			fecha_nac AS Nacimiento,
 			credito AS Credito,
 			baja_logica AS [Inhabilitado],
@@ -1228,7 +1232,11 @@ RETURN (
 							END
 					END
 				)
-				AND nombre LIKE @nombre
+				AND nombre LIKE '%' + @nombre + '%'
+				AND apellido LIKE '%' + @apellido + '%'
+				AND mail LIKE '%' + @email + '%'
+				AND localidad LIKE '%' + @ciudad + '%'
+				AND domicilio LIKE '%' + @localidad + '%'
 		)
 GO
 
