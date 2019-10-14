@@ -17,6 +17,8 @@ namespace FrbaOfertas.AbmCliente
 {
     public partial class AltaCliente : Form
     {
+        int cliente_id;
+
         public AltaCliente()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace FrbaOfertas.AbmCliente
                     btnNuevoUser.Hide();
                     txtNoTieneUser.Hide();
                 }
+                signinbutton.Text = "Actualizar Cliente";
             }
         }
 
@@ -82,27 +85,14 @@ namespace FrbaOfertas.AbmCliente
         private void signinbutton_Click(object sender, EventArgs e)
         {
             
-            SqlConnection conex = Conexiones.AbrirConexion();
             try
             {
                 if (camposValidos())
                 {
-                    SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaCliente", conex);
-                    procedure.CommandType = CommandType.StoredProcedure;
-                    procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = textIdUsuario.Text;
-                    procedure.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = txtNom.Text;
-                    procedure.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = txtApe.Text;
-                    procedure.Parameters.Add("@dni", SqlDbType.Int).Value = txtDni.Text;
-                    procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = txtMail.Text;
-                    procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = txtTel.Text;
-                    procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = txtDom.Text;
-                    procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = txtLocalidad.Text;
-                    procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = txtCodP.Text;
-                    procedure.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = fechaNac.Text;
-
-                    procedure.ExecuteNonQuery();
-                    Conexiones.CerrarConexion();
-                    MessageBox.Show("Cliente creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (signinbutton.Text == "New Cliente")
+                        altaCliente();
+                    else
+                        modificarCliente();
                     this.Close();
                 }
                 else
@@ -162,6 +152,50 @@ namespace FrbaOfertas.AbmCliente
             txtLocalidad.Text = datosOriginales[7];
             txtCodP.Text = datosOriginales[8];
             fechaNac.Text = datosOriginales[9];
+            txtDom.Text = datosOriginales[10];
+            cliente_id = int.Parse(datosOriginales[11]);
+        }
+
+        private void altaCliente()
+        {
+            SqlConnection conex = Conexiones.AbrirConexion();
+            SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaCliente", conex);
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = textIdUsuario.Text;
+            procedure.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = txtNom.Text;
+            procedure.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = txtApe.Text;
+            procedure.Parameters.Add("@dni", SqlDbType.Int).Value = txtDni.Text;
+            procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = txtMail.Text;
+            procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = txtTel.Text;
+            procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = txtDom.Text;
+            procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = txtLocalidad.Text;
+            procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = txtCodP.Text;
+            procedure.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = fechaNac.Text;
+
+            procedure.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+            MessageBox.Show("Cliente creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void modificarCliente()
+        {
+            SqlConnection conex = Conexiones.AbrirConexion();
+            SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].modificarCliente", conex);
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.Add("@cliente_id", SqlDbType.Int).Value = cliente_id;
+            procedure.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = txtNom.Text;
+            procedure.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = txtApe.Text;
+            procedure.Parameters.Add("@dni", SqlDbType.Int).Value = txtDni.Text;
+            procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = txtMail.Text;
+            procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = txtTel.Text;
+            procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = txtDom.Text;
+            procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = txtLocalidad.Text;
+            procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = txtCodP.Text;
+            procedure.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = fechaNac.Text;
+
+            procedure.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+            MessageBox.Show("Cliente actualizado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

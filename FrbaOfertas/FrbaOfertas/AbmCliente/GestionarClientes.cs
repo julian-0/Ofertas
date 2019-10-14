@@ -68,10 +68,11 @@ namespace FrbaOfertas.AbmCliente
             datosFilaCliente.Clear();
             foreach (DataGridViewRow row in tablaClientes.SelectedRows)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 11; i++)
                 {
                     datosFilaCliente.Add(row.Cells[i].Value.ToString());
                 }
+                datosFilaCliente.Add(row.Cells["ID"].Value.ToString());
             }
         }
 
