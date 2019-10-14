@@ -320,6 +320,13 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('NUNCA_INJOIN.modificarProveedor', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.modificarProveedor;
+GO
+
+IF OBJECT_ID('NUNCA_INJOIN.modificarCliente', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.modificarCliente;
+GO
 /*
  *	CREACIÓN DE TABLAS
  */
@@ -1120,7 +1127,8 @@ CREATE FUNCTION NUNCA_INJOIN.VerProveedores (
 RETURNS TABLE
 AS
 RETURN (
-		SELECT razon_social AS [Razon Social],
+		SELECT 
+			razon_social AS [Razon Social],
 			usuario_id AS Usuario,
 			r.nombre_rubro AS [Rubro],
 			cuit AS CUIT,
@@ -1130,7 +1138,8 @@ RETURN (
 			nombre_contacto AS Nombre,
 			ciudad AS Ciudad,
 			codigo_postal AS [Codigo Postal],
-			baja_logica AS [Inhabilitado]
+			baja_logica AS [Inhabilitado],
+			proveedor_id AS ID
 		FROM NUNCA_INJOIN.Proveedor,
 			NUNCA_INJOIN.Rubro r
 		WHERE Proveedor.rubro_id = r.rubro_id
@@ -1188,7 +1197,8 @@ CREATE FUNCTION NUNCA_INJOIN.VerClientes (
 RETURNS TABLE
 AS
 RETURN (
-		SELECT usuario_id AS Usuario,
+		SELECT 
+			usuario_id AS Usuario,
 			nombre AS Nombre,
 			apellido AS Apellido,
 			dni AS DNI,
@@ -1199,7 +1209,8 @@ RETURN (
 			codigo_postal AS [Codigo Postal],
 			fecha_nac AS Nacimiento,
 			credito AS Credito,
-			baja_logica AS [Inhabilitado]
+			baja_logica AS [Inhabilitado],
+			cliente_id AS ID
 		FROM NUNCA_INJOIN.Cliente
 		WHERE baja_logica LIKE (
 				CASE 
@@ -1760,4 +1771,65 @@ BEGIN
 END
 GO
 
+USE GD2C2019
+go
 
+create procedure NUNCA_INJOIN.modificarProveedor(
+	@proveedor_id numeric(9,0),
+	@rubro_id NVARCHAR(100),
+	@razon_social NVARCHAR(100),
+	@mail NVARCHAR(255),
+	@telefono NUMERIC(18, 0),
+	@domicilio NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@codigo_postal NVARCHAR(8),
+	@cuit NVARCHAR(20),
+	@nombre_contacto NVARCHAR(255)
+	)
+as
+	begin
+		update NUNCA_INJOIN.Proveedor
+		set 
+			rubro_id = @rubro_id,
+			razon_social = @razon_social,
+			mail = @mail,
+			telefono = @telefono,
+			domicilio = @domicilio,
+			localidad = @localidad,
+			ciudad = @ciudad,
+			codigo_postal = @codigo_postal,
+			cuit = @cuit,
+			nombre_contacto = @nombre_contacto 
+		where proveedor_id = @proveedor_id
+	end
+go
+
+create procedure NUNCA_INJOIN.modificarCliente(
+	@cliente_id numeric(9,0),
+	@nombre NVARCHAR(255),
+	@apellido NVARCHAR(255),
+	@dni NUMERIC(18, 0),
+	@mail NVARCHAR(255),
+	@telefono NUMERIC(18, 0),
+	@domicilio NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@codigo_postal NVARCHAR(8),
+	@fecha_nac DATETIME
+	)
+as
+	begin
+		update NUNCA_INJOIN.Cliente
+		set 
+			nombre = @nombre,
+			apellido = @apellido,
+			dni = @dni,
+			mail = @mail,
+			telefono = @telefono,
+			domicilio = @domicilio,
+			localidad = @localidad,
+			codigo_postal = @codigo_postal,
+			fecha_nac = @fecha_nac
+		where cliente_id = @cliente_id
+	end
+go
