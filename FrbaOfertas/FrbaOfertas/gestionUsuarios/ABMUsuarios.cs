@@ -36,11 +36,26 @@ namespace FrbaOfertas.gestionUsuarios
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerUsuarios(" + verHabilitados + "," + verInhabilitados + ")", conexion);
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerUsuarios(" + verHabilitados + "," + verInhabilitados + ", '"+ usuario.Text +"', '" + rol.Text + "' )", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             Conexiones.CerrarConexion();
+        }
+
+        private void ABMUsuarios_Load(object sender, EventArgs e)
+        {
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT nombre_rol FROM NUNCA_INJOIN.Rol WHERE baja_logica = 'N'", conexion);
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                rol.Items.Add(dataReader[0]);
+            }
+
+            Conexiones.CerrarConexion();
+
         }
     }
 }

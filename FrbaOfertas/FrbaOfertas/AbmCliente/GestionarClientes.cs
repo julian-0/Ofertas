@@ -16,7 +16,6 @@ namespace FrbaOfertas.AbmCliente
 {
     public partial class GestionarClientes : Form
     {
-        DataTable dt = new DataTable();
         public List<string> datosFilaCliente = new List<string>();
         private bool buscarWasClicked = false;
 
@@ -52,17 +51,41 @@ namespace FrbaOfertas.AbmCliente
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             buscarWasClicked = true;
-            dt.Columns.Clear();
-            dt.Rows.Clear();
+            DataTable dt = new DataTable();
             tablaClientes.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
-            String nombre = String.IsNullOrEmpty(txtNombre.Text) ? "!" : txtNombre.Text;
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerClientes(" + verHabilitados + "," + verInhabilitados + ", '" + nombre + "' )", conexion);
+
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerClientes(" + 
+                                                verHabilitados + 
+                                                "," + verInhabilitados + 
+                                                ", '" + txtNombre.Text + 
+                                                "', '" + txtApellido.Text +
+                                                "', '" + txtMail.Text +
+                                                "', '" + txtCiudad.Text +
+                                                "', '" + txtLocalidad.Text +
+                                                "' )", conexion);
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
-            tablaClientes.DataSource = dt;
+            
+            DataView dv = new DataView(dt);
+            string filter = "";
+            if(txtDni.Text != "") {
+                filter += "DNI =" + txtDni.Text;
+            }
+            if(txtTelefono.Text != "") {
+                if (filter != "") filter += " AND ";
+                filter += "Telefono =" + txtTelefono.Text;
+            }
+            if (txtCodP.Text != "") {
+                if (filter != "") filter += " AND ";
+                filter += "Codigo_Postal = '" + txtCodP.Text + "'";
+            }
+
+            dv.RowFilter = filter;
+            tablaClientes.DataSource = dv;
             Conexiones.CerrarConexion();
         }
 
