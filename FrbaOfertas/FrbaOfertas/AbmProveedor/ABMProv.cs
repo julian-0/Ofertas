@@ -36,7 +36,6 @@ namespace FrbaOfertas.AbmProveedor
 
         private void ABMProv_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'gD2C2019DataSet.Rubro' table. You can move, or remove it, as needed.
             SqlConnection conexion = Conexiones.AbrirConexion();
             SqlCommand command = new SqlCommand("SELECT nombre_rubro FROM NUNCA_INJOIN.Rubro", conexion);
             SqlDataReader dataReader = command.ExecuteReader();
@@ -77,6 +76,7 @@ namespace FrbaOfertas.AbmProveedor
                 "', '" + localidad.Text +
                 "', '" + nombre_de_contacto.Text +
                 "', '" + ciudad.Text +
+                "', '" + codigo_postal.Text +
                 "' )", conexion);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
