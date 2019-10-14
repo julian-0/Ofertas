@@ -97,5 +97,9 @@ namespace FrbaOfertas
             ventanaCreacion.Show();
             this.Hide();
         }
+        public string getUsuario()
+        {
+            return usuarioTxt.Text;
+        }
     }
 }

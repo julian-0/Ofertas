@@ -15,6 +15,8 @@ using FrbaOfertas.gestionUsuarios;
 using FrbaOfertas.Datos;
 using FrbaOfertas.CrearOferta;
 using FrbaOfertas.AbmRol;
+using FrbaOfertas.ComprarOferta;
+
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -127,6 +129,12 @@ namespace FrbaOfertas.Menu
         {
             ABMRol ventanaRol = new ABMRol();
             ventanaRol.Show();
+        }
+
+        private void btnComprar_Click(object sender, EventArgs e)
+        {
+            VentanaComprar ventanaComprar = new VentanaComprar(login.getUsuario());
+            ventanaComprar.Show();
         }
     }
 }

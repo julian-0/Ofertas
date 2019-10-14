@@ -83,6 +83,12 @@
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
     <Compile Include="Clases\ValidadorCampos.cs" />
+    <Compile Include="ComprarOferta\VentanaComprar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\VentanaComprar.Designer.cs">
+      <DependentUpon>VentanaComprar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexion\Conexiones.cs" />
     <Compile Include="CragaCredito\CargarCredito.cs">
       <SubType>Form</SubType>
@@ -163,6 +169,9 @@
     <EmbeddedResource Include="AbmRol\UserControlRol.resx">
       <DependentUpon>UserControlRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComprarOferta\VentanaComprar.resx">
+      <DependentUpon>VentanaComprar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\CreacionOferta.resx">
       <DependentUpon>CreacionOferta.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,9 +223,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ComprarOferta\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
