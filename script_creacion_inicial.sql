@@ -1179,16 +1179,19 @@ GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerUsuarios (
 	@MostrarHabilitados INT,
-	@MostrarInhabilitados INT
+	@MostrarInhabilitados INT,
+	@usuario VARCHAR(50),
+	@rol VARCHAR(50)
 	)
 RETURNS TABLE
 AS
 RETURN (
 		SELECT usuario_id AS Usuario,
-			rol_id AS Rol,
-			baja_logica AS [Inhabilitado]
-		FROM NUNCA_INJOIN.Usuario
-		WHERE baja_logica LIKE (
+			r.nombre_rol AS Rol,
+			u.baja_logica AS [Inhabilitado]
+		FROM NUNCA_INJOIN.Usuario as u, NUNCA_INJOIN.Rol as r
+		WHERE r.rol_id = u.rol_id
+		AND u.baja_logica LIKE (
 				CASE 
 					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1
 						THEN '%'
@@ -1203,6 +1206,9 @@ RETURN (
 							END
 					END
 				)
+				AND usuario_id LIKE '%' + @usuario + '%'
+				AND r.nombre_rol LIKE '%' + @rol + '%'
+				
 		)
 GO
 
