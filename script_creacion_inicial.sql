@@ -237,6 +237,16 @@ GO
 
 IF EXISTS (
 		SELECT *
+		FROM sys.procedures
+		WHERE name = 'CrearOferta'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.CrearOferta
+END
+GO
+
+IF EXISTS (
+		SELECT *
 		FROM sys.objects
 		WHERE object_name(object_id) = 'verClientes'
 			AND schema_name(schema_id) = 'NUNCA_INJOIN'
@@ -402,7 +412,9 @@ CREATE TABLE NUNCA_INJOIN.Oferta (
 	fecha_vencimiento DATETIME,
 	precio_oferta NUMERIC(18, 2),
 	precio_lista NUMERIC(18, 2),
-	cantidad_disponible NUMERIC(18, 0)
+	cantidad_disponible NUMERIC(18, 0),
+	cantidad_maxima_usuario NUMERIC(18, 0),
+	plazo_entrega_dias NUMERIC(9)
 	)
 
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
@@ -937,7 +949,6 @@ GO
 Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
 [Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como una sola compra
 */
-
 INSERT INTO NUNCA_INJOIN.Cupon (
 	oferta_codigo,
 	cliente_compra_id,
@@ -1040,7 +1051,8 @@ GO
 
 CREATE VIEW NUNCA_INJOIN.RolesActivos
 AS
-SELECT rol_id, nombre_rol
+SELECT rol_id,
+	nombre_rol
 FROM NUNCA_INJOIN.Rol
 WHERE baja_logica = 'N'
 GO
@@ -1702,3 +1714,50 @@ BEGIN
 		)
 END
 GO
+
+CREATE PROC NUNCA_INJOIN.CrearOferta (
+	@oferta_codigo NVARCHAR(50),
+	@usuario_id NVARCHAR(50),
+	@descripcion NVARCHAR(255),
+	@fecha_publicacion NVARCHAR(50),
+	@fecha_vencimiento NVARCHAR(50),
+	@precio_oferta NUMERIC(18, 2),
+	@precio_lista NUMERIC(18, 2),
+	@cantidad_disponible NUMERIC(18, 0),
+	@cantidad_maxima_usuario NUMERIC(18, 0),
+	@plazo_entrega_dias NUMERIC(9)
+	)
+AS
+BEGIN
+	INSERT INTO NUNCA_INJOIN.Oferta (
+		oferta_codigo,
+		proveedor_id,
+		descripcion,
+		fecha_publicacion,
+		fecha_vencimiento,
+		precio_oferta,
+		precio_lista,
+		cantidad_disponible,
+		cantidad_maxima_usuario,
+		plazo_entrega_dias
+		)
+	VALUES (
+		@oferta_codigo,
+		(
+			SELECT Proveedor.proveedor_id
+			FROM NUNCA_INJOIN.Proveedor
+			WHERE usuario_id = @usuario_id
+			),
+		@descripcion,
+		(CONVERT(DATETIME, @fecha_publicacion, 121)),
+		(CONVERT(DATETIME, @fecha_vencimiento, 121)),
+		@precio_oferta,
+		@precio_lista,
+		@cantidad_disponible,
+		@cantidad_maxima_usuario,
+		@plazo_entrega_dias
+		)
+END
+GO
+
+

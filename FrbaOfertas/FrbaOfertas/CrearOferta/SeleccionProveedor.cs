@@ -76,13 +76,11 @@ namespace FrbaOfertas.CrearOferta
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             datosFilaProveedor.Clear();
-            MessageBox.Show("Selection changed");
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 for (int i = 0; i < 10; i++)
                 {
                     datosFilaProveedor.Add(row.Cells[i].Value.ToString());
-                    MessageBox.Show(datosFilaProveedor[i]);
                 }
             }
         }
