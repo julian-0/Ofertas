@@ -40,6 +40,22 @@ namespace FrbaOfertas.AbmRol
         }
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
+
+            if (e.Index == tabControl1.SelectedIndex)
+            {
+                e.Graphics.DrawString(tabControl1.TabPages[e.Index].Text,
+                    new Font(new Font("Calibri", 11F, FontStyle.Bold), FontStyle.Bold),
+                    Brushes.Black,
+                    new PointF(e.Bounds.X + 3, e.Bounds.Y + 10));
+            }
+            else
+            {
+                e.Graphics.DrawString(tabControl1.TabPages[e.Index].Text,
+                    new Font("Calibri", 10F, FontStyle.Bold),
+                    Brushes.Gray,
+                    new PointF(e.Bounds.X + 3, e.Bounds.Y + 10));
+            }
+
             var g = e.Graphics;
             var text = this.tabControl1.TabPages[e.Index].Text;
             var sizeText = g.MeasureString(text, this.tabControl1.Font);
@@ -47,11 +63,10 @@ namespace FrbaOfertas.AbmRol
             var x = e.Bounds.Left + 3;
             var y = e.Bounds.Top + (e.Bounds.Height - sizeText.Height) / 2;
 
-            g.DrawString(text, this.tabControl1.Font, Brushes.Black, x, y);
-        }
+            //g.DrawString(text, this.tabControl1.Font, Brushes.Black, x, y);
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+
+                
 
         }
 
@@ -65,6 +80,11 @@ namespace FrbaOfertas.AbmRol
             row["nombre_rol"] = "Nuevo Rol";
             row["rol_id"] = "99";
             this.agregarTab(row);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
