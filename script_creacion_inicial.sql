@@ -1192,7 +1192,8 @@ GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerClientes (
 	@MostrarHabilitados INT,
-	@MostrarInhabilitados INT
+	@MostrarInhabilitados INT,
+	@nombre NVARCHAR(255)
 	)
 RETURNS TABLE
 AS
@@ -1227,6 +1228,7 @@ RETURN (
 							END
 					END
 				)
+				AND nombre LIKE @nombre
 		)
 GO
 
