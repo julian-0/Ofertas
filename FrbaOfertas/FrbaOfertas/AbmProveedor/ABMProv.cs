@@ -15,7 +15,6 @@ namespace FrbaOfertas.AbmProveedor
 {
     public partial class ABMProv : Form
     {
-        DataTable dt = new DataTable();
         public List<string> datosFilaProveedor = new List<string>();
         private bool buscarWasClicked = false;
 
@@ -37,6 +36,18 @@ namespace FrbaOfertas.AbmProveedor
 
         private void ABMProv_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'gD2C2019DataSet.Rubro' table. You can move, or remove it, as needed.
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT nombre_rubro FROM NUNCA_INJOIN.Rubro", conexion);
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                rubro.Items.Add(dataReader[0]);
+            }
+
+            Conexiones.CerrarConexion();
+            // TODO: This line of code loads data into the 'gD2C2019DataSet.Rubro' table. You can move, or remove it, as needed.
             groupBox1.Visible = false;
         }
 
@@ -51,14 +62,23 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DataTable dt = new DataTable();
             buscarWasClicked = true;
-            dt.Columns.Clear();
-            dt.Rows.Clear();
+
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados + ")", conexion);
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados + 
+                ", '" + razonSocial.Text + 
+                "', '" + usuario.Text +
+                "', '" + rubro.Text +
+                "', '" + email.Text +
+                "', '" + localidad.Text +
+                "', '" + nombre_de_contacto.Text +
+                "', '" + ciudad.Text +
+                "' )", conexion);
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
