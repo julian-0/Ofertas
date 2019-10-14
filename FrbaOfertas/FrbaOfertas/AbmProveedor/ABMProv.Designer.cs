@@ -470,6 +470,7 @@
             this.Name = "ABMProv";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ABMProv_FormClosed);
             this.Load += new System.EventHandler(this.ABMProv_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

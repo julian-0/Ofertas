@@ -56,7 +56,48 @@ namespace FrbaOfertas.Datos
             return tabla;
         }
 
+        public static DataTable getRoles()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
 
+            command = new SqlCommand("SELECT rol_id, nombre_rol, baja_logica FROM NUNCA_INJOIN.Rol", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        public static DataTable getFuncionalidadesRol(String rol_id)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol "+
+            "WHERE rol_id = " + rol_id, conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        public static DataTable getFuncionalidadesPosibles()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
     }
 
     class InfoUsuario
@@ -66,11 +107,16 @@ namespace FrbaOfertas.Datos
         public static DataTable dt = new DataTable();
         public static Dictionary<string, string> datosCuenta = new Dictionary<string, string>();
 
-        public static void Actualizar(String usuario)
+        public static void Actualizar()
+        {
+            if (rolUsuario > 2)
+                rellenarInformacion();
+        }
+
+        public static void Completar(String usuario)
         {
             cargarDatosUsuario(usuario);
-            if(rolUsuario>2)
-                rellenarInformacion();
+            Actualizar();
         }
 
         private static void rellenarInformacion()

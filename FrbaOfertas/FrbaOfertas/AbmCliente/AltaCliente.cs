@@ -94,6 +94,7 @@ namespace FrbaOfertas.AbmCliente
                     else
                         modificarCliente();
                     this.Close();
+                    InfoUsuario.Actualizar();
                 }
                 else
                     MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);

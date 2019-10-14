@@ -14,6 +14,7 @@ using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.gestionUsuarios;
 using FrbaOfertas.Datos;
 using FrbaOfertas.CrearOferta;
+using FrbaOfertas.AbmRol;
 namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
@@ -24,7 +25,7 @@ namespace FrbaOfertas.Menu
         public VentanaMenu(Login log,String usuario)
         {
             login = log;
-            InfoUsuario.Actualizar(usuario);
+            InfoUsuario.Completar(usuario);
             InitializeComponent();
         }
 
@@ -120,6 +121,12 @@ namespace FrbaOfertas.Menu
         {
             CreacionOferta ventanaOferta = new CreacionOferta();
             ventanaOferta.Show();
+        }
+
+        private void btnRoles_Click(object sender, EventArgs e)
+        {
+            ABMRol ventanaRol = new ABMRol();
+            ventanaRol.Show();
         }
     }
 }
