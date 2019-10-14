@@ -16,5 +16,35 @@ namespace FrbaOfertas.CragaCredito
         {
             InitializeComponent();
         }
+
+        private void LabelUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonSeleccionarProveedor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBoxProveedor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CargarCredito_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

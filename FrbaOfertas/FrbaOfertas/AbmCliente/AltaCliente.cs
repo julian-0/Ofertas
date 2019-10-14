@@ -30,7 +30,7 @@ namespace FrbaOfertas.AbmCliente
             if ((datosOriginales != null)) //Llega de modificacion
             {
                 this.autocompletarCampos(datosOriginales);
-                if (datosOriginales[0] != "")
+                if (datosOriginales[0] != "NO USER")
                 {
                     textIdUsuario.Text = datosOriginales[0];
                     textIdUsuario.ReadOnly = true;

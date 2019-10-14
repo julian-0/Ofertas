@@ -1122,22 +1122,30 @@ GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerProveedores (
 	@MostrarHabilitados INT,
-	@MostrarInhabilitados INT
+	@MostrarInhabilitados INT,
+	@razonSocial NVARCHAR(100),
+	@usuario VARCHAR(50),
+	@rubro NVARCHAR(100),
+	@email NVARCHAR(255),
+	@localidad NVARCHAR(255),
+	@nombreDeContacto NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@codigoPostal NVARCHAR(8)
 	)
 RETURNS TABLE
 AS
 RETURN (
 		SELECT 
 			razon_social AS [Razon Social],
-			usuario_id AS Usuario,
+			ISNULL(usuario_id, 'NO USER') AS Usuario,
 			r.nombre_rubro AS [Rubro],
 			cuit AS CUIT,
 			telefono AS Telefono,
-			mail AS Email,
-			localidad AS Localidad,
-			nombre_contacto AS Nombre,
+			ISNULL(mail, 'NO MAIL') AS Email,
+			ISNULL(localidad, 'SIN LOCALIDAD') AS Localidad,
+			ISNULL(nombre_contacto, 'NO NAME') AS Nombre,
 			ciudad AS Ciudad,
-			codigo_postal AS [Codigo Postal],
+			ISNULL(codigo_postal, 'NO CP') AS [Codigo Postal],
 			baja_logica AS [Inhabilitado],
 			proveedor_id AS ID
 		FROM NUNCA_INJOIN.Proveedor,
@@ -1158,21 +1166,32 @@ RETURN (
 							END
 					END
 				)
+			AND ISNULL(nombre_contacto, 'NO NAME') LIKE '%' + @nombreDeContacto + '%'
+			AND ISNULL(usuario_id, 'NO USER') LIKE '%' + @usuario + '%'
+			AND ISNULL(mail, 'NO MAIL') LIKE '%' + @email + '%'
+			AND ISNULL(localidad, 'SIN LOCALIDAD') LIKE '%' + @localidad + '%'
+			AND razon_social LIKE '%' + @razonSocial + '%'
+			AND r.nombre_rubro = @rubro
+			AND ciudad LIKE '%' + @ciudad + '%'
+			AND ISNULL(codigo_postal, 'NO CP') LIKE '%' + @codigoPostal + '%'
 		)
 GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerUsuarios (
 	@MostrarHabilitados INT,
-	@MostrarInhabilitados INT
+	@MostrarInhabilitados INT,
+	@usuario VARCHAR(50),
+	@rol VARCHAR(50)
 	)
 RETURNS TABLE
 AS
 RETURN (
 		SELECT usuario_id AS Usuario,
-			rol_id AS Rol,
-			baja_logica AS [Inhabilitado]
-		FROM NUNCA_INJOIN.Usuario
-		WHERE baja_logica LIKE (
+			r.nombre_rol AS Rol,
+			u.baja_logica AS [Inhabilitado]
+		FROM NUNCA_INJOIN.Usuario as u, NUNCA_INJOIN.Rol as r
+		WHERE r.rol_id = u.rol_id
+		AND u.baja_logica LIKE (
 				CASE 
 					WHEN (@MostrarHabilitados & @MostrarInhabilitados) = 1
 						THEN '%'
@@ -1187,19 +1206,26 @@ RETURN (
 							END
 					END
 				)
+				AND usuario_id LIKE '%' + @usuario + '%'
+				AND r.nombre_rol LIKE '%' + @rol + '%'
+				
 		)
 GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerClientes (
 	@MostrarHabilitados INT,
 	@MostrarInhabilitados INT,
-	@nombre NVARCHAR(255)
+	@nombre NVARCHAR(255),
+	@apellido NVARCHAR(255),
+	@email NVARCHAR(255),
+	@ciudad NVARCHAR(255),
+	@localidad NVARCHAR(255)
 	)
 RETURNS TABLE
 AS
 RETURN (
 		SELECT 
-			usuario_id AS Usuario,
+			ISNULL(usuario_id, 'NO USER') AS Usuario,
 			nombre AS Nombre,
 			apellido AS Apellido,
 			dni AS DNI,
@@ -1207,7 +1233,7 @@ RETURN (
 			telefono AS Telefono,
 			domicilio AS Domicilio,
 			localidad AS Localidad,
-			codigo_postal AS [Codigo Postal],
+			ISNULL(codigo_postal, 'NO CP') AS Codigo_Postal,
 			fecha_nac AS Nacimiento,
 			credito AS Credito,
 			baja_logica AS [Inhabilitado],
@@ -1228,7 +1254,11 @@ RETURN (
 							END
 					END
 				)
-				AND nombre LIKE @nombre
+				AND nombre LIKE '%' + @nombre + '%'
+				AND apellido LIKE '%' + @apellido + '%'
+				AND mail LIKE '%' + @email + '%'
+				AND localidad LIKE '%' + @ciudad + '%'
+				AND domicilio LIKE '%' + @localidad + '%'
 		)
 GO
 

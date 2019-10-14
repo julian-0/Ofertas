@@ -1,4 +1,5 @@
-﻿using FrbaOfertas.AbmProveedor;
+﻿using FrbaOfertas.AbmCliente;
+using FrbaOfertas.AbmProveedor;
 using FrbaOfertas.Conexion;
 using System;
 using System.Collections.Generic;
@@ -113,7 +114,7 @@ namespace FrbaOfertas.gestionUsuarios
                         switch (Int32.Parse(comboBox1.SelectedValue.ToString()))
                         {
                             case 3:
-                                ModProv ventanaModificacionCliente = new ModProv(nombreUsuario.Text.ToString(), null);
+                                AltaCliente ventanaModificacionCliente = new AltaCliente(nombreUsuario.Text.ToString(), null);
                                 ventanaModificacionCliente.Show();
                                 break;
                             case 4:

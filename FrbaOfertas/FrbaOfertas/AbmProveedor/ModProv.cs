@@ -34,7 +34,7 @@ namespace FrbaOfertas.AbmProveedor
             else if ((datosOriginales != null)) //Llega de modificacion
             {
                 this.autocompletarCampos(datosOriginales);
-                if (datosOriginales[1] != "")
+                if (datosOriginales[1] != "NO USER")
                 {
                     textBox1.Text = datosOriginales[1];
                     textBox1.ReadOnly = true;
