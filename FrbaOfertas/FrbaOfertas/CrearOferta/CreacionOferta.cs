@@ -15,6 +15,7 @@ namespace FrbaOfertas.CrearOferta
 {
     public partial class CreacionOferta : Form
     {
+        public List<string> datosProveedorSeleccionado = new List<string>();
         public DateTime fechaConfig = DateTime.Parse(System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"]);
 
         public CreacionOferta()
@@ -26,6 +27,8 @@ namespace FrbaOfertas.CrearOferta
                 textBoxProveedor.ReadOnly = true;
                 textBoxProveedor.Text = InfoUsuario.nombreUsuario;
             }
+            fechaDesde.MinDate = fechaConfig;
+            fechaHasta.MinDate = fechaConfig;
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
@@ -40,7 +43,8 @@ namespace FrbaOfertas.CrearOferta
             {
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {
-                    textBoxProveedor.Text = ventanaCreacion.proveedorSeleccionado;
+                    this.datosProveedorSeleccionado = ventanaCreacion.datosFilaProveedor;
+                    textBoxProveedor.Text = datosProveedorSeleccionado[5].ToString();
                     textBoxProveedor.ReadOnly = true;
                 }
             }
@@ -96,11 +100,24 @@ namespace FrbaOfertas.CrearOferta
             {
                 MessageBox.Show("La publicación debe tener fecha mayor o igual a la fecha actual del sistema");
             }
-            /*catch (Exception ex)
-            {
-                MessageBox.Show("Verifique el formato de los campos completados", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-             */
+        }
+
+        private void buttonInformacionProveedor_Click(object sender, EventArgs e)
+        {
+            String datos = "";
+            foreach (String dato in datosProveedorSeleccionado)
+                datos = datos + dato;
+            MessageBox.Show(datos);
+        }
+
+        private void fechaDesde_ValueChanged(object sender, EventArgs e)
+        {
+            fechaHasta.MinDate = fechaDesde.Value;
+        }
+
+        private void fechaHasta_ValueChanged(object sender, EventArgs e)
+        {
+            fechaDesde.MaxDate = fechaHasta.Value;
         }
     }
 }

@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupDatos = new System.Windows.Forms.GroupBox();
+            this.numericPrecioOferta = new System.Windows.Forms.NumericUpDown();
+            this.numericPrecioOriginal = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,9 +41,12 @@
             this.textBoxProveedor = new System.Windows.Forms.TextBox();
             this.buttonInformacionProveedor = new System.Windows.Forms.Button();
             this.groupCant = new System.Windows.Forms.GroupBox();
+            this.numericMaxUsuario = new System.Windows.Forms.NumericUpDown();
+            this.numericStock = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupVigencia = new System.Windows.Forms.GroupBox();
+            this.numericPlazo = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,18 +55,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.buttonCrearOferta = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.numericPrecioOriginal = new System.Windows.Forms.NumericUpDown();
-            this.numericPrecioOferta = new System.Windows.Forms.NumericUpDown();
-            this.numericStock = new System.Windows.Forms.NumericUpDown();
-            this.numericMaxUsuario = new System.Windows.Forms.NumericUpDown();
-            this.numericPlazo = new System.Windows.Forms.NumericUpDown();
             this.groupDatos.SuspendLayout();
-            this.groupCant.SuspendLayout();
-            this.groupVigencia.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOriginal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOferta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOriginal)).BeginInit();
+            this.groupCant.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericMaxUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStock)).BeginInit();
+            this.groupVigencia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPlazo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,6 +84,20 @@
             this.groupDatos.TabIndex = 0;
             this.groupDatos.TabStop = false;
             this.groupDatos.Text = "Datos";
+            // 
+            // numericPrecioOferta
+            // 
+            this.numericPrecioOferta.Location = new System.Drawing.Point(305, 367);
+            this.numericPrecioOferta.Name = "numericPrecioOferta";
+            this.numericPrecioOferta.Size = new System.Drawing.Size(139, 30);
+            this.numericPrecioOferta.TabIndex = 21;
+            // 
+            // numericPrecioOriginal
+            // 
+            this.numericPrecioOriginal.Location = new System.Drawing.Point(53, 366);
+            this.numericPrecioOriginal.Name = "numericPrecioOriginal";
+            this.numericPrecioOriginal.Size = new System.Drawing.Size(139, 30);
+            this.numericPrecioOriginal.TabIndex = 20;
             // 
             // label3
             // 
@@ -156,6 +170,7 @@
             // 
             this.textBoxProveedor.Location = new System.Drawing.Point(53, 81);
             this.textBoxProveedor.Name = "textBoxProveedor";
+            this.textBoxProveedor.ReadOnly = true;
             this.textBoxProveedor.Size = new System.Drawing.Size(280, 30);
             this.textBoxProveedor.TabIndex = 0;
             // 
@@ -175,6 +190,7 @@
             this.buttonInformacionProveedor.Text = "Ver información del proveedor";
             this.buttonInformacionProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonInformacionProveedor.UseVisualStyleBackColor = false;
+            this.buttonInformacionProveedor.Click += new System.EventHandler(this.buttonInformacionProveedor_Click);
             // 
             // groupCant
             // 
@@ -189,6 +205,20 @@
             this.groupCant.TabIndex = 1;
             this.groupCant.TabStop = false;
             this.groupCant.Text = "Cantidades";
+            // 
+            // numericMaxUsuario
+            // 
+            this.numericMaxUsuario.Location = new System.Drawing.Point(41, 144);
+            this.numericMaxUsuario.Name = "numericMaxUsuario";
+            this.numericMaxUsuario.Size = new System.Drawing.Size(210, 30);
+            this.numericMaxUsuario.TabIndex = 24;
+            // 
+            // numericStock
+            // 
+            this.numericStock.Location = new System.Drawing.Point(41, 72);
+            this.numericStock.Name = "numericStock";
+            this.numericStock.Size = new System.Drawing.Size(210, 30);
+            this.numericStock.TabIndex = 22;
             // 
             // label5
             // 
@@ -230,6 +260,13 @@
             this.groupVigencia.TabIndex = 2;
             this.groupVigencia.TabStop = false;
             this.groupVigencia.Text = "Vigencia";
+            // 
+            // numericPlazo
+            // 
+            this.numericPlazo.Location = new System.Drawing.Point(38, 151);
+            this.numericPlazo.Name = "numericPlazo";
+            this.numericPlazo.Size = new System.Drawing.Size(151, 30);
+            this.numericPlazo.TabIndex = 25;
             // 
             // label8
             // 
@@ -276,6 +313,7 @@
             this.fechaHasta.Name = "fechaHasta";
             this.fechaHasta.Size = new System.Drawing.Size(114, 22);
             this.fechaHasta.TabIndex = 2;
+            this.fechaHasta.ValueChanged += new System.EventHandler(this.fechaHasta_ValueChanged);
             // 
             // fechaDesde
             // 
@@ -287,6 +325,7 @@
             this.fechaDesde.Size = new System.Drawing.Size(111, 22);
             this.fechaDesde.TabIndex = 1;
             this.fechaDesde.Value = new System.DateTime(2019, 10, 25, 0, 0, 0, 0);
+            this.fechaDesde.ValueChanged += new System.EventHandler(this.fechaDesde_ValueChanged);
             // 
             // label9
             // 
@@ -318,41 +357,6 @@
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // numericPrecioOriginal
-            // 
-            this.numericPrecioOriginal.Location = new System.Drawing.Point(53, 366);
-            this.numericPrecioOriginal.Name = "numericPrecioOriginal";
-            this.numericPrecioOriginal.Size = new System.Drawing.Size(139, 30);
-            this.numericPrecioOriginal.TabIndex = 20;
-            // 
-            // numericPrecioOferta
-            // 
-            this.numericPrecioOferta.Location = new System.Drawing.Point(305, 367);
-            this.numericPrecioOferta.Name = "numericPrecioOferta";
-            this.numericPrecioOferta.Size = new System.Drawing.Size(139, 30);
-            this.numericPrecioOferta.TabIndex = 21;
-            // 
-            // numericStock
-            // 
-            this.numericStock.Location = new System.Drawing.Point(41, 72);
-            this.numericStock.Name = "numericStock";
-            this.numericStock.Size = new System.Drawing.Size(210, 30);
-            this.numericStock.TabIndex = 22;
-            // 
-            // numericMaxUsuario
-            // 
-            this.numericMaxUsuario.Location = new System.Drawing.Point(41, 144);
-            this.numericMaxUsuario.Name = "numericMaxUsuario";
-            this.numericMaxUsuario.Size = new System.Drawing.Size(210, 30);
-            this.numericMaxUsuario.TabIndex = 24;
-            // 
-            // numericPlazo
-            // 
-            this.numericPlazo.Location = new System.Drawing.Point(38, 151);
-            this.numericPlazo.Name = "numericPlazo";
-            this.numericPlazo.Size = new System.Drawing.Size(151, 30);
-            this.numericPlazo.TabIndex = 25;
-            // 
             // CreacionOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -367,14 +371,14 @@
             this.Text = "Crear Oferta";
             this.groupDatos.ResumeLayout(false);
             this.groupDatos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOferta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOriginal)).EndInit();
             this.groupCant.ResumeLayout(false);
             this.groupCant.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaxUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStock)).EndInit();
             this.groupVigencia.ResumeLayout(false);
             this.groupVigencia.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOriginal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrecioOferta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericStock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaxUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPlazo)).EndInit();
             this.ResumeLayout(false);
 

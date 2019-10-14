@@ -80,7 +80,8 @@ namespace FrbaOfertas.CrearOferta
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    datosFilaProveedor.Add(row.Cells[i].Value.ToString());
+                    datosFilaProveedor.Add(dataGridView1.Columns[i].Name + ": ");
+                    datosFilaProveedor.Add(row.Cells[i].Value.ToString() + "\n");
                 }
             }
         }
