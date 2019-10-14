@@ -1138,7 +1138,6 @@ RETURN (
 			nombre_contacto AS Nombre,
 			ciudad AS Ciudad,
 			codigo_postal AS [Codigo Postal],
-			domicilio AS Domicilio,
 			baja_logica AS [Inhabilitado],
 			proveedor_id AS ID
 		FROM NUNCA_INJOIN.Proveedor,

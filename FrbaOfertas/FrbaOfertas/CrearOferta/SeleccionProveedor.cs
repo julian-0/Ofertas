@@ -50,7 +50,9 @@ namespace FrbaOfertas.CrearOferta
             dt.Rows.Clear();
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.Proveedor", conexion);
+            SqlCommand command = new SqlCommand("SELECT [proveedor_id],[rubro_id],[usuario_id],[razon_social],"
+                +"[mail],[telefono],[domicilio],[localidad],[ciudad],[codigo_postal],[cuit],[nombre_contacto],"
+                                                        +"[baja_logica] FROM NUNCA_INJOIN.Proveedor", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;

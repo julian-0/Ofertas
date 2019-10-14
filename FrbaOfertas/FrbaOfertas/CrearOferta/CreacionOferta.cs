@@ -104,10 +104,20 @@ namespace FrbaOfertas.CrearOferta
 
         private void buttonInformacionProveedor_Click(object sender, EventArgs e)
         {
-            String datos = "";
-            foreach (String dato in datosProveedorSeleccionado)
-                datos = datos + dato;
-            MessageBox.Show(datos);
+            
+            if (InfoUsuario.rolUsuario > 2)
+            {
+                var lines = InfoUsuario.datosCuenta.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+                MessageBox.Show(string.Join(Environment.NewLine, lines));
+            }
+            else
+            {
+                String datos = "";
+                foreach (String dato in datosProveedorSeleccionado)
+                    datos += dato;
+                MessageBox.Show(datos);
+            }
+            
         }
 
         private void fechaDesde_ValueChanged(object sender, EventArgs e)

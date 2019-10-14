@@ -64,13 +64,57 @@ namespace FrbaOfertas.Datos
         public static String nombreUsuario;
         public static int rolUsuario;
         public static DataTable dt = new DataTable();
+        public static Dictionary<string, string> datosCuenta = new Dictionary<string, string>();
 
         public static void Actualizar(String usuario)
+        {
+            cargarDatosUsuario(usuario);
+            if(rolUsuario>2)
+                rellenarInformacion();
+        }
+
+        private static void rellenarInformacion()
         {
             dt.Columns.Clear();
             dt.Rows.Clear();
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT usuario_id, rol_id FROM NUNCA_INJOIN.Usuario where usuario_id LIKE '"+usuario+"'", conexion);
+            SqlCommand command;
+            SqlDataAdapter adapter;
+            switch(rolUsuario)
+            {
+                case 3:
+                    command = new SqlCommand("SELECT [cliente_id],[usuario_id],[nombre],[apellido],[dni],[mail]," +
+                        "[telefono],[domicilio],[localidad],[codigo_postal],[fecha_nac],[credito],[baja_logica]" +
+                        " FROM NUNCA_INJOIN.Cliente WHERE usuario_id LIKE '" + nombreUsuario + "'", conexion);
+                    adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dt);
+                    break;
+                case 4:
+                    command = new SqlCommand("SELECT [proveedor_id],[rubro_id],[usuario_id],[razon_social],"
+                        + "[mail],[telefono],[domicilio],[localidad],[ciudad],[codigo_postal],[cuit],[nombre_contacto],"
+                        + "[baja_logica] FROM NUNCA_INJOIN.Proveedor WHERE usuario_id LIKE '" + nombreUsuario+ "'", conexion);
+                    adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dt);
+                    break;
+            }
+
+            Conexiones.CerrarConexion();
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    datosCuenta.Add(column.ColumnName.ToString(), row[column].ToString());
+                }
+            }
+
+        }
+
+        private static void cargarDatosUsuario(String usuario)
+        {
+            dt.Columns.Clear();
+            dt.Rows.Clear();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT usuario_id, rol_id FROM NUNCA_INJOIN.Usuario where usuario_id LIKE '" + usuario + "'", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();
@@ -78,7 +122,6 @@ namespace FrbaOfertas.Datos
             nombreUsuario = columna["usuario_id"].ToString();
             rolUsuario = Int32.Parse(columna["rol_id"].ToString());
         }
-
         public static void Clear()
         {
             nombreUsuario=null;
