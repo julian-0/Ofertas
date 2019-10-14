@@ -56,7 +56,8 @@ namespace FrbaOfertas.AbmCliente
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerClientes(" + verHabilitados + "," + verInhabilitados + ")", conexion);
+            String nombre = String.IsNullOrEmpty(txtNombre.Text) ? "!" : txtNombre.Text;
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerClientes(" + verHabilitados + "," + verInhabilitados + ", '" + nombre + "' )", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             tablaClientes.DataSource = dt;
