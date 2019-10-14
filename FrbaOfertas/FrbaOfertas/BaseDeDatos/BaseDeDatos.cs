@@ -63,5 +63,26 @@ namespace FrbaOfertas.Datos
     {
         public static String nombreUsuario;
         public static int rolUsuario;
+        public static DataTable dt = new DataTable();
+
+        public static void Actualizar(String usuario)
+        {
+            dt.Columns.Clear();
+            dt.Rows.Clear();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT usuario_id, rol_id FROM NUNCA_INJOIN.Usuario where usuario_id LIKE '"+usuario+"'", conexion);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            DataRow columna = dt.Rows[0];
+            nombreUsuario = columna["usuario_id"].ToString();
+            rolUsuario = Int32.Parse(columna["rol_id"].ToString());
+        }
+
+        public static void Clear()
+        {
+            nombreUsuario=null;
+            rolUsuario = 3;
+        }
     }
 }

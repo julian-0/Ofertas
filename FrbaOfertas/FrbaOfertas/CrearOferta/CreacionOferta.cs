@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using FrbaOfertas.Datos;
 namespace FrbaOfertas.CrearOferta
 {
     public partial class CreacionOferta : Form
@@ -17,6 +17,12 @@ namespace FrbaOfertas.CrearOferta
         public CreacionOferta()
         {
             InitializeComponent();
+            if (InfoUsuario.rolUsuario > 2)
+            {
+                buttonSeleccionarProveedor.Hide();
+                textBoxProveedor.ReadOnly = true;
+                textBoxProveedor.Text = InfoUsuario.nombreUsuario;
+            }
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)

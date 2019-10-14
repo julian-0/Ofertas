@@ -22,8 +22,14 @@ namespace FrbaOfertas.AbmProveedor
         public ABMProv()
         {
             InitializeComponent();
+            this.updateHeadersStyle();
         }
 
+        //Hay un bug que resetea la fuente de ColumnHeadersDefaultCellStyle con cada build
+        private void updateHeadersStyle()
+        {
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
+        }
         private void mostrarMas_Click(object sender, EventArgs e)
         {
             groupBox1.Visible = !groupBox1.Visible;

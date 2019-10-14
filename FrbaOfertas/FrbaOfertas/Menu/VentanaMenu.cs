@@ -18,22 +18,20 @@ namespace FrbaOfertas.Menu
 {
     public partial class VentanaMenu : Form
     {
-        private String id_usuario;
         private Login login;
         private Conexiones conexion = new Conexiones();
 
         public VentanaMenu(Login log,String usuario)
         {
             login = log;
-            id_usuario = usuario;
-            InfoUsuario.nombreUsuario = usuario;
+            InfoUsuario.Actualizar(usuario);
             InitializeComponent();
         }
 
         private void VentanaMenu_Load(object sender, EventArgs e)
         {
-            labelBienvenida.Text = "Bienvenidx " + id_usuario + "!";
-            ocultarBotones(id_usuario);
+            labelBienvenida.Text = "Bienvenidx " + InfoUsuario.nombreUsuario + "!";
+            ocultarBotones(InfoUsuario.nombreUsuario);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -90,6 +88,7 @@ namespace FrbaOfertas.Menu
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            InfoUsuario.Clear();
             login.Show();
             this.Hide();
         }

@@ -18,11 +18,13 @@ namespace FrbaOfertas.gestionUsuarios
         DataTable dt = new DataTable();
         private Form formAnterior;
         private String rolUsuario;
+        private bool permitirCrearAdmin;
 
-        public CreacionUsuario(Form log, String rolFijo)
+        public CreacionUsuario(Form log, String rolFijo, bool _permitirCrearAdmin)
         {
             InitializeComponent();
             formAnterior = log;
+            permitirCrearAdmin = _permitirCrearAdmin;
             this.cargarComboRoles();
             if (rolFijo != null)
             {
@@ -41,7 +43,8 @@ namespace FrbaOfertas.gestionUsuarios
             dt.Rows.Clear();
             comboBox1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT rol_id, nombre_rol FROM NUNCA_INJOIN.RolesActivos WHERE rol_id > 2", conexion);
+            String min = permitirCrearAdmin ? "1" : "2";
+            SqlCommand command = new SqlCommand("SELECT rol_id, nombre_rol FROM NUNCA_INJOIN.RolesActivos WHERE rol_id > "+min, conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             comboBox1.ValueMember = "rol_id";
