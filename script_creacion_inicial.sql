@@ -1128,7 +1128,6 @@ RETURNS TABLE
 AS
 RETURN (
 		SELECT 
-			proveedor_id AS ID,
 			razon_social AS [Razon Social],
 			usuario_id AS Usuario,
 			r.nombre_rubro AS [Rubro],
@@ -1139,7 +1138,8 @@ RETURN (
 			nombre_contacto AS Nombre,
 			ciudad AS Ciudad,
 			codigo_postal AS [Codigo Postal],
-			baja_logica AS [Inhabilitado]
+			baja_logica AS [Inhabilitado],
+			proveedor_id AS ID
 		FROM NUNCA_INJOIN.Proveedor,
 			NUNCA_INJOIN.Rubro r
 		WHERE Proveedor.rubro_id = r.rubro_id
@@ -1198,7 +1198,6 @@ RETURNS TABLE
 AS
 RETURN (
 		SELECT 
-			cliente_id AS ID,
 			usuario_id AS Usuario,
 			nombre AS Nombre,
 			apellido AS Apellido,
@@ -1210,7 +1209,8 @@ RETURN (
 			codigo_postal AS [Codigo Postal],
 			fecha_nac AS Nacimiento,
 			credito AS Credito,
-			baja_logica AS [Inhabilitado]
+			baja_logica AS [Inhabilitado],
+			cliente_id AS ID
 		FROM NUNCA_INJOIN.Cliente
 		WHERE baja_logica LIKE (
 				CASE 
