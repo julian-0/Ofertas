@@ -63,6 +63,7 @@
             this.btnRoles.TabIndex = 2;
             this.btnRoles.Text = "Gestionar Roles";
             this.btnRoles.UseVisualStyleBackColor = true;
+            this.btnRoles.Click += new System.EventHandler(this.btnRoles_Click);
             // 
             // btnAbmCli
             // 

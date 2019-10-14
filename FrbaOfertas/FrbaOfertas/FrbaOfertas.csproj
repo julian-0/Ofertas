@@ -75,6 +75,12 @@
     <Compile Include="AbmRol\ABMRol.Designer.cs">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\UserControlRol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AbmRol\UserControlRol.Designer.cs">
+      <DependentUpon>UserControlRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
     <Compile Include="Clases\ValidadorCampos.cs" />
     <Compile Include="Conexion\Conexiones.cs" />
@@ -150,6 +156,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmProveedor\ModProv.resx">
       <DependentUpon>ModProv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\UserControlRol.resx">
+      <DependentUpon>UserControlRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\CreacionOferta.resx">
       <DependentUpon>CreacionOferta.cs</DependentUpon>

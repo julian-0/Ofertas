@@ -92,5 +92,10 @@ namespace FrbaOfertas.AbmProveedor
             }
             else MessageBox.Show("Seleccione un proveedor");
         }
+
+        private void ABMProv_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            InfoUsuario.Actualizar();
+        }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FrbaOfertas.Menu;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.Datos;
 
 namespace FrbaOfertas.AbmCliente
 {
@@ -29,6 +30,7 @@ namespace FrbaOfertas.AbmCliente
 
         private void GestionarClientes_FormClosed(object sender, FormClosedEventArgs e)
         {
+            InfoUsuario.Actualizar();
             menu.Show();
         }
 
