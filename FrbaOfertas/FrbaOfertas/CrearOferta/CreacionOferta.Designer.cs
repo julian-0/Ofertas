@@ -147,6 +147,7 @@
             this.buttonSeleccionarProveedor.TabIndex = 11;
             this.buttonSeleccionarProveedor.Text = "Seleccionar";
             this.buttonSeleccionarProveedor.UseVisualStyleBackColor = true;
+            this.buttonSeleccionarProveedor.Click += new System.EventHandler(this.buttonSeleccionarProveedor_Click);
             // 
             // labelUsuario
             // 

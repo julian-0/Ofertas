@@ -29,5 +29,18 @@ namespace FrbaOfertas.CrearOferta
         {
 
         }
+
+        private void buttonSeleccionarProveedor_Click(object sender, EventArgs e)
+        {
+            
+            using (SeleccionProveedor ventanaCreacion = new SeleccionProveedor())
+            {
+                if (ventanaCreacion.ShowDialog() == DialogResult.OK)
+                {
+                    textBoxProveedor.Text = ventanaCreacion.proveedorSeleccionado;
+                    textBoxProveedor.ReadOnly = true;
+                }
+            }
+        }
     }
 }

@@ -1120,7 +1120,7 @@ RETURN (
 			codigo_postal AS [Codigo Postal],
 			baja_logica AS [Inhabilitado]
 		FROM NUNCA_INJOIN.Proveedor,
-			Rubro r
+			NUNCA_INJOIN.Rubro r
 		WHERE Proveedor.rubro_id = r.rubro_id
 			AND baja_logica LIKE (
 				CASE 
@@ -1531,7 +1531,7 @@ USE GD2C2019
 GO
 
 CREATE PROCEDURE NUNCA_INJOIN.altaProveedor (
-	@nombre_rubro NVARCHAR(100),
+	@rubro_id NVARCHAR(100),
 	@usuario_id VARCHAR(50),
 	@razon_social NVARCHAR(100),
 	@mail NVARCHAR(255),
@@ -1567,7 +1567,7 @@ BEGIN
 			(
 				SELECT rubro_id
 				FROM RUBRO
-				WHERE Rubro.nombre_rubro LIKE @nombre_rubro
+				WHERE Rubro.rubro_id = @rubro_id
 				),
 			(
 				SELECT @usuario_id
