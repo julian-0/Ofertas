@@ -76,9 +76,10 @@ namespace FrbaOfertas.AbmProveedor
             datosFilaProveedor.Clear();
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                for(int i = 0; i<10; i++){
+                for(int i = 0; i<11; i++){
                     datosFilaProveedor.Add(row.Cells[i].Value.ToString());
                 }
+                datosFilaProveedor.Add(row.Cells["ID"].Value.ToString());
             }
         }
 

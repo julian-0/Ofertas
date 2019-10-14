@@ -19,6 +19,7 @@ namespace FrbaOfertas.AbmProveedor
     {
         Conexiones conexion = new Conexiones();
         DataTable dt = new DataTable();
+        int proveedor_id;
 
         public ModProv(String usuario_id, List<string> datosOriginales)
         {
@@ -40,6 +41,7 @@ namespace FrbaOfertas.AbmProveedor
                     button1.Hide();
                     textBox2.Text = "Ya tiene usuario";
                 }
+                signinbutton.Text = "Actualizar Proveedor";
             }
             
             this.cargarComboRubro();
@@ -56,6 +58,8 @@ namespace FrbaOfertas.AbmProveedor
             nombre_de_contacto.Text = datosOriginales[7];
             ciudad.Text = datosOriginales[8];
             codigo_postal.Text = datosOriginales[9];
+            domicilio.Text = datosOriginales[10];
+            proveedor_id = int.Parse(datosOriginales[11]);
         }
 
         private void cargarComboRubro()
@@ -124,28 +128,15 @@ namespace FrbaOfertas.AbmProveedor
 
         private void Signinbutton_Click(object sender, EventArgs e)
         {
-            SqlConnection conex = Conexiones.AbrirConexion();
             try
             {
                 if (CamposCompletos())
                 {
-                        SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaProveedor", conex);
-                        procedure.CommandType = CommandType.StoredProcedure;
-                        procedure.Parameters.Add("@rubro_id", SqlDbType.Int).Value = rubro.SelectedValue;
-                        procedure.Parameters.Add("@usuario_id", SqlDbType.VarChar).Value = textBox1.Text;    
-                        procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
-                        procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email.Text;
-                        procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = int.Parse(telefono.Text.ToString());
-                        procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = domicilio.Text;
-                        procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = localidad.Text;
-                        procedure.Parameters.Add("@ciudad", SqlDbType.NVarChar).Value = ciudad.Text;
-                        procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = codigo_postal.Text;
-                        procedure.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit.Text;
-                        procedure.Parameters.Add("@nombre_contacto", SqlDbType.NVarChar).Value = nombre_de_contacto.Text;
-                        procedure.ExecuteNonQuery();
-                        Conexiones.CerrarConexion();
-                        MessageBox.Show("Proveedor creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                    if (signinbutton.Text == "New Proveedor")
+                        altaProveedor();
+                    else
+                        modificarProveedor();
+                    this.Close();
                 }
                 else
                     MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -174,6 +165,49 @@ namespace FrbaOfertas.AbmProveedor
                 }
             }
         }
+
+        private void altaProveedor()
+        {
+            SqlConnection conex = Conexiones.AbrirConexion();
+            SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].altaProveedor", conex);
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.Add("@rubro_id", SqlDbType.Int).Value = rubro.SelectedValue;
+            procedure.Parameters.Add("@usuario_id", SqlDbType.VarChar).Value = textBox1.Text;
+            procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
+            procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email.Text;
+            procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = int.Parse(telefono.Text.ToString());
+            procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = domicilio.Text;
+            procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = localidad.Text;
+            procedure.Parameters.Add("@ciudad", SqlDbType.NVarChar).Value = ciudad.Text;
+            procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = codigo_postal.Text;
+            procedure.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit.Text;
+            procedure.Parameters.Add("@nombre_contacto", SqlDbType.NVarChar).Value = nombre_de_contacto.Text;
+            procedure.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+            MessageBox.Show("Proveedor creado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void modificarProveedor()
+        {
+            SqlConnection conex = Conexiones.AbrirConexion();
+            SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].modificarProveedor", conex);
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.Add("@proveedor_id", SqlDbType.Int).Value = proveedor_id;
+            procedure.Parameters.Add("@rubro_id", SqlDbType.Int).Value = rubro.SelectedValue;
+            procedure.Parameters.Add("@razon_social", SqlDbType.NVarChar).Value = razonSocial.Text;
+            procedure.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email.Text;
+            procedure.Parameters.Add("@telefono", SqlDbType.Int).Value = int.Parse(telefono.Text.ToString());
+            procedure.Parameters.Add("@domicilio", SqlDbType.NVarChar).Value = domicilio.Text;
+            procedure.Parameters.Add("@localidad", SqlDbType.NVarChar).Value = localidad.Text;
+            procedure.Parameters.Add("@ciudad", SqlDbType.NVarChar).Value = ciudad.Text;
+            procedure.Parameters.Add("@codigo_postal", SqlDbType.NVarChar).Value = codigo_postal.Text;
+            procedure.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit.Text;
+            procedure.Parameters.Add("@nombre_contacto", SqlDbType.NVarChar).Value = nombre_de_contacto.Text;
+            procedure.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+            MessageBox.Show("Proveedor modificado correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
 }
 
