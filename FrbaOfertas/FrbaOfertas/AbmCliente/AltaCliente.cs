@@ -21,6 +21,22 @@ namespace FrbaOfertas.AbmCliente
         {
             InitializeComponent();
         }
+        public AltaCliente(String usuario_id, List<string> datosOriginales)
+        {
+            InitializeComponent();
+
+            if ((datosOriginales != null)) //Llega de modificacion
+            {
+                this.autocompletarCampos(datosOriginales);
+                if (datosOriginales[0] != "")
+                {
+                    textIdUsuario.Text = datosOriginales[0];
+                    textIdUsuario.ReadOnly = true;
+                    btnNuevoUser.Hide();
+                    txtNoTieneUser.Hide();
+                }
+            }
+        }
 
         private void txtNom_Leave(object sender, EventArgs e)
         {
@@ -133,6 +149,19 @@ namespace FrbaOfertas.AbmCliente
             {
                 errorUserId.SetError(textIdUsuario, ex.Message);
             }
+        }
+
+        private void autocompletarCampos(List<string> datosOriginales)
+        {
+            txtNom.Text = datosOriginales[1];
+            txtApe.Text = datosOriginales[2];
+            txtDni.Text = datosOriginales[3];
+            txtMail.Text = datosOriginales[4];
+            txtTel.Text = datosOriginales[5];
+            txtDom.Text = datosOriginales[6];
+            txtLocalidad.Text = datosOriginales[7];
+            txtCodP.Text = datosOriginales[8];
+            fechaNac.Text = datosOriginales[9];
         }
     }
 }

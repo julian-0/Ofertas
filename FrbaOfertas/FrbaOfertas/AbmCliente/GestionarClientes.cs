@@ -52,15 +52,37 @@ namespace FrbaOfertas.AbmCliente
             buscarWasClicked = true;
             dt.Columns.Clear();
             dt.Rows.Clear();
-            dataGridView1.DataSource = dt;
+            tablaClientes.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
             SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerClientes(" + verHabilitados + "," + verInhabilitados + ")", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
+            tablaClientes.DataSource = dt;
             Conexiones.CerrarConexion();
+        }
+
+        private void tablaClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            datosFilaCliente.Clear();
+            foreach (DataGridViewRow row in tablaClientes.SelectedRows)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    datosFilaCliente.Add(row.Cells[i].Value.ToString());
+                }
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (buscarWasClicked)
+            {
+                AltaCliente ventanaModificacion = new AltaCliente(null, datosFilaCliente);
+                ventanaModificacion.Show();
+            }
+            else MessageBox.Show("Seleccione un cliente");
         }
     }
 }
