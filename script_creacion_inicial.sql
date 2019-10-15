@@ -1886,7 +1886,6 @@ as
 	end
 go
 
-<<<<<<< HEAD
 --TODO: Hacer los drop
 IF EXISTS (
 		SELECT *
@@ -1948,9 +1947,6 @@ BEGIN
 END;
 
 
-
-select * from NUNCA_INJOIN.Oferta;
-=======
 CREATE PROC NUNCA_INJOIN.actualizarRol(
 	@rol_id NUMERIC(9),
 	@nuevo_nombre VARCHAR(50),
@@ -1977,4 +1973,4 @@ BEGIN
 	VALUES(@rol_id, @funcionalidad)
 END
 GO
->>>>>>> 59d5491d586916feb76c30e90a5f7ac155b08049
+
