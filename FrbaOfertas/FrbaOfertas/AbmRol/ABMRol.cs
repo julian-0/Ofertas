@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace FrbaOfertas.AbmRol
 {
@@ -23,7 +24,8 @@ namespace FrbaOfertas.AbmRol
         {
             TabPage tp = new TabPage(row["nombre_rol"].ToString());
             DataTable funcionalidadesRol = BaseDeDatos.getFuncionalidadesRol(row["rol_id"].ToString());
-            UserControlRol myUserControl = new UserControlRol(funcionalidadesRol);
+            DataTable funcionalidadesRestantes = BaseDeDatos.getFuncionalidadesRestantes(row["rol_id"].ToString());
+            UserControlRol myUserControl = new UserControlRol(funcionalidadesRol, funcionalidadesRestantes);
             myUserControl.Dock = DockStyle.Fill;
 
             tp.Controls.Add(myUserControl);
@@ -63,11 +65,6 @@ namespace FrbaOfertas.AbmRol
             var x = e.Bounds.Left + 3;
             var y = e.Bounds.Top + (e.Bounds.Height - sizeText.Height) / 2;
 
-            //g.DrawString(text, this.tabControl1.Font, Brushes.Black, x, y);
-
-
-                
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -86,5 +83,12 @@ namespace FrbaOfertas.AbmRol
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab.Text = "juasjuas";
+            tabControl1.Refresh();
+        }
+
     }
 }

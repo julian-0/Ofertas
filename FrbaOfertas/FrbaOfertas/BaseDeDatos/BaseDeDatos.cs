@@ -85,14 +85,15 @@ namespace FrbaOfertas.Datos
             return dt;
         }
 
-        public static DataTable getFuncionalidadesPosibles()
+        public static DataTable getFuncionalidadesRestantes(String rol_id)
         {
             DataTable dt = new DataTable();
             SqlConnection conexion = Conexiones.AbrirConexion();
             SqlCommand command;
             SqlDataAdapter adapter;
 
-            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad", conexion);
+            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad WHERE funcionalidad_id not in"+
+            "(SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol where rol_id = "+rol_id+")", conexion);
             adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();
