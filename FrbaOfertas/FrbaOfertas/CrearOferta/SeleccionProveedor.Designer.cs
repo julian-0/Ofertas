@@ -97,7 +97,7 @@
             this.groupBox2.Location = new System.Drawing.Point(220, 380);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(690, 129);
-            this.groupBox2.TabIndex = 34;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
@@ -107,7 +107,7 @@
             this.razonSocial.Location = new System.Drawing.Point(22, 43);
             this.razonSocial.Name = "razonSocial";
             this.razonSocial.Size = new System.Drawing.Size(230, 25);
-            this.razonSocial.TabIndex = 31;
+            this.razonSocial.TabIndex = 0;
             // 
             // label10
             // 
@@ -126,7 +126,7 @@
             this.button2.Location = new System.Drawing.Point(534, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(126, 43);
-            this.button2.TabIndex = 53;
+            this.button2.TabIndex = 4;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -138,7 +138,7 @@
             this.rubro.Location = new System.Drawing.Point(22, 89);
             this.rubro.Name = "rubro";
             this.rubro.Size = new System.Drawing.Size(230, 27);
-            this.rubro.TabIndex = 41;
+            this.rubro.TabIndex = 2;
             // 
             // cuit
             // 
@@ -146,7 +146,7 @@
             this.cuit.Location = new System.Drawing.Point(278, 91);
             this.cuit.Name = "cuit";
             this.cuit.Size = new System.Drawing.Size(230, 25);
-            this.cuit.TabIndex = 37;
+            this.cuit.TabIndex = 3;
             // 
             // mostrarMas
             // 
@@ -154,7 +154,7 @@
             this.mostrarMas.Location = new System.Drawing.Point(534, 93);
             this.mostrarMas.Name = "mostrarMas";
             this.mostrarMas.Size = new System.Drawing.Size(126, 23);
-            this.mostrarMas.TabIndex = 51;
+            this.mostrarMas.TabIndex = 6;
             this.mostrarMas.Text = "▼  Más filtros";
             this.mostrarMas.UseVisualStyleBackColor = true;
             this.mostrarMas.Click += new System.EventHandler(this.mostrarMas_Click);
@@ -177,7 +177,7 @@
             this.textBox1.Location = new System.Drawing.Point(278, 43);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(230, 25);
-            this.textBox1.TabIndex = 50;
+            this.textBox1.TabIndex = 1;
             // 
             // label12
             // 
@@ -221,7 +221,7 @@
             this.groupBox1.Location = new System.Drawing.Point(166, 515);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(818, 121);
-            this.groupBox1.TabIndex = 53;
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
@@ -231,7 +231,7 @@
             this.localidad.Location = new System.Drawing.Point(571, 30);
             this.localidad.Name = "localidad";
             this.localidad.Size = new System.Drawing.Size(230, 25);
-            this.localidad.TabIndex = 46;
+            this.localidad.TabIndex = 2;
             // 
             // email
             // 
@@ -239,7 +239,7 @@
             this.email.Location = new System.Drawing.Point(284, 30);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(230, 25);
-            this.email.TabIndex = 34;
+            this.email.TabIndex = 1;
             // 
             // label11
             // 
@@ -259,7 +259,7 @@
             this.ciudad.Location = new System.Drawing.Point(285, 82);
             this.ciudad.Name = "ciudad";
             this.ciudad.Size = new System.Drawing.Size(230, 25);
-            this.ciudad.TabIndex = 43;
+            this.ciudad.TabIndex = 4;
             // 
             // telefono
             // 
@@ -267,7 +267,7 @@
             this.telefono.Location = new System.Drawing.Point(6, 27);
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(230, 25);
-            this.telefono.TabIndex = 36;
+            this.telefono.TabIndex = 0;
             // 
             // nombre_de_contacto
             // 
@@ -275,7 +275,7 @@
             this.nombre_de_contacto.Location = new System.Drawing.Point(6, 82);
             this.nombre_de_contacto.Name = "nombre_de_contacto";
             this.nombre_de_contacto.Size = new System.Drawing.Size(230, 25);
-            this.nombre_de_contacto.TabIndex = 39;
+            this.nombre_de_contacto.TabIndex = 3;
             // 
             // label6
             // 
@@ -331,7 +331,7 @@
             this.codigo_postal.Location = new System.Drawing.Point(572, 82);
             this.codigo_postal.Name = "codigo_postal";
             this.codigo_postal.Size = new System.Drawing.Size(230, 25);
-            this.codigo_postal.TabIndex = 48;
+            this.codigo_postal.TabIndex = 5;
             // 
             // label5
             // 
@@ -347,12 +347,15 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.LimeGreen;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(50, 452);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 43);
-            this.button1.TabIndex = 54;
+            this.button1.TabIndex = 2;
             this.button1.Text = "Seleccionar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SeleccionProveedor

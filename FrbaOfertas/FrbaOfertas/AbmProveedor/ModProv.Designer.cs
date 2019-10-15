@@ -65,7 +65,7 @@
             this.ciudad.Location = new System.Drawing.Point(20, 56);
             this.ciudad.Name = "ciudad";
             this.ciudad.Size = new System.Drawing.Size(230, 25);
-            this.ciudad.TabIndex = 8;
+            this.ciudad.TabIndex = 0;
             this.ciudad.TextChanged += new System.EventHandler(this.TextBox4_TextChanged);
             // 
             // label4
@@ -98,7 +98,7 @@
             this.localidad.Location = new System.Drawing.Point(20, 107);
             this.localidad.Name = "localidad";
             this.localidad.Size = new System.Drawing.Size(230, 25);
-            this.localidad.TabIndex = 11;
+            this.localidad.TabIndex = 1;
             // 
             // label6
             // 
@@ -118,7 +118,7 @@
             this.codigo_postal.Location = new System.Drawing.Point(20, 165);
             this.codigo_postal.Name = "codigo_postal";
             this.codigo_postal.Size = new System.Drawing.Size(230, 25);
-            this.codigo_postal.TabIndex = 13;
+            this.codigo_postal.TabIndex = 2;
             // 
             // domicilio
             // 
@@ -126,7 +126,7 @@
             this.domicilio.Location = new System.Drawing.Point(20, 219);
             this.domicilio.Name = "domicilio";
             this.domicilio.Size = new System.Drawing.Size(230, 25);
-            this.domicilio.TabIndex = 14;
+            this.domicilio.TabIndex = 3;
             // 
             // label7
             // 
@@ -147,7 +147,7 @@
             this.nombre_de_contacto.Location = new System.Drawing.Point(20, 423);
             this.nombre_de_contacto.Name = "nombre_de_contacto";
             this.nombre_de_contacto.Size = new System.Drawing.Size(230, 25);
-            this.nombre_de_contacto.TabIndex = 16;
+            this.nombre_de_contacto.TabIndex = 5;
             // 
             // label8
             // 
@@ -176,7 +176,7 @@
             this.groupBox1.Location = new System.Drawing.Point(323, 162);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(282, 260);
-            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos de domicilio";
             this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
@@ -200,7 +200,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 29);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(282, 456);
-            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ingrese los datos de Proveedor";
             // 
@@ -223,7 +223,7 @@
             this.rubro.Location = new System.Drawing.Point(20, 205);
             this.rubro.Name = "rubro";
             this.rubro.Size = new System.Drawing.Size(230, 27);
-            this.rubro.TabIndex = 18;
+            this.rubro.TabIndex = 2;
             this.rubro.SelectedIndexChanged += new System.EventHandler(this.Rubro_SelectedIndexChanged);
             // 
             // razonSocial
@@ -232,7 +232,7 @@
             this.razonSocial.Location = new System.Drawing.Point(20, 61);
             this.razonSocial.Name = "razonSocial";
             this.razonSocial.Size = new System.Drawing.Size(230, 25);
-            this.razonSocial.TabIndex = 8;
+            this.razonSocial.TabIndex = 0;
             // 
             // label10
             // 
@@ -252,7 +252,7 @@
             this.email.Location = new System.Drawing.Point(20, 133);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(230, 25);
-            this.email.TabIndex = 11;
+            this.email.TabIndex = 1;
             // 
             // label11
             // 
@@ -272,7 +272,7 @@
             this.telefono.Location = new System.Drawing.Point(21, 279);
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(230, 25);
-            this.telefono.TabIndex = 13;
+            this.telefono.TabIndex = 3;
             // 
             // label12
             // 
@@ -305,7 +305,7 @@
             this.cuit.Location = new System.Drawing.Point(20, 351);
             this.cuit.Name = "cuit";
             this.cuit.Size = new System.Drawing.Size(230, 25);
-            this.cuit.TabIndex = 14;
+            this.cuit.TabIndex = 4;
             this.cuit.TextChanged += new System.EventHandler(this.TextBox13_TextChanged);
             // 
             // signinbutton
@@ -318,7 +318,7 @@
             this.signinbutton.Location = new System.Drawing.Point(323, 432);
             this.signinbutton.Name = "signinbutton";
             this.signinbutton.Size = new System.Drawing.Size(282, 45);
-            this.signinbutton.TabIndex = 22;
+            this.signinbutton.TabIndex = 4;
             this.signinbutton.Text = "New Proveedor";
             this.signinbutton.UseVisualStyleBackColor = false;
             this.signinbutton.Click += new System.EventHandler(this.Signinbutton_Click);
@@ -329,7 +329,7 @@
             this.textBox1.Location = new System.Drawing.Point(344, 66);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(230, 25);
-            this.textBox1.TabIndex = 16;
+            this.textBox1.TabIndex = 2;
             // 
             // label2
             // 
@@ -356,13 +356,15 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Cambria", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(442, 112);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(131, 28);
-            this.button1.TabIndex = 24;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Nuevo Usuario";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ModProv

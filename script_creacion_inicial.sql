@@ -1782,15 +1782,15 @@ GO
 
 CREATE PROC NUNCA_INJOIN.CrearOferta (
 	@oferta_codigo NVARCHAR(50),
-	@usuario_id NVARCHAR(50),
+	@proveedor_id NVARCHAR(50),
 	@descripcion NVARCHAR(255),
 	@fecha_publicacion NVARCHAR(50),
 	@fecha_vencimiento NVARCHAR(50),
-	@precio_oferta NUMERIC(18, 2),
-	@precio_lista NUMERIC(18, 2),
-	@cantidad_disponible NUMERIC(18, 0),
-	@cantidad_maxima_usuario NUMERIC(18, 0),
-	@plazo_entrega_dias NUMERIC(9)
+	@precio_oferta NVARCHAR(50),
+	@precio_lista NVARCHAR(50),
+	@cantidad_disponible NVARCHAR(50),
+	@cantidad_maxima_usuario NVARCHAR(50),
+	@plazo_entrega_dias NVARCHAR(50)
 	)
 AS
 BEGIN
@@ -1808,19 +1808,15 @@ BEGIN
 		)
 	VALUES (
 		@oferta_codigo,
-		(
-			SELECT Proveedor.proveedor_id
-			FROM NUNCA_INJOIN.Proveedor
-			WHERE usuario_id = @usuario_id
-			),
+		@proveedor_id,
 		@descripcion,
 		(CONVERT(DATETIME, @fecha_publicacion, 121)),
 		(CONVERT(DATETIME, @fecha_vencimiento, 121)),
-		@precio_oferta,
-		@precio_lista,
-		@cantidad_disponible,
-		@cantidad_maxima_usuario,
-		@plazo_entrega_dias
+		CONVERT(NUMERIC(18, 2), @precio_oferta),
+		CONVERT(NUMERIC(18, 2), @precio_lista),
+		CONVERT(NUMERIC(18, 0), @cantidad_disponible),
+		CONVERT(NUMERIC(18, 0), @cantidad_maxima_usuario),
+		CONVERT(NUMERIC(9,0), @plazo_entrega_dias)
 		)
 END
 GO
