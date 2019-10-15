@@ -64,10 +64,13 @@ namespace FrbaOfertas.ComprarOferta
             procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = user;
             procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ofertaSeleccionada;
             procedure.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad.Value;
+            procedure.Parameters.Add("@fecha", SqlDbType.DateTime).Value = fechaConfig;
             
             try
             {
                 procedure.ExecuteNonQuery();
+                this.cargarOfertas();
+                MessageBox.Show("Compra realizada exitosamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

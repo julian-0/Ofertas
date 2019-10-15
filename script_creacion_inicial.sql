@@ -967,6 +967,8 @@ GROUP BY Factura_Fecha,
 	Provee_RS,
 	Provee_CUIT
 
+SET IDENTITY_INSERT NUNCA_INJOIN.FacturaProveedor OFF
+
 /* VER QUE HAY ALGUNAS OFERTAS QUE SE REPITEN, AUNQUE TENGAN DIFERENTE CODIGO DE OFERTA */
 /* CUPONES */
 USE GD2C2019
@@ -1932,6 +1934,92 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
+		WHERE object_name(object_id) = 'armarFactura'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.armarFactura
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.armarFactura	(@proveedor_id numeric(9,0),@importe numeric(26,2),
+										@fecha datetime, @factura_numero numeric(18,0) OUT)
+AS
+BEGIN
+INSERT INTO NUNCA_INJOIN.FacturaProveedor(proveedor_id,fecha,importe)
+VALUES(@proveedor_id,@fecha,@importe);
+
+SET @factura_numero = scope_identity();
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'armarCupon'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.armarCupon
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.armarCupon	(@oferta_codigo NVARCHAR(50),@usuario_id VARCHAR(50),
+									@factura_numero NUMERIC(18,0),@fecha DATETIME,@cantidad NUMERIC(18,0))
+AS
+BEGIN
+DECLARE @vencimiento datetime,@cliente_id numeric(9,0);
+SET @vencimiento = (SELECT fecha_vencimiento FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo=@oferta_codigo);
+SET @cliente_id = (SELECT cliente_id FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
+
+INSERT INTO NUNCA_INJOIN.Cupon(oferta_codigo,cliente_compra_id,factura_id,fecha_compra,cantidad_comprada,vencimiento)
+VALUES(@oferta_codigo,@cliente_id,@factura_numero,@fecha,@cantidad,@vencimiento);
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'bajarSaldoCliente'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.bajarSaldoCliente
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.bajarSaldoCliente(@usuario_id VARCHAR(50),@importe NUMERIC(26,2))
+AS
+BEGIN
+UPDATE  NUNCA_INJOIN.Cliente
+SET credito -= @importe
+WHERE usuario_id=@usuario_id;
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'bajarCantidadOferta'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.bajarCantidadOferta
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.bajarCantidadOferta(@oferta_codigo NVARCHAR(50),@cantidad NUMERIC(18,0))
+AS
+BEGIN
+UPDATE  NUNCA_INJOIN.Oferta
+SET cantidad_disponible -= @cantidad
+WHERE oferta_codigo=@oferta_codigo;
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
 		WHERE object_name(object_id) = 'comprarOferta'
 			AND schema_name(schema_id) = 'NUNCA_INJOIN'
 		)
@@ -1940,14 +2028,25 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.comprarOferta (@usuario_id varchar(50),@oferta_codigo nvarchar(50),@cantidad numeric(18,0))
+CREATE PROC NUNCA_INJOIN.comprarOferta (@usuario_id varchar(50),@oferta_codigo nvarchar(50),
+										@cantidad numeric(18,0),@fecha datetime)
 AS
 BEGIN
-	EXEC NUNCA_INJOIN.puedeComprar @usuario_id,@oferta_codigo,@cantidad
-	--falta hacer la compra
+	DECLARE @factura_numero NUMERIC(18,0),@importe NUMERIC(26,2),@proveedor_id NUMERIC(9,0);
+	SET @importe = @cantidad * (SELECT precio_oferta FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo);
+	SET @proveedor_id = (SELECT proveedor_id FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo)
+
+	EXEC NUNCA_INJOIN.puedeComprar @usuario_id,@oferta_codigo,@cantidad;
+	
+	EXEC NUNCA_INJOIN.armarFactura @proveedor_id,@importe,@fecha,@factura_numero;
+
+	EXEC NUNCA_INJOIN.armarCupon @oferta_codigo,@usuario_id,@factura_numero,@fecha,@cantidad;
+
+	EXEC NUNCA_INJOIN.bajarSaldoCliente @usuario_id,@importe;
+
+	EXEC NUNCA_INJOIN.bajarCantidadOferta @oferta_codigo,@cantidad;
 END
 GO
-
 
 CREATE PROC NUNCA_INJOIN.actualizarRol(
 	@rol_id NUMERIC(9),
@@ -1975,4 +2074,3 @@ BEGIN
 	VALUES(@rol_id, @funcionalidad)
 END
 GO
-
