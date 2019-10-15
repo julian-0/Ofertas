@@ -1888,7 +1888,29 @@ as
 	end
 go
 
---TODO: Hacer los drop
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'cantidadCompradaPorUsuario'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.cantidadCompradaPorUsuario
+END
+GO
+
+--no se si tendria que hacerlo sobre NUNCA_INJOIN.CuponesReales
+CREATE FUNCTION NUNCA_INJOIN.cantidadCompradaPorUsuario(@cliente_id numeric(9,0),@oferta_codigo nvarchar(50),@fecha datetime)
+RETURNS NUMERIC(18,0)
+AS
+BEGIN
+return (SELECT sum(cantidad_comprada) 
+		FROM NUNCA_INJOIN.CuponesReales(@fecha) 
+		WHERE cliente_compra_id = @cliente_id and oferta_codigo = @oferta_codigo 
+		GROUP BY cliente_compra_id,oferta_codigo);
+END
+GO
+
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -1900,18 +1922,20 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE NUNCA_INJOIN.puedeComprar(@usuario_id varchar(50),@oferta_codigo nvarchar(50),@cantidad numeric(18,0))
+CREATE PROCEDURE NUNCA_INJOIN.puedeComprar	(@cliente_id NUMERIC(9,0),@oferta_codigo nvarchar(50),
+											@cantidad numeric(18,0),@fecha datetime)
 AS
 BEGIN
-DECLARE @cantMaxima numeric(18,0),@cantDisponible numeric(18,0),
+DECLARE @cantMaxima numeric(18,0),@cantDisponible numeric(18,0),@cantYaComprada numeric(18,0),
 		@credito numeric(18,2),@monto numeric(18,2),@mensaje varchar(100);
 
 SET @cantMaxima =		(SELECT cantidad_maxima_usuario FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
 SET @cantDisponible =	(SELECT cantidad_disponible FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
-SET @credito =			(SELECT credito FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
+SET @cantYaComprada =	NUNCA_INJOIN.cantidadCompradaPorUsuario(@cliente_id,@oferta_codigo,@fecha);
+SET @credito =			(SELECT credito FROM NUNCA_INJOIN.Cliente WHERE cliente_id=@cliente_id);
 SET @monto = @cantidad *(SELECT precio_oferta FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
 
-IF(@cantidad > @cantMaxima)
+IF(@cantidad + @cantYaComprada > @cantMaxima)
 	BEGIN
 	SET @mensaje = 'Cantidad maxima por usuario: '+convert(nvarchar(18),@cantMaxima);
 	THROW 51234,@mensaje,1
@@ -1964,13 +1988,12 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.armarCupon	(@oferta_codigo NVARCHAR(50),@usuario_id VARCHAR(50),
+CREATE PROC NUNCA_INJOIN.armarCupon	(@oferta_codigo NVARCHAR(50),@cliente_id numeric(9,0),
 									@factura_numero NUMERIC(18,0),@fecha DATETIME,@cantidad NUMERIC(18,0))
 AS
 BEGIN
-DECLARE @vencimiento datetime,@cliente_id numeric(9,0);
+DECLARE @vencimiento datetime;
 SET @vencimiento = (SELECT fecha_vencimiento FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo=@oferta_codigo);
-SET @cliente_id = (SELECT cliente_id FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
 
 INSERT INTO NUNCA_INJOIN.Cupon(oferta_codigo,cliente_compra_id,factura_id,fecha_compra,cantidad_comprada,vencimiento)
 VALUES(@oferta_codigo,@cliente_id,@factura_numero,@fecha,@cantidad,@vencimiento);
@@ -2032,15 +2055,16 @@ CREATE PROC NUNCA_INJOIN.comprarOferta (@usuario_id varchar(50),@oferta_codigo n
 										@cantidad numeric(18,0),@fecha datetime)
 AS
 BEGIN
-	DECLARE @factura_numero NUMERIC(18,0),@importe NUMERIC(26,2),@proveedor_id NUMERIC(9,0);
+	DECLARE @factura_numero NUMERIC(18,0),@importe NUMERIC(26,2),@proveedor_id NUMERIC(9,0),@cliente_id NUMERIC(9,0);
 	SET @importe = @cantidad * (SELECT precio_oferta FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo);
 	SET @proveedor_id = (SELECT proveedor_id FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo)
+	SET @cliente_id = (SELECT cliente_id FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
 
-	EXEC NUNCA_INJOIN.puedeComprar @usuario_id,@oferta_codigo,@cantidad;
+	EXEC NUNCA_INJOIN.puedeComprar @cliente_id,@oferta_codigo,@cantidad,@fecha;
 	
 	EXEC NUNCA_INJOIN.armarFactura @proveedor_id,@importe,@fecha,@factura_numero;
 
-	EXEC NUNCA_INJOIN.armarCupon @oferta_codigo,@usuario_id,@factura_numero,@fecha,@cantidad;
+	EXEC NUNCA_INJOIN.armarCupon @oferta_codigo,@cliente_id,@factura_numero,@fecha,@cantidad;
 
 	EXEC NUNCA_INJOIN.bajarSaldoCliente @usuario_id,@importe;
 
