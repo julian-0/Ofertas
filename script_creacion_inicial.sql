@@ -1926,7 +1926,8 @@ ELSE IF(@monto > @credito)
 	SET @mensaje = 'Su credito es insuficiente: '+convert(nvarchar(18),@credito);
 	THROW 51234,@mensaje,1
 	END;
-END;
+END
+GO
 
 IF EXISTS (
 		SELECT *
@@ -1944,7 +1945,8 @@ AS
 BEGIN
 	EXEC NUNCA_INJOIN.puedeComprar @usuario_id,@oferta_codigo,@cantidad
 	--falta hacer la compra
-END;
+END
+GO
 
 
 CREATE PROC NUNCA_INJOIN.actualizarRol(
