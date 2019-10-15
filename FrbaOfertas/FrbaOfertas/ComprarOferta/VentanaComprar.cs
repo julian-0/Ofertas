@@ -54,7 +54,26 @@ namespace FrbaOfertas.ComprarOferta
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(ofertaSeleccionada + " " + user);
+            SqlCommand procedure = new SqlCommand();
+            procedure.Connection = Conexiones.AbrirConexion();
+            procedure.Parameters.Clear();
+
+            procedure.CommandText = "NUNCA_INJOIN.comprarOferta";
+            procedure.CommandType = CommandType.StoredProcedure;
+           
+            procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = user;
+            procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ofertaSeleccionada;
+            procedure.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad.Value;
+            
+            try
+            {
+                procedure.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Conexiones.CerrarConexion();
         }
     }
 }

@@ -1865,3 +1865,67 @@ as
 		where cliente_id = @cliente_id
 	end
 go
+
+--TODO: Hacer los drop
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'puedeComprar'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.puedeComprar
+END
+GO
+
+CREATE PROCEDURE NUNCA_INJOIN.puedeComprar(@usuario_id varchar(50),@oferta_codigo nvarchar(50),@cantidad numeric(18,0))
+AS
+BEGIN
+DECLARE @cantMaxima numeric(18,0),@cantDisponible numeric(18,0),
+		@credito numeric(18,2),@monto numeric(18,2),@mensaje varchar(100);
+
+SET @cantMaxima =		(SELECT cantidad_maxima_usuario FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
+SET @cantDisponible =	(SELECT cantidad_disponible FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
+SET @credito =			(SELECT credito FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
+SET @monto = @cantidad *(SELECT precio_oferta FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
+
+IF(@cantidad > @cantMaxima)
+	BEGIN
+	SET @mensaje = 'Cantidad maxima por usuario: '+convert(nvarchar(18),@cantMaxima);
+	THROW 51234,@mensaje,1
+	END;
+
+ELSE IF(@cantidad > @cantDisponible)
+	BEGIN
+	SET @mensaje = 'Cantidad maxima disponible: '+convert(nvarchar(18),@cantDisponible);
+	THROW 51234,@mensaje,1
+	END;
+
+ELSE IF(@monto > @credito)
+	BEGIN
+	SET @mensaje = 'Su credito es insuficiente: '+convert(nvarchar(18),@credito);
+	THROW 51234,@mensaje,1
+	END;
+END;
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'comprarOferta'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.comprarOferta
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.comprarOferta (@usuario_id varchar(50),@oferta_codigo nvarchar(50),@cantidad numeric(18,0))
+AS
+BEGIN
+	EXEC NUNCA_INJOIN.puedeComprar @usuario_id,@oferta_codigo,@cantidad
+	--falta hacer la compra
+END;
+
+
+
+select * from NUNCA_INJOIN.Oferta;
