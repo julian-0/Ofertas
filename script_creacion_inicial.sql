@@ -1188,14 +1188,14 @@ RETURN (
 							END
 					END
 				)
-			AND ISNULL(nombre_contacto, 'NO NAME') LIKE '%' + @nombreDeContacto + '%'
-			AND ISNULL(usuario_id, 'NO USER') LIKE '%' + @usuario + '%'
-			AND ISNULL(mail, 'NO MAIL') LIKE '%' + @email + '%'
-			AND ISNULL(localidad, 'SIN LOCALIDAD') LIKE '%' + @localidad + '%'
-			AND razon_social LIKE '%' + @razonSocial + '%'
-			AND r.nombre_rubro = @rubro
-			AND ciudad LIKE '%' + @ciudad + '%'
-			AND ISNULL(codigo_postal, 'NO CP') LIKE '%' + @codigoPostal + '%'
+			AND ISNULL(nombre_contacto, 'NO NAME') LIKE CONCAT('%',@nombreDeContacto,'%')
+			AND ISNULL(usuario_id, 'NO USER') LIKE CONCAT('%',@usuario,'%')
+			AND ISNULL(mail, 'NO MAIL') LIKE CONCAT('%',@email,'%')
+			AND ISNULL(localidad, 'SIN LOCALIDAD') LIKE CONCAT('%',@localidad,'%')
+			AND razon_social LIKE CONCAT('%',@razonSocial,'%')
+			AND r.nombre_rubro LIKE CONCAT('%',@rubro,'%')
+			AND ciudad LIKE CONCAT('%',@ciudad,'%')
+			AND ISNULL(codigo_postal, 'NO CP') LIKE CONCAT('%',@codigoPostal,'%')
 		)
 GO
 

@@ -68,15 +68,16 @@ namespace FrbaOfertas.AbmProveedor
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
+
             SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados + 
-                ", '" + razonSocial.Text + 
-                "', '" + usuario.Text +
-                "', '" + rubro.Text +
-                "', '" + email.Text +
-                "', '" + localidad.Text +
-                "', '" + nombre_de_contacto.Text +
-                "', '" + ciudad.Text +
-                "', '" + codigo_postal.Text +
+                ", '" + razonSocial.Text.ToString() +
+                "', '" + usuario.Text.ToString() +
+                "', '" + rubro.Text.ToString() +
+                "', '" + email.Text.ToString() +
+                "', '" + localidad.Text.ToString() +
+                "', '" + nombre_de_contacto.Text.ToString() +
+                "', '" + ciudad.Text.ToString() +
+                "', '" + codigo_postal.Text.ToString() +
                 "' )", conexion);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
