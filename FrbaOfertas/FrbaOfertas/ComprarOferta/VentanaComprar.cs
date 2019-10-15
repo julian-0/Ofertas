@@ -29,16 +29,6 @@ namespace FrbaOfertas.ComprarOferta
         {
             btnComprar.Enabled = false;
             cargarOfertas();
-
-
-            for (int i = 0; i < tablaOfertas.Rows.Count;i++)
-            {
-                tablaOfertas.Rows[i].Selected = false;
-                for (int j = 0; j < tablaOfertas.ColumnCount; j++)
-                {
-                    tablaOfertas.Columns[j].Selected = false;
-                }
-            }
         }
 
         private void cargarOfertas()
@@ -87,7 +77,6 @@ namespace FrbaOfertas.ComprarOferta
                 MessageBox.Show(ex.Message, "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Conexiones.CerrarConexion();
-            tablaOfertas.ClearSelection();
         }
     }
 }
