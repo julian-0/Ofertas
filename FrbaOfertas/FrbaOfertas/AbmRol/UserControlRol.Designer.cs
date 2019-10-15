@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridActuales = new System.Windows.Forms.DataGridView();
-            this.buttonInhabilitar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.agregar = new System.Windows.Forms.Button();
+            this.quitar = new System.Windows.Forms.Button();
             this.dataGridPosibles = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.quitar = new System.Windows.Forms.Button();
-            this.agregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridActuales)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPosibles)).BeginInit();
@@ -54,14 +52,14 @@
             this.dataGridActuales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridActuales.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridActuales.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridActuales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridActuales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridActuales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridActuales.Location = new System.Drawing.Point(433, 65);
             this.dataGridActuales.MultiSelect = false;
@@ -69,40 +67,21 @@
             this.dataGridActuales.ReadOnly = true;
             this.dataGridActuales.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridActuales.RowTemplate.Height = 24;
-            this.dataGridActuales.Size = new System.Drawing.Size(284, 321);
+            this.dataGridActuales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridActuales.Size = new System.Drawing.Size(284, 375);
             this.dataGridActuales.TabIndex = 1;
             this.dataGridActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridActuales_CellClick);
-            // 
-            // buttonInhabilitar
-            // 
-            this.buttonInhabilitar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonInhabilitar.Location = new System.Drawing.Point(396, 425);
-            this.buttonInhabilitar.Name = "buttonInhabilitar";
-            this.buttonInhabilitar.Size = new System.Drawing.Size(188, 42);
-            this.buttonInhabilitar.TabIndex = 2;
-            this.buttonInhabilitar.Text = "Habilitar/Inhabilitar Rol";
-            this.buttonInhabilitar.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(162, 425);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 42);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cambiar nombre del Rol";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(175)))), ((int)(((byte)(3)))));
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(288, 18);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(285, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(208, 31);
+            this.label3.Size = new System.Drawing.Size(242, 34);
             this.label3.TabIndex = 5;
             this.label3.Text = "Funcionalidades";
             // 
@@ -111,10 +90,8 @@
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.agregar);
             this.groupBox1.Controls.Add(this.quitar);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dataGridActuales);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.buttonInhabilitar);
             this.groupBox1.Controls.Add(this.dataGridPosibles);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -124,6 +101,30 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // agregar
+            // 
+            this.agregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.agregar.Font = new System.Drawing.Font("Wingdings 3", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.agregar.Location = new System.Drawing.Point(348, 199);
+            this.agregar.Name = "agregar";
+            this.agregar.Size = new System.Drawing.Size(56, 52);
+            this.agregar.TabIndex = 10;
+            this.agregar.Text = "â";
+            this.agregar.UseVisualStyleBackColor = true;
+            this.agregar.Click += new System.EventHandler(this.agregar_Click);
+            // 
+            // quitar
+            // 
+            this.quitar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.quitar.Font = new System.Drawing.Font("Wingdings 3", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.quitar.Location = new System.Drawing.Point(348, 271);
+            this.quitar.Name = "quitar";
+            this.quitar.Size = new System.Drawing.Size(56, 52);
+            this.quitar.TabIndex = 8;
+            this.quitar.Text = "á";
+            this.quitar.UseVisualStyleBackColor = true;
+            this.quitar.Click += new System.EventHandler(this.quitar_Click);
             // 
             // dataGridPosibles
             // 
@@ -135,14 +136,14 @@
             this.dataGridPosibles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridPosibles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridPosibles.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridPosibles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPosibles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridPosibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPosibles.Location = new System.Drawing.Point(36, 65);
             this.dataGridPosibles.MultiSelect = false;
@@ -150,7 +151,8 @@
             this.dataGridPosibles.ReadOnly = true;
             this.dataGridPosibles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridPosibles.RowTemplate.Height = 24;
-            this.dataGridPosibles.Size = new System.Drawing.Size(283, 321);
+            this.dataGridPosibles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridPosibles.Size = new System.Drawing.Size(283, 375);
             this.dataGridPosibles.TabIndex = 0;
             this.dataGridPosibles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridPosibles_CellClick);
             // 
@@ -167,28 +169,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(855, 600);
             this.textBox1.TabIndex = 7;
-            // 
-            // quitar
-            // 
-            this.quitar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.quitar.Font = new System.Drawing.Font("Wingdings 3", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.quitar.Location = new System.Drawing.Point(339, 281);
-            this.quitar.Name = "quitar";
-            this.quitar.Size = new System.Drawing.Size(56, 52);
-            this.quitar.TabIndex = 8;
-            this.quitar.Text = "á";
-            this.quitar.UseVisualStyleBackColor = true;
-            // 
-            // agregar
-            // 
-            this.agregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.agregar.Font = new System.Drawing.Font("Wingdings 3", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.agregar.Location = new System.Drawing.Point(339, 209);
-            this.agregar.Name = "agregar";
-            this.agregar.Size = new System.Drawing.Size(56, 52);
-            this.agregar.TabIndex = 10;
-            this.agregar.Text = "â";
-            this.agregar.UseVisualStyleBackColor = true;
             // 
             // UserControlRol
             // 
@@ -209,8 +189,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridActuales;
-        private System.Windows.Forms.Button buttonInhabilitar;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridPosibles;

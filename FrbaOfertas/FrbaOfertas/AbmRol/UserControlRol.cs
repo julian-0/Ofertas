@@ -13,11 +13,20 @@ namespace FrbaOfertas.AbmRol
 {
     public partial class UserControlRol : UserControl
     {
-        public UserControlRol(DataTable funcionalidadesRol)
+        public String funcionalidadAAgregar;
+        public String funcionalidadAQuitar;
+        public DataTable funcRol;
+        public DataTable funcPosibles;
+
+        public UserControlRol(DataTable funcionalidadesRol, DataTable funcionalidadesRestantes)
         {
             InitializeComponent();
             this.updateHeadersStyle();
-            this.cargarDataGridView(funcionalidadesRol);
+            funcRol = funcionalidadesRol;
+            funcPosibles = funcionalidadesRestantes;
+            this.cargarDataGridView();
+            dataGridActuales.ClearSelection();
+            dataGridPosibles.ClearSelection();
         }
 
         private void updateHeadersStyle()
@@ -29,10 +38,10 @@ namespace FrbaOfertas.AbmRol
 
         }
 
-        public void cargarDataGridView(DataTable funcionalidadesRol)
+        public void cargarDataGridView()
         {
-            dataGridActuales.DataSource = funcionalidadesRol;
-            dataGridPosibles.DataSource = BaseDeDatos.getFuncionalidadesPosibles();
+            dataGridActuales.DataSource = funcRol;
+            dataGridPosibles.DataSource = funcPosibles;
             dataGridPosibles.Columns[0].HeaderText = "Posibles";
             dataGridActuales.Columns[0].HeaderText = "Actuales";
         }
@@ -50,6 +59,49 @@ namespace FrbaOfertas.AbmRol
         private void dataGridActuales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridPosibles.ClearSelection();
+        }
+
+        private void agregar_Click(object sender, EventArgs e)
+        {
+            if (dataGridPosibles.SelectedRows.Count > 0)
+            {
+                funcionalidadAAgregar = dataGridPosibles.SelectedRows[0].Cells["funcionalidad_id"].Value.ToString();
+                DataRow nuevaFila = funcRol.NewRow();
+                nuevaFila["funcionalidad_id"] = funcionalidadAAgregar;
+                funcRol.Rows.Add(nuevaFila);
+                foreach (DataRow row in funcPosibles.Rows)
+                {
+                    if (row.RowState != DataRowState.Deleted && row[0].ToString() == funcionalidadAAgregar)
+                    {
+                        row.Delete();
+                        break; //Sin este break no sale _nunca_ del forEach();
+                    }
+                } 
+            }
+            
+        }
+
+        private void quitar_Click(object sender, EventArgs e)
+        {
+            if (dataGridActuales.SelectedRows.Count > 0)
+            {
+                funcionalidadAQuitar = dataGridActuales.SelectedRows[0].Cells["funcionalidad_id"].Value.ToString();
+                DataRow nuevaFila = funcPosibles.NewRow();
+                nuevaFila["funcionalidad_id"] = funcionalidadAQuitar;
+                funcPosibles.Rows.Add(nuevaFila);
+                foreach (DataRow row in funcRol.Rows)
+                {
+                    if (row.RowState != DataRowState.Deleted && row[0].ToString() == funcionalidadAQuitar)
+                    {
+                        row.Delete();
+                        break;
+                    }
+                } 
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

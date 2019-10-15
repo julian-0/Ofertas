@@ -238,6 +238,26 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.procedures
+		WHERE name = 'AgregarFuncionalidad'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.AgregarFuncionalidad
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
+		WHERE name = 'ActualizarRol'
+		)
+BEGIN
+	DROP PROCEDURE NUNCA_INJOIN.ActualizarRol
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.procedures
 		WHERE name = 'CrearOferta'
 		)
 BEGIN
@@ -1866,6 +1886,7 @@ as
 	end
 go
 
+<<<<<<< HEAD
 --TODO: Hacer los drop
 IF EXISTS (
 		SELECT *
@@ -1929,3 +1950,31 @@ END;
 
 
 select * from NUNCA_INJOIN.Oferta;
+=======
+CREATE PROC NUNCA_INJOIN.actualizarRol(
+	@rol_id NUMERIC(9),
+	@nuevo_nombre VARCHAR(50),
+	@baja_logica CHAR(1)
+	)
+AS
+BEGIN
+	DELETE
+	FROM NUNCA_INJOIN.FuncionalidadPorRol
+	WHERE rol_id = @rol_id
+
+	UPDATE NUNCA_INJOIN.Rol
+	SET nombre_rol = @nuevo_nombre,
+	baja_logica = @baja_logica
+	where rol_id = @rol_id
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.AgregarFuncionalidad(
+@rol_id NUMERIC(9), @funcionalidad VARCHAR(50))
+AS
+BEGIN
+	INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol(rol_id, funcionalidad_id)
+	VALUES(@rol_id, @funcionalidad)
+END
+GO
+>>>>>>> 59d5491d586916feb76c30e90a5f7ac155b08049
