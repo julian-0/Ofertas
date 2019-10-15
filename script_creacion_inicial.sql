@@ -1138,7 +1138,7 @@ AS
 RETURN (
 		SELECT *
 		FROM NUNCA_INJOIN.Cupon
-		WHERE fecha_compra < @fechaActual
+		WHERE fecha_compra <= @fechaActual
 		)
 GO
 
@@ -1935,7 +1935,7 @@ SET @cantYaComprada =	NUNCA_INJOIN.cantidadCompradaPorUsuario(@cliente_id,@ofert
 SET @credito =			(SELECT credito FROM NUNCA_INJOIN.Cliente WHERE cliente_id=@cliente_id);
 SET @monto = @cantidad *(SELECT precio_oferta FROM NUNCA_INJOIN.Oferta WHERE oferta_codigo = @oferta_codigo);
 
-IF(@cantidad + @cantYaComprada > @cantMaxima)
+IF(@cantidad + @cantYaComprada > @cantMaxima or @cantidad > @cantMaxima)
 	BEGIN
 	SET @mensaje = 'Cantidad maxima por usuario: '+convert(nvarchar(18),@cantMaxima);
 	THROW 51234,@mensaje,1
