@@ -15,8 +15,9 @@ namespace FrbaOfertas.CrearOferta
 {
     public partial class CreacionOferta : Form
     {
-        public List<string> datosProveedorSeleccionado = new List<string>();
+        public Dictionary<string, string> datosProveedorSeleccionado = new Dictionary<string, string>();
         public DateTime fechaConfig = DateTime.Parse(System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"]);
+        private bool haySeleccionado = false;
 
         public CreacionOferta()
         {
@@ -26,6 +27,7 @@ namespace FrbaOfertas.CrearOferta
                 buttonSeleccionarProveedor.Hide();
                 textBoxProveedor.ReadOnly = true;
                 textBoxProveedor.Text = InfoUsuario.nombreUsuario;
+                datosProveedorSeleccionado = InfoUsuario.datosCuenta;
             }
             fechaDesde.MinDate = fechaConfig;
             fechaHasta.MinDate = fechaConfig;
@@ -43,9 +45,9 @@ namespace FrbaOfertas.CrearOferta
             {
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {
-                    this.datosProveedorSeleccionado = ventanaCreacion.datosFilaProveedor;
-                    textBoxProveedor.Text = datosProveedorSeleccionado[5].ToString();
-                    textBoxProveedor.ReadOnly = true;
+                    this.datosProveedorSeleccionado = ventanaCreacion.datosProveedor;
+                    textBoxProveedor.Text = datosProveedorSeleccionado["usuario_id"].ToString();
+                    haySeleccionado = true;
                 }
             }
         }
@@ -53,7 +55,7 @@ namespace FrbaOfertas.CrearOferta
 
         private bool CamposCompletos()
         {
-            return textBoxProveedor.Text != "" && textBoxDescripcion.Text != "" && fechaDesde.Text != ""
+            return haySeleccionado && textBoxDescripcion.Text != "" && fechaDesde.Text != ""
                 && fechaHasta.Text != "";
         }
 
@@ -79,7 +81,7 @@ namespace FrbaOfertas.CrearOferta
                     SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].CrearOferta", conex);
                     procedure.CommandType = CommandType.StoredProcedure;
                     procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ts;
-                    procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = textBoxProveedor.Text;
+                    procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
                     procedure.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = textBoxDescripcion.Text;
                     procedure.Parameters.Add("@fecha_publicacion", SqlDbType.NVarChar).Value = fechaDesde.Text.ToString();
                     procedure.Parameters.Add("@fecha_vencimiento", SqlDbType.NVarChar).Value = fechaHasta.Text.ToString();
@@ -104,20 +106,8 @@ namespace FrbaOfertas.CrearOferta
 
         private void buttonInformacionProveedor_Click(object sender, EventArgs e)
         {
-            
-            if (InfoUsuario.rolUsuario > 2)
-            {
-                var lines = InfoUsuario.datosCuenta.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
-                MessageBox.Show(string.Join(Environment.NewLine, lines));
-            }
-            else
-            {
-                String datos = "";
-                foreach (String dato in datosProveedorSeleccionado)
-                    datos += dato;
-                MessageBox.Show(datos);
-            }
-            
+            var lines = datosProveedorSeleccionado.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+            MessageBox.Show(string.Join(Environment.NewLine, lines));
         }
 
         private void fechaDesde_ValueChanged(object sender, EventArgs e)
@@ -128,6 +118,16 @@ namespace FrbaOfertas.CrearOferta
         private void fechaHasta_ValueChanged(object sender, EventArgs e)
         {
             fechaDesde.MaxDate = fechaHasta.Value;
+        }
+
+        private void numericStock_ValueChanged(object sender, EventArgs e)
+        {
+            numericMaxUsuario.Maximum = numericStock.Value;
+        }
+
+        private void textBoxProveedor_TextChanged(object sender, EventArgs e)
+        {
+            haySeleccionado = true;
         }
     }
 }

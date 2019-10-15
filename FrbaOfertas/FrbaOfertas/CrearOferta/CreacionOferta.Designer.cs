@@ -87,17 +87,31 @@
             // 
             // numericPrecioOferta
             // 
+            this.numericPrecioOferta.DecimalPlaces = 2;
             this.numericPrecioOferta.Location = new System.Drawing.Point(305, 367);
+            this.numericPrecioOferta.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
             this.numericPrecioOferta.Name = "numericPrecioOferta";
             this.numericPrecioOferta.Size = new System.Drawing.Size(139, 30);
             this.numericPrecioOferta.TabIndex = 21;
+            this.numericPrecioOferta.ThousandsSeparator = true;
             // 
             // numericPrecioOriginal
             // 
+            this.numericPrecioOriginal.DecimalPlaces = 2;
             this.numericPrecioOriginal.Location = new System.Drawing.Point(53, 366);
+            this.numericPrecioOriginal.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
             this.numericPrecioOriginal.Name = "numericPrecioOriginal";
             this.numericPrecioOriginal.Size = new System.Drawing.Size(139, 30);
             this.numericPrecioOriginal.TabIndex = 20;
+            this.numericPrecioOriginal.ThousandsSeparator = true;
             // 
             // label3
             // 
@@ -173,6 +187,7 @@
             this.textBoxProveedor.ReadOnly = true;
             this.textBoxProveedor.Size = new System.Drawing.Size(280, 30);
             this.textBoxProveedor.TabIndex = 0;
+            this.textBoxProveedor.TextChanged += new System.EventHandler(this.textBoxProveedor_TextChanged);
             // 
             // buttonInformacionProveedor
             // 
@@ -209,16 +224,29 @@
             // numericMaxUsuario
             // 
             this.numericMaxUsuario.Location = new System.Drawing.Point(41, 144);
+            this.numericMaxUsuario.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
             this.numericMaxUsuario.Name = "numericMaxUsuario";
             this.numericMaxUsuario.Size = new System.Drawing.Size(210, 30);
             this.numericMaxUsuario.TabIndex = 24;
+            this.numericMaxUsuario.ThousandsSeparator = true;
             // 
             // numericStock
             // 
             this.numericStock.Location = new System.Drawing.Point(41, 72);
+            this.numericStock.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
             this.numericStock.Name = "numericStock";
             this.numericStock.Size = new System.Drawing.Size(210, 30);
             this.numericStock.TabIndex = 22;
+            this.numericStock.ThousandsSeparator = true;
+            this.numericStock.ValueChanged += new System.EventHandler(this.numericStock_ValueChanged);
             // 
             // label5
             // 
@@ -264,6 +292,11 @@
             // numericPlazo
             // 
             this.numericPlazo.Location = new System.Drawing.Point(38, 151);
+            this.numericPlazo.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.numericPlazo.Name = "numericPlazo";
             this.numericPlazo.Size = new System.Drawing.Size(151, 30);
             this.numericPlazo.TabIndex = 25;
