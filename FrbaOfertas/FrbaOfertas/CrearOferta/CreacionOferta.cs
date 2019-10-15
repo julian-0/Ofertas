@@ -63,7 +63,7 @@ namespace FrbaOfertas.CrearOferta
         {
             DateTime desde = this.fechaDesde.Value.Date;
             DateTime hasta = this.fechaHasta.Value.Date;
-            if (desde.CompareTo(fechaConfig) < 0 || hasta.CompareTo(fechaConfig) < 0)
+            if (desde.CompareTo(fechaConfig) <= 0 || hasta.CompareTo(fechaConfig) <= 0)
             {
                 throw new ArgumentException("La publicación no puede tener una fecha anterior a la fecha del sistema");
             }
@@ -81,15 +81,15 @@ namespace FrbaOfertas.CrearOferta
                     SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].CrearOferta", conex);
                     procedure.CommandType = CommandType.StoredProcedure;
                     procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ts;
-                    procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
+                    procedure.Parameters.Add("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
                     procedure.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = textBoxDescripcion.Text;
                     procedure.Parameters.Add("@fecha_publicacion", SqlDbType.NVarChar).Value = fechaDesde.Text.ToString();
                     procedure.Parameters.Add("@fecha_vencimiento", SqlDbType.NVarChar).Value = fechaHasta.Text.ToString();
-                    procedure.Parameters.Add("@precio_oferta", SqlDbType.Int).Value = Convert.ToInt32(Math.Round(numericPrecioOferta.Value, 0));
-                    procedure.Parameters.Add("@precio_lista", SqlDbType.Int).Value = Convert.ToInt32(Math.Round(numericPrecioOriginal.Value, 0));
-                    procedure.Parameters.Add("@cantidad_disponible", SqlDbType.Int).Value = Convert.ToInt32(Math.Round(numericStock.Value, 0));
-                    procedure.Parameters.Add("@cantidad_maxima_usuario", SqlDbType.Int).Value = Convert.ToInt32(Math.Round(numericMaxUsuario.Value, 0));
-                    procedure.Parameters.Add("@plazo_entrega_dias", SqlDbType.Int).Value = Convert.ToInt32(Math.Round(numericPlazo.Value, 0));
+                    procedure.Parameters.Add("@precio_oferta", SqlDbType.NVarChar).Value = numericPrecioOferta.Value.ToString();
+                    procedure.Parameters.Add("@precio_lista", SqlDbType.NVarChar).Value = numericPrecioOriginal.Value.ToString();
+                    procedure.Parameters.Add("@cantidad_disponible", SqlDbType.NVarChar).Value = numericStock.Value.ToString();
+                    procedure.Parameters.Add("@cantidad_maxima_usuario", SqlDbType.NVarChar).Value = numericMaxUsuario.Value.ToString();
+                    procedure.Parameters.Add("@plazo_entrega_dias", SqlDbType.NVarChar).Value = numericPlazo.Value.ToString();
                     procedure.ExecuteNonQuery();
                     Conexiones.CerrarConexion();
                     MessageBox.Show("Oferta creada correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);

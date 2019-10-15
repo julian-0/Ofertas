@@ -44,7 +44,7 @@
             this.signinbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signinbutton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.signinbutton.Location = new System.Drawing.Point(16, 204);
-            this.signinbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.signinbutton.Margin = new System.Windows.Forms.Padding(4);
             this.signinbutton.Name = "signinbutton";
             this.signinbutton.Size = new System.Drawing.Size(317, 55);
             this.signinbutton.TabIndex = 14;
@@ -55,7 +55,7 @@
             // password
             // 
             this.password.Location = new System.Drawing.Point(16, 150);
-            this.password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.password.Margin = new System.Windows.Forms.Padding(4);
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(316, 22);
             this.password.TabIndex = 13;
@@ -64,7 +64,7 @@
             // usuarioTxt
             // 
             this.usuarioTxt.Location = new System.Drawing.Point(16, 65);
-            this.usuarioTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usuarioTxt.Margin = new System.Windows.Forms.Padding(4);
             this.usuarioTxt.Name = "usuarioTxt";
             this.usuarioTxt.Size = new System.Drawing.Size(316, 22);
             this.usuarioTxt.TabIndex = 12;
@@ -94,7 +94,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
             this.button1.Cursor = System.Windows.Forms.Cursors.Default;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -120,7 +120,7 @@
             this.Controls.Add(this.usuarioTxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -90,8 +90,8 @@
             this.numericPrecioOferta.DecimalPlaces = 2;
             this.numericPrecioOferta.Location = new System.Drawing.Point(305, 367);
             this.numericPrecioOferta.Maximum = new decimal(new int[] {
-            -1486618625,
-            232830643,
+            1874919423,
+            2328306,
             0,
             0});
             this.numericPrecioOferta.Name = "numericPrecioOferta";
@@ -104,8 +104,8 @@
             this.numericPrecioOriginal.DecimalPlaces = 2;
             this.numericPrecioOriginal.Location = new System.Drawing.Point(53, 366);
             this.numericPrecioOriginal.Maximum = new decimal(new int[] {
-            -1486618625,
-            232830643,
+            1874919423,
+            2328306,
             0,
             0});
             this.numericPrecioOriginal.Name = "numericPrecioOriginal";
