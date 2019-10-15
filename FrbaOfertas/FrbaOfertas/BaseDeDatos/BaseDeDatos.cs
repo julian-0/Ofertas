@@ -173,6 +173,7 @@ namespace FrbaOfertas.Datos
         {
             nombreUsuario=null;
             rolUsuario = 3;
+            datosCuenta.Clear();
         }
     }
 }

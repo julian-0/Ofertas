@@ -16,20 +16,13 @@ namespace FrbaOfertas.CrearOferta
     {
 
         DataTable dt = new DataTable();
-        public List<string> datosFilaProveedor = new List<string>();
         private bool buscarWasClicked = false;
+        public Dictionary<string, string> datosProveedor = new Dictionary<string, string>();
 
         public SeleccionProveedor()
         {
             InitializeComponent();
             this.updateHeadersStyle();
-        }
-
-        public string proveedorSeleccionado
-        {
-            get {
-                return datosFilaProveedor[2].ToString();
-                }
         }
 
         //Hay un bug que resetea la fuente de ColumnHeadersDefaultCellStyle con cada build
@@ -77,13 +70,12 @@ namespace FrbaOfertas.CrearOferta
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            datosFilaProveedor.Clear();
+            datosProveedor.Clear();
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    datosFilaProveedor.Add(dataGridView1.Columns[i].Name + ": ");
-                    datosFilaProveedor.Add(row.Cells[i].Value.ToString() + "\n");
+                    datosProveedor.Add(dataGridView1.Columns[i].Name, row.Cells[i].Value.ToString());
                 }
             }
         }
