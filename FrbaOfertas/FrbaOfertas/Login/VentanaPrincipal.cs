@@ -66,6 +66,7 @@ namespace FrbaOfertas
                 this.Hide();
                 MessageBox.Show("Logueo correcto", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 menu.Show();
+                password.Clear();
             }
             else if (retorno == 0)
             { //hay intentos todavia
