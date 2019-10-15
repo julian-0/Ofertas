@@ -38,23 +38,29 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(920, 32);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(213, 54);
             this.button1.TabIndex = 2;
             this.button1.Text = "+ NUEVO ROL";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonGuardar
             // 
             this.buttonGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGuardar.BackColor = System.Drawing.Color.LimeGreen;
+            this.buttonGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardar.ForeColor = System.Drawing.Color.White;
             this.buttonGuardar.Location = new System.Drawing.Point(939, 671);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(213, 47);
             this.buttonGuardar.TabIndex = 3;
             this.buttonGuardar.Text = "Guardar Cambios";
-            this.buttonGuardar.UseVisualStyleBackColor = true;
+            this.buttonGuardar.UseVisualStyleBackColor = false;
             // 
             // tabControl1
             // 

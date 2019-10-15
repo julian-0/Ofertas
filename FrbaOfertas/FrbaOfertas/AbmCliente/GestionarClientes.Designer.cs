@@ -66,13 +66,16 @@
             // 
             // btnAlta
             // 
+            this.btnAlta.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnAlta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnAlta.ForeColor = System.Drawing.Color.White;
             this.btnAlta.Location = new System.Drawing.Point(931, 28);
-            this.btnAlta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAlta.Margin = new System.Windows.Forms.Padding(4);
             this.btnAlta.Name = "btnAlta";
             this.btnAlta.Size = new System.Drawing.Size(315, 64);
             this.btnAlta.TabIndex = 0;
             this.btnAlta.Text = "+ NUEVO CLIENTE";
-            this.btnAlta.UseVisualStyleBackColor = true;
+            this.btnAlta.UseVisualStyleBackColor = false;
             this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
             // 
             // groupMasFiltros
@@ -431,7 +434,7 @@
             this.Controls.Add(this.groupMasFiltros);
             this.Controls.Add(this.ProvExistentes);
             this.Controls.Add(this.btnAlta);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GestionarClientes";
             this.Text = "ABM Clientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GestionarClientes_FormClosed);

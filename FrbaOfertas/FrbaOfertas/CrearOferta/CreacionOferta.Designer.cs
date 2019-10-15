@@ -67,6 +67,9 @@
             // 
             // groupDatos
             // 
+            this.groupDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupDatos.AutoSize = true;
             this.groupDatos.Controls.Add(this.numericPrecioOferta);
             this.groupDatos.Controls.Add(this.numericPrecioOriginal);
             this.groupDatos.Controls.Add(this.label3);
@@ -80,7 +83,7 @@
             this.groupDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupDatos.Location = new System.Drawing.Point(22, 39);
             this.groupDatos.Name = "groupDatos";
-            this.groupDatos.Size = new System.Drawing.Size(510, 425);
+            this.groupDatos.Size = new System.Drawing.Size(510, 426);
             this.groupDatos.TabIndex = 0;
             this.groupDatos.TabStop = false;
             this.groupDatos.Text = "Datos";
@@ -96,7 +99,7 @@
             0});
             this.numericPrecioOferta.Name = "numericPrecioOferta";
             this.numericPrecioOferta.Size = new System.Drawing.Size(139, 30);
-            this.numericPrecioOferta.TabIndex = 21;
+            this.numericPrecioOferta.TabIndex = 4;
             this.numericPrecioOferta.ThousandsSeparator = true;
             // 
             // numericPrecioOriginal
@@ -110,7 +113,7 @@
             0});
             this.numericPrecioOriginal.Name = "numericPrecioOriginal";
             this.numericPrecioOriginal.Size = new System.Drawing.Size(139, 30);
-            this.numericPrecioOriginal.TabIndex = 20;
+            this.numericPrecioOriginal.TabIndex = 3;
             this.numericPrecioOriginal.ThousandsSeparator = true;
             // 
             // label3
@@ -155,7 +158,7 @@
             this.textBoxDescripcion.Multiline = true;
             this.textBoxDescripcion.Name = "textBoxDescripcion";
             this.textBoxDescripcion.Size = new System.Drawing.Size(412, 119);
-            this.textBoxDescripcion.TabIndex = 13;
+            this.textBoxDescripcion.TabIndex = 2;
             // 
             // buttonSeleccionarProveedor
             // 
@@ -163,7 +166,7 @@
             this.buttonSeleccionarProveedor.Location = new System.Drawing.Point(357, 81);
             this.buttonSeleccionarProveedor.Name = "buttonSeleccionarProveedor";
             this.buttonSeleccionarProveedor.Size = new System.Drawing.Size(108, 30);
-            this.buttonSeleccionarProveedor.TabIndex = 11;
+            this.buttonSeleccionarProveedor.TabIndex = 1;
             this.buttonSeleccionarProveedor.Text = "Seleccionar";
             this.buttonSeleccionarProveedor.UseVisualStyleBackColor = true;
             this.buttonSeleccionarProveedor.Click += new System.EventHandler(this.buttonSeleccionarProveedor_Click);
@@ -201,7 +204,8 @@
             this.buttonInformacionProveedor.Location = new System.Drawing.Point(48, 106);
             this.buttonInformacionProveedor.Name = "buttonInformacionProveedor";
             this.buttonInformacionProveedor.Size = new System.Drawing.Size(288, 41);
-            this.buttonInformacionProveedor.TabIndex = 12;
+            this.buttonInformacionProveedor.TabIndex = 99;
+            this.buttonInformacionProveedor.TabStop = false;
             this.buttonInformacionProveedor.Text = "Ver información del proveedor";
             this.buttonInformacionProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonInformacionProveedor.UseVisualStyleBackColor = false;
@@ -209,6 +213,9 @@
             // 
             // groupCant
             // 
+            this.groupCant.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupCant.AutoSize = true;
             this.groupCant.Controls.Add(this.numericMaxUsuario);
             this.groupCant.Controls.Add(this.numericStock);
             this.groupCant.Controls.Add(this.label5);
@@ -231,7 +238,7 @@
             0});
             this.numericMaxUsuario.Name = "numericMaxUsuario";
             this.numericMaxUsuario.Size = new System.Drawing.Size(210, 30);
-            this.numericMaxUsuario.TabIndex = 24;
+            this.numericMaxUsuario.TabIndex = 1;
             this.numericMaxUsuario.ThousandsSeparator = true;
             // 
             // numericStock
@@ -244,7 +251,7 @@
             0});
             this.numericStock.Name = "numericStock";
             this.numericStock.Size = new System.Drawing.Size(210, 30);
-            this.numericStock.TabIndex = 22;
+            this.numericStock.TabIndex = 0;
             this.numericStock.ThousandsSeparator = true;
             this.numericStock.ValueChanged += new System.EventHandler(this.numericStock_ValueChanged);
             // 
@@ -257,7 +264,7 @@
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(214, 20);
-            this.label5.TabIndex = 22;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Compra máxima por usuario";
             // 
             // label4
@@ -269,11 +276,14 @@
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(208, 20);
-            this.label4.TabIndex = 20;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Stock disponible (unidades)";
             // 
             // groupVigencia
             // 
+            this.groupVigencia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupVigencia.AutoSize = true;
             this.groupVigencia.Controls.Add(this.numericPlazo);
             this.groupVigencia.Controls.Add(this.label8);
             this.groupVigencia.Controls.Add(this.label7);
@@ -282,9 +292,9 @@
             this.groupVigencia.Controls.Add(this.fechaDesde);
             this.groupVigencia.Controls.Add(this.label9);
             this.groupVigencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupVigencia.Location = new System.Drawing.Point(565, 255);
+            this.groupVigencia.Location = new System.Drawing.Point(565, 254);
             this.groupVigencia.Name = "groupVigencia";
-            this.groupVigencia.Size = new System.Drawing.Size(340, 209);
+            this.groupVigencia.Size = new System.Drawing.Size(340, 210);
             this.groupVigencia.TabIndex = 2;
             this.groupVigencia.TabStop = false;
             this.groupVigencia.Text = "Vigencia";
@@ -299,7 +309,7 @@
             0});
             this.numericPlazo.Name = "numericPlazo";
             this.numericPlazo.Size = new System.Drawing.Size(151, 30);
-            this.numericPlazo.TabIndex = 25;
+            this.numericPlazo.TabIndex = 2;
             // 
             // label8
             // 
@@ -345,7 +355,7 @@
             this.fechaHasta.Location = new System.Drawing.Point(188, 75);
             this.fechaHasta.Name = "fechaHasta";
             this.fechaHasta.Size = new System.Drawing.Size(114, 22);
-            this.fechaHasta.TabIndex = 2;
+            this.fechaHasta.TabIndex = 1;
             this.fechaHasta.ValueChanged += new System.EventHandler(this.fechaHasta_ValueChanged);
             // 
             // fechaDesde
@@ -356,7 +366,7 @@
             this.fechaDesde.Location = new System.Drawing.Point(38, 75);
             this.fechaDesde.Name = "fechaDesde";
             this.fechaDesde.Size = new System.Drawing.Size(111, 22);
-            this.fechaDesde.TabIndex = 1;
+            this.fechaDesde.TabIndex = 0;
             this.fechaDesde.Value = new System.DateTime(2019, 10, 25, 0, 0, 0, 0);
             this.fechaDesde.ValueChanged += new System.EventHandler(this.fechaDesde_ValueChanged);
             // 
@@ -377,13 +387,16 @@
             // 
             // buttonCrearOferta
             // 
-            this.buttonCrearOferta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCrearOferta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCrearOferta.BackColor = System.Drawing.Color.LimeGreen;
+            this.buttonCrearOferta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.buttonCrearOferta.ForeColor = System.Drawing.Color.White;
             this.buttonCrearOferta.Location = new System.Drawing.Point(565, 486);
             this.buttonCrearOferta.Name = "buttonCrearOferta";
             this.buttonCrearOferta.Size = new System.Drawing.Size(339, 46);
             this.buttonCrearOferta.TabIndex = 3;
             this.buttonCrearOferta.Text = "Crear Oferta";
-            this.buttonCrearOferta.UseVisualStyleBackColor = true;
+            this.buttonCrearOferta.UseVisualStyleBackColor = false;
             this.buttonCrearOferta.Click += new System.EventHandler(this.buttonCrearOferta_Click);
             // 
             // toolTip1
@@ -414,6 +427,7 @@
             this.groupVigencia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPlazo)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

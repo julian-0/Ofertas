@@ -51,10 +51,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelBienvenida.AutoSize = true;
             this.labelBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBienvenida.Location = new System.Drawing.Point(228, 13);
+            this.labelBienvenida.Location = new System.Drawing.Point(227, 10);
             this.labelBienvenida.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBienvenida.Name = "labelBienvenida";
-            this.labelBienvenida.Size = new System.Drawing.Size(200, 69);
+            this.labelBienvenida.Size = new System.Drawing.Size(205, 72);
             this.labelBienvenida.TabIndex = 1;
             this.labelBienvenida.Text = "Bienvenide";
             this.labelBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -66,10 +66,10 @@
             this.btnRoles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRoles.ForeColor = System.Drawing.Color.White;
-            this.btnRoles.Location = new System.Drawing.Point(17, 89);
-            this.btnRoles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRoles.Location = new System.Drawing.Point(14, 86);
+            this.btnRoles.Margin = new System.Windows.Forms.Padding(4);
             this.btnRoles.Name = "btnRoles";
-            this.btnRoles.Size = new System.Drawing.Size(200, 61);
+            this.btnRoles.Size = new System.Drawing.Size(205, 64);
             this.btnRoles.TabIndex = 2;
             this.btnRoles.Text = "Gestionar Roles";
             this.btnRoles.UseVisualStyleBackColor = false;
@@ -81,10 +81,10 @@
             this.btnAbmCli.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAbmCli.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbmCli.ForeColor = System.Drawing.Color.White;
-            this.btnAbmCli.Location = new System.Drawing.Point(228, 89);
-            this.btnAbmCli.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAbmCli.Location = new System.Drawing.Point(227, 86);
+            this.btnAbmCli.Margin = new System.Windows.Forms.Padding(4);
             this.btnAbmCli.Name = "btnAbmCli";
-            this.btnAbmCli.Size = new System.Drawing.Size(200, 61);
+            this.btnAbmCli.Size = new System.Drawing.Size(205, 64);
             this.btnAbmCli.TabIndex = 3;
             this.btnAbmCli.Text = "Gestionar Clientes";
             this.btnAbmCli.UseVisualStyleBackColor = false;
@@ -96,10 +96,10 @@
             this.btnAbmPro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAbmPro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbmPro.ForeColor = System.Drawing.Color.White;
-            this.btnAbmPro.Location = new System.Drawing.Point(439, 89);
-            this.btnAbmPro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAbmPro.Location = new System.Drawing.Point(440, 86);
+            this.btnAbmPro.Margin = new System.Windows.Forms.Padding(4);
             this.btnAbmPro.Name = "btnAbmPro";
-            this.btnAbmPro.Size = new System.Drawing.Size(203, 61);
+            this.btnAbmPro.Size = new System.Drawing.Size(205, 64);
             this.btnAbmPro.TabIndex = 4;
             this.btnAbmPro.Text = "Gestionar Proveedores";
             this.btnAbmPro.UseVisualStyleBackColor = false;
@@ -111,10 +111,10 @@
             this.btnRegis.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRegis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegis.ForeColor = System.Drawing.Color.White;
-            this.btnRegis.Location = new System.Drawing.Point(17, 161);
-            this.btnRegis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegis.Location = new System.Drawing.Point(14, 158);
+            this.btnRegis.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegis.Name = "btnRegis";
-            this.btnRegis.Size = new System.Drawing.Size(200, 61);
+            this.btnRegis.Size = new System.Drawing.Size(205, 64);
             this.btnRegis.TabIndex = 5;
             this.btnRegis.Text = "Gestionar Usuarios";
             this.btnRegis.UseVisualStyleBackColor = false;
@@ -126,10 +126,10 @@
             this.btnCarga.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCarga.ForeColor = System.Drawing.Color.White;
-            this.btnCarga.Location = new System.Drawing.Point(228, 161);
-            this.btnCarga.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCarga.Location = new System.Drawing.Point(227, 158);
+            this.btnCarga.Margin = new System.Windows.Forms.Padding(4);
             this.btnCarga.Name = "btnCarga";
-            this.btnCarga.Size = new System.Drawing.Size(200, 61);
+            this.btnCarga.Size = new System.Drawing.Size(205, 64);
             this.btnCarga.TabIndex = 6;
             this.btnCarga.Text = "Cargar credito";
             this.btnCarga.UseVisualStyleBackColor = false;
@@ -140,10 +140,10 @@
             this.btnComprar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnComprar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComprar.ForeColor = System.Drawing.Color.White;
-            this.btnComprar.Location = new System.Drawing.Point(439, 161);
-            this.btnComprar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnComprar.Location = new System.Drawing.Point(440, 158);
+            this.btnComprar.Margin = new System.Windows.Forms.Padding(4);
             this.btnComprar.Name = "btnComprar";
-            this.btnComprar.Size = new System.Drawing.Size(203, 61);
+            this.btnComprar.Size = new System.Drawing.Size(205, 64);
             this.btnComprar.TabIndex = 7;
             this.btnComprar.Text = "Comprar oferta";
             this.btnComprar.UseVisualStyleBackColor = false;
@@ -155,10 +155,10 @@
             this.btnOfertar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnOfertar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOfertar.ForeColor = System.Drawing.Color.White;
-            this.btnOfertar.Location = new System.Drawing.Point(17, 233);
-            this.btnOfertar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOfertar.Location = new System.Drawing.Point(14, 230);
+            this.btnOfertar.Margin = new System.Windows.Forms.Padding(4);
             this.btnOfertar.Name = "btnOfertar";
-            this.btnOfertar.Size = new System.Drawing.Size(200, 61);
+            this.btnOfertar.Size = new System.Drawing.Size(205, 64);
             this.btnOfertar.TabIndex = 8;
             this.btnOfertar.Text = "Confeccionar oferta";
             this.btnOfertar.UseVisualStyleBackColor = false;
@@ -170,10 +170,10 @@
             this.btnFacturar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFacturar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFacturar.ForeColor = System.Drawing.Color.White;
-            this.btnFacturar.Location = new System.Drawing.Point(228, 233);
-            this.btnFacturar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFacturar.Location = new System.Drawing.Point(227, 230);
+            this.btnFacturar.Margin = new System.Windows.Forms.Padding(4);
             this.btnFacturar.Name = "btnFacturar";
-            this.btnFacturar.Size = new System.Drawing.Size(200, 61);
+            this.btnFacturar.Size = new System.Drawing.Size(205, 64);
             this.btnFacturar.TabIndex = 9;
             this.btnFacturar.Text = "Facturacion a proveedor";
             this.btnFacturar.UseVisualStyleBackColor = false;
@@ -184,24 +184,24 @@
             this.btnEst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEst.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEst.ForeColor = System.Drawing.Color.White;
-            this.btnEst.Location = new System.Drawing.Point(439, 233);
-            this.btnEst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEst.Location = new System.Drawing.Point(440, 230);
+            this.btnEst.Margin = new System.Windows.Forms.Padding(4);
             this.btnEst.Name = "btnEst";
-            this.btnEst.Size = new System.Drawing.Size(203, 61);
+            this.btnEst.Size = new System.Drawing.Size(205, 64);
             this.btnEst.TabIndex = 10;
             this.btnEst.Text = "Listado estadistico";
             this.btnEst.UseVisualStyleBackColor = false;
             // 
             // btnSalir
             // 
-            this.btnSalir.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnSalir.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnSalir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.White;
-            this.btnSalir.Location = new System.Drawing.Point(439, 305);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSalir.Location = new System.Drawing.Point(440, 302);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(203, 61);
+            this.btnSalir.Size = new System.Drawing.Size(205, 64);
             this.btnSalir.TabIndex = 11;
             this.btnSalir.Text = "Cerrar sesión";
             this.btnSalir.UseVisualStyleBackColor = false;
@@ -213,10 +213,10 @@
             this.botonEntregar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonEntregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonEntregar.ForeColor = System.Drawing.Color.White;
-            this.botonEntregar.Location = new System.Drawing.Point(17, 305);
-            this.botonEntregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.botonEntregar.Location = new System.Drawing.Point(14, 302);
+            this.botonEntregar.Margin = new System.Windows.Forms.Padding(4);
             this.botonEntregar.Name = "botonEntregar";
-            this.botonEntregar.Size = new System.Drawing.Size(200, 61);
+            this.botonEntregar.Size = new System.Drawing.Size(205, 64);
             this.botonEntregar.TabIndex = 12;
             this.botonEntregar.Text = "Entregar oferta";
             this.botonEntregar.UseVisualStyleBackColor = false;
@@ -228,7 +228,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -257,7 +256,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(659, 383);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(659, 380);
             this.tableLayoutPanel1.TabIndex = 13;
             // 
             // VentanaMenu
@@ -267,7 +266,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(665, 386);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VentanaMenu";
             this.Text = "Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VentanaMenu_FormClosed);
