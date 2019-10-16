@@ -48,6 +48,11 @@
             // cantidad
             // 
             this.cantidad.Location = new System.Drawing.Point(403, 285);
+            this.cantidad.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
             this.cantidad.Minimum = new decimal(new int[] {
             1,
             0,
