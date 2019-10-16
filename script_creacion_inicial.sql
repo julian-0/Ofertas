@@ -1338,11 +1338,24 @@ BEGIN
 	BEGIN
 		IF (@contra_real = @contra_hasheada)
 		BEGIN
-			SET @valor_retorno = 1 --logg posible, salio todo bien 
-
+			--logg posible, salio todo bien 
 			UPDATE [NUNCA_INJOIN].Usuario
 			SET intentos_fallidos = 0
 			WHERE usuario_id = @id_ingresado
+
+			IF (
+					SELECT Rol.baja_logica
+					FROM NUNCA_INJOIN.Rol
+					JOIN NUNCA_INJOIN.Usuario ON Usuario.rol_id = Rol.rol_id
+					and NUNCA_INJOIN.Usuario.usuario_id = @id_ingresado
+					) LIKE 'N'
+			BEGIN
+				SET @valor_retorno = 1
+			END
+			ELSE
+			BEGIN
+				SET @valor_retorno = 3 -- No puede ingresar porque su rol esta inhabilitado
+			END
 		END
 		ELSE
 		BEGIN
@@ -1365,6 +1378,12 @@ BEGIN
 	RETURN @valor_retorno
 END
 GO
+
+
+
+
+
+
 
 USE GD2C2019
 GO

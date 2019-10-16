@@ -14,25 +14,19 @@ namespace FrbaOfertas.Datos
     class BaseDeDatos
     {
 
-        public static SqlConnection conexion = Conexiones.AbrirConexion(); 
-
-        public static SqlCommand nuevoQuery(string query)
-        {
-            return new SqlCommand(query, conexion);
-        }
-
-        public void ventanaErrorBD(Exception excepcion)
+        public static void ventanaErrorBD(Exception excepcion)
         {
 
             MessageBox.Show("Database error:\n" + excepcion.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void ejecutarConsulta(string query)
+        public static void ejecutarConsulta(string query)
         {
-            SqlCommand consulta = nuevoQuery(query);
+            
             try
             {
-                Conexiones.AbrirConexion();
+                SqlConnection conexion = Conexiones.AbrirConexion();
+                SqlCommand consulta = new SqlCommand(query, conexion);
                 consulta.ExecuteNonQuery();
             }
             catch (Exception excepcion)

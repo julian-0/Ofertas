@@ -9,11 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.Data.SqlClient;
+using FrbaOfertas.Conexion;
 
 namespace FrbaOfertas.AbmRol
 {
     public partial class ABMRol : Form
     {
+
+        public List<string> rolesMostrados = new List<string>();
+
         public ABMRol()
         {
             InitializeComponent();
@@ -25,11 +30,13 @@ namespace FrbaOfertas.AbmRol
             TabPage tp = new TabPage(row["nombre_rol"].ToString());
             DataTable funcionalidadesRol = BaseDeDatos.getFuncionalidadesRol(row["rol_id"].ToString());
             DataTable funcionalidadesRestantes = BaseDeDatos.getFuncionalidadesRestantes(row["rol_id"].ToString());
-            UserControlRol myUserControl = new UserControlRol(funcionalidadesRol, funcionalidadesRestantes);
+            bool baja_logica = row["baja_logica"].ToString() == "S";
+            UserControlRol myUserControl = new UserControlRol(funcionalidadesRol, funcionalidadesRestantes, row["rol_id"].ToString(), baja_logica);
             myUserControl.Dock = DockStyle.Fill;
-
+            myUserControl.ParentForm = this;
             tp.Controls.Add(myUserControl);
             tabControl1.TabPages.Add(tp);
+            rolesMostrados.Add(row["rol_id"].ToString());
         }
 
         private void agregarRolesActivos()
@@ -37,7 +44,8 @@ namespace FrbaOfertas.AbmRol
             DataTable dtRoles = BaseDeDatos.getRoles();
             foreach (DataRow row in dtRoles.Rows)
             {
-                this.agregarTab(row);
+                if (!rolesMostrados.Contains(row["rol_id"].ToString()))
+                   this.agregarTab(row);
             }
         }
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -69,14 +77,11 @@ namespace FrbaOfertas.AbmRol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataTable table = new DataTable();
-            table.Columns.Add("nombre_rol");
-            table.Columns.Add("rol_id");
-            DataRow row = table.NewRow();
-            table.Rows.Add(row);
-            row["nombre_rol"] = "Nuevo Rol";
-            row["rol_id"] = "99";
-            this.agregarTab(row);
+            /*
+             * String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('Nuevo Rol')";
+            ejecutarQuery(query);
+            agregarRolesActivos();
+             */
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -86,9 +91,14 @@ namespace FrbaOfertas.AbmRol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab.Text = "juasjuas";
-            tabControl1.Refresh();
         }
 
+        private void ejecutarQuery(String query)
+        {
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand consulta = new SqlCommand(query, conexion);
+            consulta.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+        }
     }
 }
