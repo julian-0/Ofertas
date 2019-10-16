@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.CrearOferta;
 
 namespace FrbaOfertas.AbmRol
 {
@@ -77,11 +78,19 @@ namespace FrbaOfertas.AbmRol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*
-             * String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('Nuevo Rol')";
+            String nuevoRol = " ";
+            using (NuevoNombre ventanaNombre = new NuevoNombre("Nuevo Rol"))
+            {
+                if (ventanaNombre.ShowDialog() == DialogResult.OK)
+                {
+                    nuevoRol = ventanaNombre.textBox1.Text;
+                }
+            }
+
+            String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('"+nuevoRol+"')";
             ejecutarQuery(query);
             agregarRolesActivos();
-             */
+            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
