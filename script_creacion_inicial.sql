@@ -357,7 +357,7 @@ CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY 
 
 CREATE TABLE NUNCA_INJOIN.Rol (
 	"rol_id" NUMERIC(9) identity PRIMARY KEY,
-	nombre_rol VARCHAR(50) UNIQUE NOT NULL,
+	nombre_rol VARCHAR(50) NOT NULL,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
