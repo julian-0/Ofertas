@@ -2262,5 +2262,3 @@ RETURN (
 			o.precio_lista
 		)
 GO
-
-

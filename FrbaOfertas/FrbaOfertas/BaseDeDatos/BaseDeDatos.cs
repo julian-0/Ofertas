@@ -163,6 +163,16 @@ namespace FrbaOfertas.Datos
             Conexiones.CerrarConexion();
             return dt;
         }
+
+        public static void cambiarEstadoProveedor(String proveedor_id)
+        {
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand procedure = new SqlCommand("NUNCA_INJOIN.cambiarEstadoProveedor", conexion);
+            procedure.CommandType = CommandType.StoredProcedure;
+            procedure.Parameters.AddWithValue("@proveedor_id", SqlDbType.Int).Value = Int32.Parse(proveedor_id);
+            procedure.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+        }
     }
 
     class InfoUsuario
