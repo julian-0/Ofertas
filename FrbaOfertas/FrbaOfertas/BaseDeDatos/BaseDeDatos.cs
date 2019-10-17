@@ -14,25 +14,19 @@ namespace FrbaOfertas.Datos
     class BaseDeDatos
     {
 
-        public static SqlConnection conexion = Conexiones.AbrirConexion(); 
-
-        public static SqlCommand nuevoQuery(string query)
-        {
-            return new SqlCommand(query, conexion);
-        }
-
-        public void ventanaErrorBD(Exception excepcion)
+        public static void ventanaErrorBD(Exception excepcion)
         {
 
             MessageBox.Show("Database error:\n" + excepcion.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void ejecutarConsulta(string query)
+        public static void ejecutarConsulta(string query)
         {
-            SqlCommand consulta = nuevoQuery(query);
+            
             try
             {
-                Conexiones.AbrirConexion();
+                SqlConnection conexion = Conexiones.AbrirConexion();
+                SqlCommand consulta = new SqlCommand(query, conexion);
                 consulta.ExecuteNonQuery();
             }
             catch (Exception excepcion)
@@ -69,6 +63,34 @@ namespace FrbaOfertas.Datos
             Conexiones.CerrarConexion();
             return dt;
         }
+        
+        public static DataTable getAniosFacturas()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT distinct year(fecha) as Anio FROM NUNCA_INJOIN.FacturaProveedor", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        public static DataTable getAniosOfertas()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT distinct year(fecha_publicacion) as Anio FROM NUNCA_INJOIN.Oferta", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
 
         public static DataTable getFuncionalidadesRol(String rol_id)
         {
@@ -94,6 +116,48 @@ namespace FrbaOfertas.Datos
 
             command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad WHERE funcionalidad_id not in"+
             "(SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol where rol_id = "+rol_id+")", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        public static DataTable getTopFacturas(String anio, String semestre)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.topFacturacion('"+anio+"','"+semestre+"')", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        public static DataTable getTopDescuentos(String anio, String semestre)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.topDescuentos('" + anio + "','" + semestre + "')", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
+
+        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','"+prov+"')", conexion);
             adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();

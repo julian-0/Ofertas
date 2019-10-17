@@ -64,7 +64,6 @@ namespace FrbaOfertas
 
                 VentanaMenu menu = new VentanaMenu(this,usuarioTxt.Text);
                 this.Hide();
-                MessageBox.Show("Logueo correcto", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 menu.Show();
                 password.Clear();
             }
@@ -76,7 +75,12 @@ namespace FrbaOfertas
             else if (retorno == -1)
             { //baja logica
                 MessageBox.Show("Se excedió la cantidad de intentos posibles", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Hide();
+                password.Clear();
+            }
+            else if (retorno == 3)
+            { //baja logica del Rol
+                MessageBox.Show("No se pudo ingresar, su rol esta inhabilitado. Contacte al administrador.", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                password.Clear();
             }
             else
             { //no existe usuario

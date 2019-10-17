@@ -357,7 +357,7 @@ CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY 
 
 CREATE TABLE NUNCA_INJOIN.Rol (
 	"rol_id" NUMERIC(9) identity PRIMARY KEY,
-	nombre_rol VARCHAR(50) UNIQUE NOT NULL,
+	nombre_rol VARCHAR(50) NOT NULL,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
 	);
 
@@ -1338,11 +1338,24 @@ BEGIN
 	BEGIN
 		IF (@contra_real = @contra_hasheada)
 		BEGIN
-			SET @valor_retorno = 1 --logg posible, salio todo bien 
-
+			--logg posible, salio todo bien 
 			UPDATE [NUNCA_INJOIN].Usuario
 			SET intentos_fallidos = 0
 			WHERE usuario_id = @id_ingresado
+
+			IF (
+					SELECT Rol.baja_logica
+					FROM NUNCA_INJOIN.Rol
+					JOIN NUNCA_INJOIN.Usuario ON Usuario.rol_id = Rol.rol_id
+					and NUNCA_INJOIN.Usuario.usuario_id = @id_ingresado
+					) LIKE 'N'
+			BEGIN
+				SET @valor_retorno = 1
+			END
+			ELSE
+			BEGIN
+				SET @valor_retorno = 3 -- No puede ingresar porque su rol esta inhabilitado
+			END
 		END
 		ELSE
 		BEGIN
@@ -1365,6 +1378,12 @@ BEGIN
 	RETURN @valor_retorno
 END
 GO
+
+
+
+
+
+
 
 USE GD2C2019
 GO
@@ -2094,3 +2113,140 @@ BEGIN
 	VALUES(@rol_id, @funcionalidad)
 END
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'topFacturacion'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.topFacturacion
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.topFacturacion (
+	@anio NUMERIC(9),
+	@semestre NVARCHAR(50)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT TOP 5 fp.[proveedor_id],
+			year([fecha]) AS Año,
+			sum([importe]) AS Importe,
+			p.usuario_id,
+			p.cuit,
+			p.rubro_id
+		FROM [GD2C2019].[NUNCA_INJOIN].[FacturaProveedor] fp
+		JOIN NUNCA_INJOIN.Proveedor p ON p.proveedor_id = fp.proveedor_id
+		WHERE year([fecha]) = @anio
+			AND (
+				month(fecha) BETWEEN (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 1
+								ELSE 7
+								END
+							) AND (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 6
+								ELSE 12
+								END
+							)
+				)
+		GROUP BY fp.[proveedor_id],
+			year([fecha]),
+			p.usuario_id,
+			p.cuit,
+			p.rubro_id
+		ORDER BY sum([importe]) DESC
+		)
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'topDescuentos'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.topDescuentos
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.topDescuentos (
+	@anio NUMERIC(9),
+	@semestre NVARCHAR(50)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT TOP 5 o.[proveedor_id],
+			year(o.fecha_publicacion) as Año,
+			CONCAT (
+				cast(round(avg((o.precio_lista - o.precio_oferta) * 100 / o.precio_lista), 2) AS DECIMAL(18, 2)),
+				'%'
+				) as Descuento
+		FROM [GD2C2019].[NUNCA_INJOIN].Oferta o
+		WHERE year(o.fecha_publicacion) = @anio
+			AND (
+				month(o.fecha_publicacion) BETWEEN (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 1
+								ELSE 7
+								END
+							) AND (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 6
+								ELSE 12
+								END
+							)
+				)
+		GROUP BY o.[proveedor_id],
+			year(o.fecha_publicacion)
+		ORDER BY 3 DESC
+		)
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'ofertasAFacturar'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.ofertasAFacturar
+END
+GO
+
+
+CREATE FUNCTION NUNCA_INJOIN.ofertasAFacturar (
+	@fecha_desde NVARCHAR(50),
+	@fecha_hasta NVARCHAR(50),
+	@proveedor NUMERIC(9)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT o.[oferta_codigo] AS [Código oferta],
+			o.descripcion AS [Descripción],
+			sum([cantidad_comprada]) AS [Cant ventida],
+			o.precio_lista AS [Precio Unitario],
+			sum([cantidad_comprada]) * o.precio_lista AS [Total],
+			p.razon_social AS [Proveedor]
+		FROM [GD2C2019].[NUNCA_INJOIN].[Cupon] c
+		JOIN NUNCA_INJOIN.Oferta o ON o.oferta_codigo = c.oferta_codigo
+		JOIN NUNCA_INJOIN.Proveedor p ON p.proveedor_id = o.proveedor_id
+		WHERE o.proveedor_id = @proveedor
+		AND c.fecha_compra BETWEEN convert(DATETIME, @fecha_desde, 121) AND convert(DATETIME, @fecha_hasta, 121)
+		GROUP BY o.[oferta_codigo],
+			o.descripcion,
+			p.razon_social,
+			o.precio_lista
+		)
+GO
+
+
