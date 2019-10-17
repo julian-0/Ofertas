@@ -191,6 +191,7 @@
             this.btnEst.TabIndex = 10;
             this.btnEst.Text = "Listado estadistico";
             this.btnEst.UseVisualStyleBackColor = false;
+            this.btnEst.Click += new System.EventHandler(this.btnEst_Click);
             // 
             // btnSalir
             // 

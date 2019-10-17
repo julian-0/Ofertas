@@ -132,6 +132,12 @@
     <Compile Include="gestionUsuarios\ModificacionUsuario.Designer.cs">
       <DependentUpon>ModificacionUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListadoEstadistico\UserControlListado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListadoEstadistico\UserControlListado.Designer.cs">
+      <DependentUpon>UserControlListado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\VentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,11 +149,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2019DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
+    <Compile Include="ListadoEstadistico\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
-      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu\VentanaMenu.cs">
       <SubType>Form</SubType>
@@ -193,6 +199,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gestionUsuarios\ModificacionUsuario.resx">
       <DependentUpon>ModificacionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoEstadistico\UserControlListado.resx">
+      <DependentUpon>UserControlListado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

@@ -2113,3 +2113,110 @@ BEGIN
 	VALUES(@rol_id, @funcionalidad)
 END
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'topFacturacion'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.topFacturacion
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.topFacturacion (
+	@anio NUMERIC(9),
+	@semestre NVARCHAR(50)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT TOP 5 fp.[proveedor_id],
+			year([fecha]) AS Año,
+			sum([importe]) AS Importe,
+			p.usuario_id,
+			p.cuit,
+			p.rubro_id
+		FROM [GD2C2019].[NUNCA_INJOIN].[FacturaProveedor] fp
+		JOIN NUNCA_INJOIN.Proveedor p ON p.proveedor_id = fp.proveedor_id
+		WHERE year([fecha]) = @anio
+			AND (
+				month(fecha) BETWEEN (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 1
+								ELSE 7
+								END
+							) AND (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 6
+								ELSE 12
+								END
+							)
+				)
+		GROUP BY fp.[proveedor_id],
+			year([fecha]),
+			p.usuario_id,
+			p.cuit,
+			p.rubro_id
+		ORDER BY sum([importe]) DESC
+		)
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'topDescuentos'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.topDescuentos
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.topDescuentos (
+	@anio NUMERIC(9),
+	@semestre NVARCHAR(50)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT TOP 5 o.[proveedor_id],
+			year(o.fecha_publicacion) as Año,
+			CONCAT (
+				cast(round(avg((o.precio_lista - o.precio_oferta) * 100 / o.precio_lista), 2) AS DECIMAL(18, 2)),
+				'%'
+				) as Descuento
+		FROM [GD2C2019].[NUNCA_INJOIN].Oferta o
+		WHERE year(o.fecha_publicacion) = @anio
+			AND (
+				month(o.fecha_publicacion) BETWEEN (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 1
+								ELSE 7
+								END
+							) AND (
+							CASE @semestre
+								WHEN 'Primer Semestre'
+									THEN 6
+								ELSE 12
+								END
+							)
+				)
+		GROUP BY o.[proveedor_id],
+			year(o.fecha_publicacion)
+		ORDER BY 3 DESC
+		)
+GO
+
+
+
+
+
+
+
+
+
+
