@@ -41,6 +41,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonInformacionProveedor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +51,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label7.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(295, 38);
+            this.label7.Location = new System.Drawing.Point(174, 36);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 20);
@@ -61,7 +63,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label6.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(145, 38);
+            this.label6.Location = new System.Drawing.Point(24, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 20);
@@ -73,12 +75,10 @@
             this.fechaHasta.CustomFormat = "yyy-MM-dd";
             this.fechaHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaHasta.Location = new System.Drawing.Point(299, 61);
+            this.fechaHasta.Location = new System.Drawing.Point(178, 59);
             this.fechaHasta.Name = "fechaHasta";
             this.fechaHasta.Size = new System.Drawing.Size(114, 22);
             this.fechaHasta.TabIndex = 27;
-            this.fechaHasta.CloseUp += new System.EventHandler(this.fechaHasta_TabIndexChanged);
-            this.fechaHasta.ValueChanged += new System.EventHandler(this.fechaHasta_TabIndexChanged);
             this.fechaHasta.TabIndexChanged += new System.EventHandler(this.fechaHasta_TabIndexChanged);
             // 
             // fechaDesde
@@ -86,19 +86,17 @@
             this.fechaDesde.CustomFormat = "yyy-MM-dd";
             this.fechaDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.fechaDesde.Location = new System.Drawing.Point(149, 61);
+            this.fechaDesde.Location = new System.Drawing.Point(28, 59);
             this.fechaDesde.Name = "fechaDesde";
             this.fechaDesde.Size = new System.Drawing.Size(111, 22);
             this.fechaDesde.TabIndex = 26;
             this.fechaDesde.Value = new System.DateTime(2019, 10, 25, 0, 0, 0, 0);
-            this.fechaDesde.CloseUp += new System.EventHandler(this.fechaDesde_TabIndexChanged);
-            this.fechaDesde.ValueChanged += new System.EventHandler(this.fechaDesde_TabIndexChanged);
             this.fechaDesde.TabIndexChanged += new System.EventHandler(this.fechaDesde_TabIndexChanged);
             // 
             // buttonSeleccionarProveedor
             // 
             this.buttonSeleccionarProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSeleccionarProveedor.Location = new System.Drawing.Point(781, 58);
+            this.buttonSeleccionarProveedor.Location = new System.Drawing.Point(630, 54);
             this.buttonSeleccionarProveedor.Name = "buttonSeleccionarProveedor";
             this.buttonSeleccionarProveedor.Size = new System.Drawing.Size(108, 30);
             this.buttonSeleccionarProveedor.TabIndex = 31;
@@ -111,7 +109,7 @@
             this.labelUsuario.AutoSize = true;
             this.labelUsuario.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelUsuario.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUsuario.Location = new System.Drawing.Point(474, 38);
+            this.labelUsuario.Location = new System.Drawing.Point(340, 36);
             this.labelUsuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUsuario.Name = "labelUsuario";
             this.labelUsuario.Size = new System.Drawing.Size(85, 20);
@@ -120,7 +118,7 @@
             // 
             // textBoxProveedor
             // 
-            this.textBoxProveedor.Location = new System.Drawing.Point(478, 61);
+            this.textBoxProveedor.Location = new System.Drawing.Point(344, 59);
             this.textBoxProveedor.Name = "textBoxProveedor";
             this.textBoxProveedor.ReadOnly = true;
             this.textBoxProveedor.Size = new System.Drawing.Size(280, 22);
@@ -128,10 +126,17 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 124);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(987, 378);
             this.dataGridView1.TabIndex = 33;
             // 
@@ -145,13 +150,15 @@
             this.buttonFacturar.Name = "buttonFacturar";
             this.buttonFacturar.Size = new System.Drawing.Size(339, 46);
             this.buttonFacturar.TabIndex = 34;
-            this.buttonFacturar.Text = "Crear Factura";
+            this.buttonFacturar.Text = "Generar Factura";
             this.buttonFacturar.UseVisualStyleBackColor = false;
+            this.buttonFacturar.Click += new System.EventHandler(this.buttonFacturar_Click);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(77, 541);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(213, 22);
             this.textBox1.TabIndex = 36;
             // 
@@ -183,8 +190,42 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(364, 541);
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(252, 22);
             this.textBox2.TabIndex = 39;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(800, 37);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(199, 47);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Ver ventas";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonInformacionProveedor
+            // 
+            this.buttonInformacionProveedor.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.buttonInformacionProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonInformacionProveedor.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.buttonInformacionProveedor.FlatAppearance.BorderSize = 0;
+            this.buttonInformacionProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonInformacionProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInformacionProveedor.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.buttonInformacionProveedor.Location = new System.Drawing.Point(336, 76);
+            this.buttonInformacionProveedor.Name = "buttonInformacionProveedor";
+            this.buttonInformacionProveedor.Size = new System.Drawing.Size(288, 41);
+            this.buttonInformacionProveedor.TabIndex = 100;
+            this.buttonInformacionProveedor.TabStop = false;
+            this.buttonInformacionProveedor.Text = "Ver información del proveedor";
+            this.buttonInformacionProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonInformacionProveedor.UseVisualStyleBackColor = false;
+            this.buttonInformacionProveedor.Click += new System.EventHandler(this.buttonInformacionProveedor_Click);
             // 
             // FacturarProv
             // 
@@ -192,6 +233,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1011, 586);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
@@ -205,6 +247,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.fechaHasta);
             this.Controls.Add(this.fechaDesde);
+            this.Controls.Add(this.buttonInformacionProveedor);
             this.Name = "FacturarProv";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -228,5 +271,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonInformacionProveedor;
     }
 }

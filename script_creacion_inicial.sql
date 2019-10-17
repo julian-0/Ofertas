@@ -1980,17 +1980,31 @@ BEGIN
 	DROP PROCEDURE NUNCA_INJOIN.armarFactura
 END
 GO
-
-CREATE PROC NUNCA_INJOIN.armarFactura	(@proveedor_id numeric(9,0),@importe numeric(26,2),
-										@fecha datetime, @factura_numero numeric(18,0) OUT)
+CREATE PROC NUNCA_INJOIN.armarFactura (
+	@proveedor_id NUMERIC(9, 0),
+	@importe NUMERIC(18, 2),
+	@fecha DATETIME,
+	@factura_numero NUMERIC(18, 0) OUT
+	)
 AS
 BEGIN
-INSERT INTO NUNCA_INJOIN.FacturaProveedor(proveedor_id,fecha,importe)
-VALUES(@proveedor_id,@fecha,@importe);
+	INSERT INTO NUNCA_INJOIN.FacturaProveedor (
+		proveedor_id,
+		fecha,
+		importe
+		)
+	VALUES (
+		@proveedor_id,
+		@fecha,
+		@importe
+		);
 
-SET @factura_numero = scope_identity();
+	SET @factura_numero = scope_identity();
 END
 GO
+
+
+
 
 IF EXISTS (
 		SELECT *

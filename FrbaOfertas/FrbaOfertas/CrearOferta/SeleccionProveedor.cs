@@ -16,13 +16,13 @@ namespace FrbaOfertas.CrearOferta
     {
 
         DataTable dt = new DataTable();
-        private bool buscarWasClicked = false;
         public Dictionary<string, string> datosProveedor = new Dictionary<string, string>();
 
         public SeleccionProveedor()
         {
             InitializeComponent();
             this.updateHeadersStyle();
+            rellenarDatagrid();
         }
 
         //Hay un bug que resetea la fuente de ColumnHeadersDefaultCellStyle con cada build
@@ -36,20 +36,24 @@ namespace FrbaOfertas.CrearOferta
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void rellenarDatagrid()
         {
-            buscarWasClicked = true;
             dt.Columns.Clear();
             dt.Rows.Clear();
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             SqlCommand command = new SqlCommand("SELECT [proveedor_id],[rubro_id],[usuario_id],[razon_social],"
-                +"[mail],[telefono],[domicilio],[localidad],[ciudad],[codigo_postal],[cuit],[nombre_contacto],"
-                                                        +"[baja_logica] FROM NUNCA_INJOIN.Proveedor", conexion);
+                + "[mail],[telefono],[domicilio],[localidad],[ciudad],[codigo_postal],[cuit],[nombre_contacto],"
+                                                        + "[baja_logica] FROM NUNCA_INJOIN.Proveedor", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             Conexiones.CerrarConexion();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            rellenarDatagrid();
+           
         }
 
         private void mostrarMas_Click(object sender, EventArgs e)
@@ -82,10 +86,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (buscarWasClicked)
-            {
                 this.DialogResult = DialogResult.OK;
-            }
         }
     }
 }
