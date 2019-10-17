@@ -177,6 +177,7 @@
             this.btnFacturar.TabIndex = 9;
             this.btnFacturar.Text = "Facturacion a proveedor";
             this.btnFacturar.UseVisualStyleBackColor = false;
+            this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
             // 
             // btnEst
             // 

@@ -149,6 +149,20 @@ namespace FrbaOfertas.Datos
             Conexiones.CerrarConexion();
             return dt;
         }
+
+        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command;
+            SqlDataAdapter adapter;
+
+            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','"+prov+"')", conexion);
+            adapter = new SqlDataAdapter(command);
+            adapter.Fill(dt);
+            Conexiones.CerrarConexion();
+            return dt;
+        }
     }
 
     class InfoUsuario

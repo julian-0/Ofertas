@@ -2211,12 +2211,42 @@ RETURN (
 		)
 GO
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'ofertasAFacturar'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.ofertasAFacturar
+END
+GO
 
 
-
-
-
-
-
+CREATE FUNCTION NUNCA_INJOIN.ofertasAFacturar (
+	@fecha_desde NVARCHAR(50),
+	@fecha_hasta NVARCHAR(50),
+	@proveedor NUMERIC(9)
+	)
+RETURNS TABLE
+AS
+RETURN (
+		SELECT o.[oferta_codigo] AS [Código oferta],
+			o.descripcion AS [Descripción],
+			sum([cantidad_comprada]) AS [Cant ventida],
+			o.precio_lista AS [Precio Unitario],
+			sum([cantidad_comprada]) * o.precio_lista AS [Total],
+			p.razon_social AS [Proveedor]
+		FROM [GD2C2019].[NUNCA_INJOIN].[Cupon] c
+		JOIN NUNCA_INJOIN.Oferta o ON o.oferta_codigo = c.oferta_codigo
+		JOIN NUNCA_INJOIN.Proveedor p ON p.proveedor_id = o.proveedor_id
+		WHERE o.proveedor_id = @proveedor
+		AND c.fecha_compra BETWEEN convert(DATETIME, @fecha_desde, 121) AND convert(DATETIME, @fecha_hasta, 121)
+		GROUP BY o.[oferta_codigo],
+			o.descripcion,
+			p.razon_social,
+			o.precio_lista
+		)
+GO
 
 
