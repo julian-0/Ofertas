@@ -19,7 +19,6 @@ namespace FrbaOfertas.AbmRol
     {
 
         public List<string> rolesMostrados = new List<string>();
-
         public ABMRol()
         {
             InitializeComponent();
@@ -83,14 +82,16 @@ namespace FrbaOfertas.AbmRol
             {
                 if (ventanaNombre.ShowDialog() == DialogResult.OK)
                 {
-                    nuevoRol = ventanaNombre.textBox1.Text;
+                    if (MessageBox.Show("¿Desea crear el Rol " + ventanaNombre.textBox1.Text + "? Una vez creado, el Rol no se podrá eliminar - solo inhabilitar.\n", "Crear rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        nuevoRol = ventanaNombre.textBox1.Text;
+                        String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('" + nuevoRol + "')";
+                        ejecutarQuery(query);
+                        agregarRolesActivos();
+                    }
+                    
                 }
             }
-
-            String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('"+nuevoRol+"')";
-            ejecutarQuery(query);
-            agregarRolesActivos();
-            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
