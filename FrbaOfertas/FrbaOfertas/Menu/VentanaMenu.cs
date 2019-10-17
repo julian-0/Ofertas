@@ -18,6 +18,7 @@ using FrbaOfertas.AbmRol;
 using FrbaOfertas.ComprarOferta;
 using FrbaOfertas.ListadoEstadistico;
 using FrbaOfertas.Facturar;
+using FrbaOfertas.EntregarOferta;
 
 namespace FrbaOfertas.Menu
 {
@@ -149,6 +150,12 @@ namespace FrbaOfertas.Menu
         {
             FacturarProv ventanaFac = new FacturarProv();
             ventanaFac.Show();
+        }
+
+        private void botonEntregar_Click(object sender, EventArgs e)
+        {
+            EntregaOferta ventanaEntrega = new EntregaOferta();
+            ventanaEntrega.Show();
         }
     }
 }

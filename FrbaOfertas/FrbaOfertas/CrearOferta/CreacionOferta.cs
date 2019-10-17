@@ -129,5 +129,10 @@ namespace FrbaOfertas.CrearOferta
         {
             haySeleccionado = true;
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
