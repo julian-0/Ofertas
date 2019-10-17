@@ -109,5 +109,36 @@ namespace FrbaOfertas.AbmRol
             consulta.ExecuteNonQuery();
             Conexiones.CerrarConexion();
         }
+
+        private void actualizarRoles()
+        {
+            foreach (TabPage tabPage in tabControl1.TabPages)
+            {
+                UserControlRol ucr = tabPage.Controls[0] as UserControlRol;
+                ucr.guardarModificaciones();
+            }
+            MessageBox.Show("Roles actualizados.");
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            actualizarRoles();
+        }
+
+        private void ABMRol_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("¿Desea guardar los cambios?", "Actualizar Roles", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                actualizarRoles();
+            }
+            else
+            {
+                MessageBox.Show("No se guardaron los cambios.");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

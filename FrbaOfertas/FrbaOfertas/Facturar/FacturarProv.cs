@@ -120,5 +120,10 @@ namespace FrbaOfertas.Facturar
             var lines = datosProveedorSeleccionado.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
             MessageBox.Show(string.Join(Environment.NewLine, lines));
         }
+
+        private void FacturarProv_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }
