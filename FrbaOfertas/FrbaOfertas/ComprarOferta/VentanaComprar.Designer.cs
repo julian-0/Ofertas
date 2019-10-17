@@ -32,22 +32,28 @@
             this.cantidad = new System.Windows.Forms.NumericUpDown();
             this.btnComprar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelBienvenida = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tablaOfertas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // tablaOfertas
             // 
+            this.tablaOfertas.AllowUserToAddRows = false;
+            this.tablaOfertas.AllowUserToDeleteRows = false;
             this.tablaOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaOfertas.Location = new System.Drawing.Point(12, 47);
+            this.tablaOfertas.Location = new System.Drawing.Point(12, 65);
+            this.tablaOfertas.MultiSelect = false;
             this.tablaOfertas.Name = "tablaOfertas";
+            this.tablaOfertas.ReadOnly = true;
+            this.tablaOfertas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaOfertas.Size = new System.Drawing.Size(639, 214);
             this.tablaOfertas.TabIndex = 0;
             this.tablaOfertas.SelectionChanged += new System.EventHandler(this.tablaOfertas_SelectionChanged);
             // 
             // cantidad
             // 
-            this.cantidad.Location = new System.Drawing.Point(403, 285);
+            this.cantidad.Location = new System.Drawing.Point(341, 295);
             this.cantidad.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
@@ -85,17 +91,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(348, 287);
+            this.label1.Location = new System.Drawing.Point(286, 297);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 24;
             this.label1.Text = "Cantidad";
             // 
+            // labelBienvenida
+            // 
+            this.labelBienvenida.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelBienvenida.AutoSize = true;
+            this.labelBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBienvenida.Location = new System.Drawing.Point(255, 25);
+            this.labelBienvenida.Name = "labelBienvenida";
+            this.labelBienvenida.Size = new System.Drawing.Size(179, 25);
+            this.labelBienvenida.TabIndex = 25;
+            this.labelBienvenida.Text = "Ofertas disponibles";
+            this.labelBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // VentanaComprar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(663, 378);
+            this.Controls.Add(this.labelBienvenida);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.cantidad);
@@ -116,5 +138,6 @@
         private System.Windows.Forms.NumericUpDown cantidad;
         private System.Windows.Forms.Button btnComprar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelBienvenida;
     }
 }

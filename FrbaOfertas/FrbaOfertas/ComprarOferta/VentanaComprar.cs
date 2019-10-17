@@ -48,8 +48,11 @@ namespace FrbaOfertas.ComprarOferta
         private void tablaOfertas_SelectionChanged(object sender, EventArgs e)
         {
             btnComprar.Enabled = true;
-            DataGridViewRow fila = tablaOfertas.CurrentRow;
-            ofertaSeleccionada = fila.Cells["oferta_codigo"].Value.ToString();
+
+            foreach (DataGridViewRow row in tablaOfertas.SelectedRows)
+            {
+                ofertaSeleccionada = row.Cells["oferta_codigo"].Value.ToString();
+            }
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
@@ -77,6 +80,11 @@ namespace FrbaOfertas.ComprarOferta
                 MessageBox.Show(ex.Message, "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Conexiones.CerrarConexion();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
