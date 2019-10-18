@@ -191,6 +191,9 @@
     <EmbeddedResource Include="ComprarOferta\VentanaComprar.resx">
       <DependentUpon>VentanaComprar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CragaCredito\CargarCredito.resx">
+      <DependentUpon>CargarCredito.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\CreacionOferta.resx">
       <DependentUpon>CreacionOferta.cs</DependentUpon>
     </EmbeddedResource>

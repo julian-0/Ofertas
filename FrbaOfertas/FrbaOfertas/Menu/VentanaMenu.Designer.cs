@@ -132,6 +132,7 @@
             this.btnCarga.TabIndex = 6;
             this.btnCarga.Text = "Cargar credito";
             this.btnCarga.UseVisualStyleBackColor = false;
+            this.btnCarga.Click += new System.EventHandler(this.btnCarga_Click);
             // 
             // btnComprar
             // 

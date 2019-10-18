@@ -19,6 +19,7 @@ using FrbaOfertas.ComprarOferta;
 using FrbaOfertas.ListadoEstadistico;
 using FrbaOfertas.Facturar;
 using FrbaOfertas.EntregarOferta;
+using FrbaOfertas.CragaCredito;
 
 namespace FrbaOfertas.Menu
 {
@@ -161,6 +162,12 @@ namespace FrbaOfertas.Menu
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnCarga_Click(object sender, EventArgs e)
+        {
+            CargarCredito ventanaCargar = new CargarCredito();
+            ventanaCargar.Show();
         }
     }
 }
