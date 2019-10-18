@@ -21,6 +21,7 @@ namespace FrbaOfertas.AbmRol
         public DataTable funcPosibles;
         private String rol_id;
         private bool baja_logica;
+        public String transaccion = "";
 
         public UserControlRol(DataTable funcionalidadesRol, DataTable funcionalidadesRestantes, String _rol_id, bool _baja_logica)
         {
@@ -128,17 +129,17 @@ namespace FrbaOfertas.AbmRol
 
             SqlConnection conexion = Conexiones.AbrirConexion();
             String query = "INSERT INTO NUNCA_INJOIN.FuncionalidadPorRol(rol_id, funcionalidad_id)" +
-                                          " VALUES (" + rol_id + ", '" +nuevaFunc + "')";
-            ejecutarQuery(query);
+                                          " VALUES (" + rol_id + ", '" +nuevaFunc + "') ";
+            transaccion += query;
         }
 
         private void quitarFuncionalidad(String funcAQuitar)
         {
             SqlConnection conexion = Conexiones.AbrirConexion();
-            String query = "DELETE FROM NUNCA_INJOIN.FuncionalidadPorRol " +
+            String query = " DELETE FROM NUNCA_INJOIN.FuncionalidadPorRol " +
                                         " WHERE rol_id = " + rol_id +
-                                        " AND funcionalidad_id = '" + funcAQuitar+"'";
-            ejecutarQuery(query);
+                                        " AND funcionalidad_id = '" + funcAQuitar+"' ";
+            transaccion += query;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -161,20 +162,20 @@ namespace FrbaOfertas.AbmRol
 
         private void actualizarNombre(String nuevoNombre)
         {
-            String query = "UPDATE NUNCA_INJOIN.Rol " +
+            String query = " UPDATE NUNCA_INJOIN.Rol " +
                                 " SET nombre_rol = '"+nuevoNombre+"'"+
                                 " WHERE rol_id = " + rol_id;
-            ejecutarQuery(query);
+            transaccion += query;
         }
 
         private void buttonInhabilitar_Click(object sender, EventArgs e)
         {
             String nueva_bl = baja_logica? "'N'" : "'S'";
-            String query= "UPDATE NUNCA_INJOIN.Rol " +
+            String query= " UPDATE NUNCA_INJOIN.Rol " +
                                     " SET baja_logica = " + nueva_bl +
                                     " WHERE rol_id = " + rol_id;
-            ejecutarQuery(query);
             baja_logica = !baja_logica;
+            transaccion += query;
             actualizarCartelBajaLogica();
         }
 
@@ -184,6 +185,15 @@ namespace FrbaOfertas.AbmRol
             SqlCommand consulta = new SqlCommand(query, conexion);
             consulta.ExecuteNonQuery();
             Conexiones.CerrarConexion();
+        }
+
+        public void guardarModificaciones()
+        {
+            if (transaccion != "")
+            {
+                ejecutarQuery(transaccion);
+                transaccion = "";
+            }
         }
     }
 }

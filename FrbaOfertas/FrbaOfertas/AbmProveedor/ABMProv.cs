@@ -16,12 +16,13 @@ namespace FrbaOfertas.AbmProveedor
     public partial class ABMProv : Form
     {
         public List<string> datosFilaProveedor = new List<string>();
-        private bool buscarWasClicked = false;
+        private bool buscarWasClicked = true;
 
         public ABMProv()
         {
             InitializeComponent();
             this.updateHeadersStyle();
+            generarBusqueda();
         }
 
         //Hay un bug que resetea la fuente de ColumnHeadersDefaultCellStyle con cada build
@@ -32,6 +33,7 @@ namespace FrbaOfertas.AbmProveedor
         private void mostrarMas_Click(object sender, EventArgs e)
         {
             groupBox1.Visible = !groupBox1.Visible;
+            mostrarMas.Text = groupBox1.Visible ? "▲ Menos filtros" : "▼ Más filtros"; 
         }
 
         private void ABMProv_Load(object sender, EventArgs e)
@@ -61,6 +63,12 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button2_Click(object sender, EventArgs e)
         {
+            buscarWasClicked = true;
+            generarBusqueda();
+        }
+
+        private void generarBusqueda()
+        {
             DataTable dt = new DataTable();
             buscarWasClicked = true;
 
@@ -69,7 +77,7 @@ namespace FrbaOfertas.AbmProveedor
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
 
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados + 
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(" + verHabilitados + "," + verInhabilitados +
                 ", '" + razonSocial.Text.ToString() +
                 "', '" + usuario.Text.ToString() +
                 "', '" + rubro.Text.ToString() +
@@ -131,6 +139,21 @@ namespace FrbaOfertas.AbmProveedor
         private void ABMProv_FormClosed(object sender, FormClosedEventArgs e)
         {
             InfoUsuario.Actualizar();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //diccionario datosFilaProveedor??
+            String texto = datosFilaProveedor[10] == "N" ? "inhabilitar" : "habilitar";
+            if (MessageBox.Show("¿Desea " + texto + " a " + datosFilaProveedor[0] + " ?", texto + " proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                BaseDeDatos.cambiarEstadoProveedor(datosFilaProveedor[11]);
+            }
+            else
+            {
+                MessageBox.Show("No se guardaron los cambios.");
+            }
+            
         }
     }
 }

@@ -19,7 +19,6 @@ namespace FrbaOfertas.AbmRol
     {
 
         public List<string> rolesMostrados = new List<string>();
-
         public ABMRol()
         {
             InitializeComponent();
@@ -83,14 +82,16 @@ namespace FrbaOfertas.AbmRol
             {
                 if (ventanaNombre.ShowDialog() == DialogResult.OK)
                 {
-                    nuevoRol = ventanaNombre.textBox1.Text;
+                    if (MessageBox.Show("¿Desea crear el Rol " + ventanaNombre.textBox1.Text + "? Una vez creado, el Rol no se podrá eliminar - solo inhabilitar.\n", "Crear rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        nuevoRol = ventanaNombre.textBox1.Text;
+                        String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('" + nuevoRol + "')";
+                        ejecutarQuery(query);
+                        agregarRolesActivos();
+                    }
+                    
                 }
             }
-
-            String query = "INSERT INTO NUNCA_INJOIN.Rol (nombre_rol) VALUES ('"+nuevoRol+"')";
-            ejecutarQuery(query);
-            agregarRolesActivos();
-            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -108,6 +109,37 @@ namespace FrbaOfertas.AbmRol
             SqlCommand consulta = new SqlCommand(query, conexion);
             consulta.ExecuteNonQuery();
             Conexiones.CerrarConexion();
+        }
+
+        private void actualizarRoles()
+        {
+            foreach (TabPage tabPage in tabControl1.TabPages)
+            {
+                UserControlRol ucr = tabPage.Controls[0] as UserControlRol;
+                ucr.guardarModificaciones();
+            }
+            MessageBox.Show("Roles actualizados.");
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            actualizarRoles();
+        }
+
+        private void ABMRol_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("¿Desea guardar los cambios?", "Actualizar Roles", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                actualizarRoles();
+            }
+            else
+            {
+                MessageBox.Show("No se guardaron los cambios.");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
