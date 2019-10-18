@@ -27,6 +27,13 @@ namespace FrbaOfertas.AbmCliente
         {
             InitializeComponent();
 
+            if (usuario_id != null)
+            {
+                textIdUsuario.Text = usuario_id;
+                textIdUsuario.ReadOnly = true;
+            }
+
+
             if ((datosOriginales != null)) //Llega de modificacion
             {
                 this.autocompletarCampos(datosOriginales);
