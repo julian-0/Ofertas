@@ -41,7 +41,6 @@
             this.cupon.Location = new System.Drawing.Point(11, 52);
             this.cupon.Margin = new System.Windows.Forms.Padding(2);
             this.cupon.Name = "cupon";
-            this.cupon.ReadOnly = true;
             this.cupon.Size = new System.Drawing.Size(262, 20);
             this.cupon.TabIndex = 1;
             this.cupon.TextChanged += new System.EventHandler(this.cupon_TextChanged);
@@ -75,7 +74,6 @@
             this.cliente.Location = new System.Drawing.Point(11, 119);
             this.cliente.Margin = new System.Windows.Forms.Padding(2);
             this.cliente.Name = "cliente";
-            this.cliente.ReadOnly = true;
             this.cliente.Size = new System.Drawing.Size(262, 20);
             this.cliente.TabIndex = 13;
             // 

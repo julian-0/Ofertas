@@ -2249,4 +2249,34 @@ RETURN (
 		)
 GO
 
-
+CREATE PROC NUNCA_INJOIN.consumirOferta (
+	@cupon_id NUMERIC(9, 0),
+	@cliente_entrega_id NUMERIC(9, 0),
+	@fecha NVARCHAR(50)
+) AS
+BEGIN
+	IF NOT EXISTS (SELECT cupon_id FROM NUNCA_INJOIN.Cupon WHERE @cupon_id = cupon_id AND CONVERT(datetime, @fecha, 121) < vencimiento)
+	BEGIN
+		;THROW 60001, 'no existe el cupon seleccionado, o ya esta vencido.', 1
+	END
+	ELSE
+	BEGIN
+		IF NOT EXISTS (SELECT cliente_id FROM NUNCA_INJOIN.Cliente WHERE @cliente_entrega_id = cliente_id)
+		BEGIN
+			;THROW 60002, 'no existe el cliente seleccionado.', 1
+		END
+		ELSE
+		BEGIN
+			IF (SELECT count(*) FROM NUNCA_INJOIN.Entrega WHERE cupon_id = @cupon_id) >= (SELECT cantidad_comprada FROM NUNCA_INJOIN.Cupon WHERE @cupon_id = cupon_id)
+			BEGIN
+				;THROW 60003, 'El cupon ya fue consumido totalmente.', 1
+			END
+			ELSE
+			BEGIN
+				INSERT INTO NUNCA_INJOIN.Entrega(cupon_id, cliente_entrega_id, fecha_consumo)
+				VALUES (@cupon_id, @cliente_entrega_id, @fecha)
+			END
+		END
+	END
+END
+GO
