@@ -2040,12 +2040,12 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.bajarSaldoCliente(@usuario_id VARCHAR(50),@importe NUMERIC(26,2))
+CREATE PROC NUNCA_INJOIN.bajarSaldoCliente(@cliente_id NUMERIC(9,0),@importe NUMERIC(26,2))
 AS
 BEGIN
 UPDATE  NUNCA_INJOIN.Cliente
 SET credito -= @importe
-WHERE usuario_id=@usuario_id;
+WHERE cliente_id=@cliente_id;
 END
 GO
 
@@ -2080,14 +2080,13 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.comprarOferta (@usuario_id varchar(50),@oferta_codigo nvarchar(50),
+CREATE PROC NUNCA_INJOIN.comprarOferta (@cliente_id NUMERIC(9,0),@oferta_codigo nvarchar(50),
 										@cantidad numeric(18,0),@fecha datetime)
 AS
 BEGIN
-	DECLARE @factura_numero NUMERIC(18,0),@importe NUMERIC(26,2),@proveedor_id NUMERIC(9,0),@cliente_id NUMERIC(9,0);
+	DECLARE @factura_numero NUMERIC(18,0),@importe NUMERIC(26,2),@proveedor_id NUMERIC(9,0);
 	SET @importe = @cantidad * (SELECT precio_oferta FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo);
 	SET @proveedor_id = (SELECT proveedor_id FROM NUNCA_INJOIN.Oferta where oferta_codigo=@oferta_codigo)
-	SET @cliente_id = (SELECT cliente_id FROM NUNCA_INJOIN.Cliente WHERE usuario_id=@usuario_id);
 
 	EXEC NUNCA_INJOIN.puedeComprar @cliente_id,@oferta_codigo,@cantidad,@fecha;
 	
@@ -2095,7 +2094,7 @@ BEGIN
 
 	EXEC NUNCA_INJOIN.armarCupon @oferta_codigo,@cliente_id,@factura_numero,@fecha,@cantidad;
 
-	EXEC NUNCA_INJOIN.bajarSaldoCliente @usuario_id,@importe;
+	EXEC NUNCA_INJOIN.bajarSaldoCliente @cliente_id,@importe;
 
 	EXEC NUNCA_INJOIN.bajarCantidadOferta @oferta_codigo,@cantidad;
 END

@@ -204,7 +204,7 @@ namespace FrbaOfertas.Datos
             switch(rolUsuario)
             {
                 case 3:
-                    command = new SqlCommand("SELECT [cliente_id],[usuario_id],[nombre],[apellido],[dni],[mail]," +
+                    command = new SqlCommand("SELECT [cliente_id] as ID,[usuario_id] as Usuario,[nombre],[apellido],[dni],[mail]," +
                         "[telefono],[domicilio],[localidad],[codigo_postal],[fecha_nac],[credito],[baja_logica]" +
                         " FROM NUNCA_INJOIN.Cliente WHERE usuario_id LIKE '" + nombreUsuario + "'", conexion);
                     adapter = new SqlDataAdapter(command);

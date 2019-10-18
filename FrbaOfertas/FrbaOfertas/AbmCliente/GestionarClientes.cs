@@ -16,7 +16,8 @@ namespace FrbaOfertas.AbmCliente
 {
     public partial class GestionarClientes : Form
     {
-        public List<string> datosFilaCliente = new List<string>();
+        public Dictionary<string, string> datosFilaCliente = new Dictionary<string, string>();
+
         private bool buscarWasClicked = false;
 
         private VentanaMenu menu;
@@ -27,10 +28,20 @@ namespace FrbaOfertas.AbmCliente
             InitializeComponent();
         }
 
+        public GestionarClientes()//es para la seleccion de un cliente en comprarOferta
+        {
+            InitializeComponent();
+            this.btnModificar.Hide();
+            this.btnEliminar.Hide();
+            this.btnAlta.Hide();
+            this.btnSeleccion.Show();
+        }
+
         private void GestionarClientes_FormClosed(object sender, FormClosedEventArgs e)
         {
             InfoUsuario.Actualizar();
-            menu.Show();
+            if(menu!=null)
+                menu.Show();
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -94,11 +105,10 @@ namespace FrbaOfertas.AbmCliente
             datosFilaCliente.Clear();
             foreach (DataGridViewRow row in tablaClientes.SelectedRows)
             {
-                for (int i = 0; i < 11; i++)
+                for (int i = 0; i < tablaClientes.ColumnCount; i++)
                 {
-                    datosFilaCliente.Add(row.Cells[i].Value.ToString());
+                    datosFilaCliente.Add(tablaClientes.Columns[i].Name, row.Cells[i].Value.ToString());
                 }
-                datosFilaCliente.Add(row.Cells["ID"].Value.ToString());
             }
         }
 
@@ -110,6 +120,11 @@ namespace FrbaOfertas.AbmCliente
                 ventanaModificacion.Show();
             }
             else MessageBox.Show("Seleccione un cliente");
+        }
+
+        private void btnSeleccion_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

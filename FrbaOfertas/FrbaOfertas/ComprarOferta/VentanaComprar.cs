@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
+using FrbaOfertas.Datos;
+using FrbaOfertas.AbmCliente;
+
 
 namespace FrbaOfertas.ComprarOferta
 {
@@ -16,13 +19,22 @@ namespace FrbaOfertas.ComprarOferta
     {
         public DateTime fechaConfig = DateTime.Parse(System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"]);
         public string ofertaSeleccionada;
-        string user;
+        public Dictionary<string, string> datosClienteSeleccionado = new Dictionary<string, string>();
+        public bool haySeleccionado = false;
 
 
         public VentanaComprar(string usuario)
         {
-            user = usuario;
             InitializeComponent();
+
+            if (InfoUsuario.rolUsuario > 2)
+            {
+                btnSeleccionarCliente.Hide();
+                txtCliente.ReadOnly = true;
+                txtCliente.Text = InfoUsuario.nombreUsuario;
+                datosClienteSeleccionado = InfoUsuario.datosCuenta;
+                haySeleccionado = true;
+            } 
         }
 
         private void ComprarOferta_Load(object sender, EventArgs e)
@@ -57,14 +69,21 @@ namespace FrbaOfertas.ComprarOferta
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            if (!haySeleccionado)
+            {
+                MessageBox.Show("Seleccione un cliente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                
+
             SqlCommand procedure = new SqlCommand();
             procedure.Connection = Conexiones.AbrirConexion();
             procedure.Parameters.Clear();
 
             procedure.CommandText = "NUNCA_INJOIN.comprarOferta";
             procedure.CommandType = CommandType.StoredProcedure;
-           
-            procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = user;
+
+            procedure.Parameters.Add("@cliente_id", SqlDbType.NVarChar).Value = datosClienteSeleccionado["ID"].ToString(); ;
             procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ofertaSeleccionada;
             procedure.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad.Value;
             procedure.Parameters.Add("@fecha", SqlDbType.DateTime).Value = fechaConfig;
@@ -82,9 +101,28 @@ namespace FrbaOfertas.ComprarOferta
             Conexiones.CerrarConexion();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnInfoCLiente_Click(object sender, EventArgs e)
         {
-
+            var lines = datosClienteSeleccionado.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+            MessageBox.Show(string.Join(Environment.NewLine, lines));
         }
+
+        
+        private void btnSeleccionarCliente_Click(object sender, EventArgs e)
+        {
+            
+            using (GestionarClientes ventanaSeleccion = new GestionarClientes())
+            {
+                if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
+                {
+                    this.datosClienteSeleccionado = ventanaSeleccion.datosFilaCliente;
+                    txtCliente.Text = datosClienteSeleccionado["Usuario"].ToString();
+                    haySeleccionado = true;
+                }
+            }
+             
+        }
+        
+
     }
 }

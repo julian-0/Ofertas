@@ -23,16 +23,16 @@ namespace FrbaOfertas.AbmCliente
         {
             InitializeComponent();
         }
-        public AltaCliente(String usuario_id, List<string> datosOriginales)
+        public AltaCliente(String usuario_id, Dictionary<string, string> datosOriginales)
         {
             InitializeComponent();
 
             if ((datosOriginales != null)) //Llega de modificacion
             {
                 this.autocompletarCampos(datosOriginales);
-                if (datosOriginales[0] != "NO USER")
+                if (datosOriginales["Usuario"] != "NO USER")
                 {
-                    textIdUsuario.Text = datosOriginales[0];
+                    textIdUsuario.Text = datosOriginales["Usuario"];
                     textIdUsuario.ReadOnly = true;
                     btnNuevoUser.Hide();
                     txtNoTieneUser.Hide();
@@ -142,19 +142,18 @@ namespace FrbaOfertas.AbmCliente
             }
         }
 
-        private void autocompletarCampos(List<string> datosOriginales)
+        private void autocompletarCampos(Dictionary<string, string> datosOriginales)
         {
-            txtNom.Text = datosOriginales[1];
-            txtApe.Text = datosOriginales[2];
-            txtDni.Text = datosOriginales[3];
-            txtMail.Text = datosOriginales[4];
-            txtTel.Text = datosOriginales[5];
-            txtDom.Text = datosOriginales[6];
-            txtLocalidad.Text = datosOriginales[7];
-            txtCodP.Text = datosOriginales[8];
-            fechaNac.Text = datosOriginales[9];
-            txtDom.Text = datosOriginales[10];
-            cliente_id = int.Parse(datosOriginales[11]);
+            txtNom.Text = datosOriginales["Nombre"];
+            txtApe.Text = datosOriginales["Apellido"];
+            txtDni.Text = datosOriginales["DNI"];
+            txtMail.Text = datosOriginales["Email"];
+            txtTel.Text = datosOriginales["Telefono"];
+            txtDom.Text = datosOriginales["Domicilio"];
+            txtLocalidad.Text = datosOriginales["Localidad"];
+            txtCodP.Text = datosOriginales["Codigo_Postal"];
+            fechaNac.Text = datosOriginales["Nacimiento"];
+            cliente_id = int.Parse(datosOriginales["ID"]);
         }
 
         private void altaCliente()
