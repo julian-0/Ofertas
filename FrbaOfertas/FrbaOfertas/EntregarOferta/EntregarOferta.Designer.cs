@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cupon = new System.Windows.Forms.TextBox();
             this.labelUsuario = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cliente = new System.Windows.Forms.TextBox();
             this.buttonConsumirCupon = new System.Windows.Forms.Button();
+            this.errorCupon = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorCliente = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorCupon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorCliente)).BeginInit();
             this.SuspendLayout();
             // 
             // cupon
@@ -44,6 +49,7 @@
             this.cupon.Size = new System.Drawing.Size(262, 20);
             this.cupon.TabIndex = 1;
             this.cupon.TextChanged += new System.EventHandler(this.cupon_TextChanged);
+            this.cupon.Leave += new System.EventHandler(this.cupon_leave);
             // 
             // labelUsuario
             // 
@@ -76,6 +82,7 @@
             this.cliente.Name = "cliente";
             this.cliente.Size = new System.Drawing.Size(262, 20);
             this.cliente.TabIndex = 13;
+            this.cliente.Leave += new System.EventHandler(this.cliente_leave);
             // 
             // buttonConsumirCupon
             // 
@@ -92,6 +99,14 @@
             this.buttonConsumirCupon.UseVisualStyleBackColor = false;
             this.buttonConsumirCupon.Click += new System.EventHandler(this.buttonConsumirCupon_Click);
             // 
+            // errorCupon
+            // 
+            this.errorCupon.ContainerControl = this;
+            // 
+            // errorCliente
+            // 
+            this.errorCliente.ContainerControl = this;
+            // 
             // EntregaOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,6 +120,8 @@
             this.Controls.Add(this.cupon);
             this.Name = "EntregaOferta";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.errorCupon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorCliente)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +134,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox cliente;
         private System.Windows.Forms.Button buttonConsumirCupon;
-
+        private System.Windows.Forms.ErrorProvider errorCupon;
+        private System.Windows.Forms.ErrorProvider errorCliente;
     }
 }

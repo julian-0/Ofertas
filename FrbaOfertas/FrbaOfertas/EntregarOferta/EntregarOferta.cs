@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Conexion;
 using System.Data.SqlClient;
+using FrbaOfertas.Clases;
 
 namespace FrbaOfertas.EntregarOferta
 {
@@ -24,13 +25,28 @@ namespace FrbaOfertas.EntregarOferta
 
         }
 
-        private void cupon_TextChanged(object sender, EventArgs e)
+        private void cliente_leave(object sender, EventArgs e) 
         {
+            ValidadorCampos.numerico(cliente, errorCliente);
+        }
 
+        private void cupon_leave(object sender, EventArgs e)
+        {
+            ValidadorCampos.numerico(cupon, errorCupon);
+        }
+
+        private bool hayError()
+        {
+            return errorCupon.GetError(cupon) + errorCliente.GetError(cliente) != "";
         }
 
         private void buttonConsumirCupon_Click(object sender, EventArgs e)
         {
+            if (hayError()) {
+                MessageBox.Show("Los campos ingresados deben ser numericos", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             SqlCommand procedure = new SqlCommand();
             procedure.Connection = Conexiones.AbrirConexion();
             procedure.Parameters.Clear();
@@ -49,9 +65,14 @@ namespace FrbaOfertas.EntregarOferta
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "prueba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Conexiones.CerrarConexion();
+        }
+
+        private void cupon_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

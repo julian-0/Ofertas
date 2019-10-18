@@ -2249,13 +2249,24 @@ RETURN (
 		)
 GO
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'consumirOferta'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROC NUNCA_INJOIN.consumirOferta
+END
+GO
+
 CREATE PROC NUNCA_INJOIN.consumirOferta (
 	@cupon_id NUMERIC(9, 0),
 	@cliente_entrega_id NUMERIC(9, 0),
 	@fecha NVARCHAR(50)
 ) AS
 BEGIN
-	IF NOT EXISTS (SELECT cupon_id FROM NUNCA_INJOIN.Cupon WHERE @cupon_id = cupon_id AND CONVERT(datetime, @fecha, 121) < vencimiento)
+	IF NOT EXISTS (SELECT cupon_id FROM NUNCA_INJOIN.Cupon WHERE @cupon_id = cupon_id AND CONVERT(datetime, @fecha, 121) < ISNULL(vencimiento, '9999-12-12'))
 	BEGIN
 		;THROW 60001, 'no existe el cupon seleccionado, o ya esta vencido.', 1
 	END
