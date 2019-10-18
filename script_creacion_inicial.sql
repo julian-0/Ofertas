@@ -2261,7 +2261,6 @@ RETURN (
 			p.razon_social,
 			o.precio_lista
 		)
-<<<<<<< HEAD
 GO
 
 IF EXISTS (
@@ -2305,6 +2304,4 @@ BEGIN
 		END
 	END
 END
-=======
->>>>>>> f95e97e7c6f624de5c3a0f2f3f55c388527f8bb6
 GO
