@@ -31,6 +31,8 @@ namespace FrbaOfertas.AbmCliente
             {
                 textIdUsuario.Text = usuario_id;
                 textIdUsuario.ReadOnly = true;
+                btnNuevoUser.Hide();
+                txtNoTieneUser.Hide();
             }
 
 
