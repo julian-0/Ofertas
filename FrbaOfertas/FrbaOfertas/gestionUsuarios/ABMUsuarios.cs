@@ -20,6 +20,12 @@ namespace FrbaOfertas.gestionUsuarios
         public ABMUsuarios()
         {
             InitializeComponent();
+            updateHeadersStyle();
+        }
+
+        private void updateHeadersStyle()
+        {
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,32 +36,51 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void button2_Click(object sender, EventArgs e)
         {
+            cargarDatos();
+        }
+
+        private void ABMUsuarios_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void cargarDatos()
+        {
             dt.Columns.Clear();
             dt.Rows.Clear();
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
             char verInhabilitados = mostrarInhabilitados.Checked ? '1' : '0';
             char verHabilitados = mostrarHabilitados.Checked ? '1' : '0';
-            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerUsuarios(" + verHabilitados + "," + verInhabilitados + ", '"+ usuario.Text +"', '" + rol.Text + "' )", conexion);
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerUsuarios(" + verHabilitados + "," + verInhabilitados + ", '" + usuario.Text + "', '" + rol.Text + "' )", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             Conexiones.CerrarConexion();
         }
 
-        private void ABMUsuarios_Load(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+            String bl = Convert.ToString(selectedRow.Cells["Inhabilitado"].Value);
+            String usuario_id = Convert.ToString(selectedRow.Cells["Usuario"].Value.ToString());
+            String nueva_bl = bl == "S" ? "N" : "S";
+            String query = " UPDATE NUNCA_INJOIN.Usuario " +
+                    " SET baja_logica = '" + nueva_bl + "'" +
+                    " WHERE usuario_id LIKE '" + usuario_id + "'";
+            ejecutarQuery(query);
+            cargarDatos();
+        }
+
+        private void ejecutarQuery(String query)
         {
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT nombre_rol FROM NUNCA_INJOIN.Rol WHERE baja_logica = 'N'", conexion);
-            SqlDataReader dataReader = command.ExecuteReader();
-
-            while (dataReader.Read())
-            {
-                rol.Items.Add(dataReader[0]);
-            }
-
+            SqlCommand consulta = new SqlCommand(query, conexion);
+            consulta.ExecuteNonQuery();
             Conexiones.CerrarConexion();
-
         }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {        }
     }
 }

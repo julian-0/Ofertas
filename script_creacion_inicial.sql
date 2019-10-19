@@ -2304,3 +2304,155 @@ BEGIN
 	END
 END
 GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.triggers
+		WHERE object_name(object_id) = 'cambiarBLUsuario'
+		)
+	DROP TRIGGER NUNCA_INJOIN.cambiarBLUsuario
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.triggers
+		WHERE object_name(object_id) = 'cambiarBLCliente'
+		)
+	DROP TRIGGER NUNCA_INJOIN.cambiarBLCliente
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.triggers
+		WHERE object_name(object_id) = 'cambiarBLProveedor'
+		)
+	DROP TRIGGER NUNCA_INJOIN.cambiarBLProveedor
+GO
+
+CREATE TRIGGER NUNCA_INJOIN.cambiarBLUsuario ON NUNCA_INJOIN.Usuario
+AFTER UPDATE
+AS
+BEGIN TRANSACTION
+
+DECLARE @usuario VARCHAR(50)
+DECLARE @baja CHAR(1)
+
+SELECT @usuario = usuario_id
+FROM inserted
+
+DECLARE usu_cursor CURSOR LOCAL
+FOR
+SELECT baja_logica
+FROM inserted
+
+OPEN usu_cursor
+
+FETCH usu_cursor
+INTO @baja
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	IF (@usuario IS NOT NULL)
+	BEGIN
+		UPDATE NUNCA_INJOIN.Proveedor
+		SET baja_logica = @baja
+		WHERE usuario_id = @usuario
+		and baja_logica not like @baja -- Para evitar loops infinitos en Usuario->Cliente->Usuario->Cliente...
+
+		UPDATE NUNCA_INJOIN.Cliente
+		SET baja_logica = @baja
+		WHERE usuario_id = @usuario
+		and baja_logica not like @baja
+	END
+	FETCH usu_cursor
+	INTO @baja
+END
+
+CLOSE usu_cursor
+
+DEALLOCATE usu_cursor
+
+COMMIT
+go
+
+CREATE TRIGGER NUNCA_INJOIN.cambiarBLCliente ON NUNCA_INJOIN.Cliente
+AFTER UPDATE
+AS
+BEGIN TRANSACTION
+
+DECLARE @usuario VARCHAR(50)
+DECLARE @baja CHAR(1)
+
+SELECT @usuario = usuario_id
+FROM inserted
+
+DECLARE cli_cursor CURSOR LOCAL
+FOR
+SELECT baja_logica
+FROM inserted
+
+OPEN cli_cursor 
+
+FETCH cli_cursor 
+INTO @baja
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	IF (@usuario IS NOT NULL)
+	BEGIN
+		UPDATE NUNCA_INJOIN.Usuario
+		SET baja_logica = @baja
+		WHERE usuario_id = @usuario
+		and baja_logica not like @baja -- Para evitar loops infinitos en Usuario->Cliente->Usuario->Cliente...
+	END
+	FETCH cli_cursor 
+	INTO @baja
+END
+
+CLOSE cli_cursor 
+
+DEALLOCATE cli_cursor 
+
+COMMIT
+go
+
+
+CREATE TRIGGER NUNCA_INJOIN.cambiarBLProveedor ON NUNCA_INJOIN.Proveedor
+AFTER UPDATE
+AS
+BEGIN TRANSACTION
+
+DECLARE @usuario VARCHAR(1)
+DECLARE @baja char(1)
+
+SELECT @usuario = usuario_id
+FROM inserted
+
+DECLARE prov_cursor CURSOR LOCAL
+FOR
+SELECT baja_logica
+FROM inserted
+
+OPEN prov_cursor 
+
+FETCH prov_cursor 
+INTO @baja
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	IF (@usuario IS NOT NULL)
+	BEGIN
+		UPDATE NUNCA_INJOIN.Usuario
+		SET baja_logica = @baja
+		WHERE usuario_id = @usuario
+		and baja_logica not like @baja -- Para evitar loops infinitos en Usuario->Cliente->Usuario->Cliente...
+	END
+	FETCH prov_cursor 
+	INTO @baja
+END
+
+CLOSE prov_cursor 
+
+DEALLOCATE prov_cursor 
+
+COMMIT
+go

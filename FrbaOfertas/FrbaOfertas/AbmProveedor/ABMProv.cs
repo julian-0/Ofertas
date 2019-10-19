@@ -144,16 +144,35 @@ namespace FrbaOfertas.AbmProveedor
         private void button4_Click(object sender, EventArgs e)
         {
             //diccionario datosFilaProveedor??
-            String texto = datosFilaProveedor[10] == "N" ? "inhabilitar" : "habilitar";
-            if (MessageBox.Show("¿Desea " + texto + " a " + datosFilaProveedor[0] + " ?", texto + " proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+            String bl = Convert.ToString(selectedRow.Cells["Inhabilitado"].Value);
+            String id = Convert.ToString(selectedRow.Cells["ID"].Value.ToString());
+            String razonSocial = Convert.ToString(selectedRow.Cells["Razon Social"].Value.ToString());
+
+            String texto = bl == "N" ? "inhabilitar" : "habilitar";
+            if (MessageBox.Show("¿Desea " + texto + " a " + razonSocial + " ?", texto + " proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                BaseDeDatos.cambiarEstadoProveedor(datosFilaProveedor[11]);
+                String nueva_bl = bl == "S" ? "N" : "S";
+                String query = " UPDATE NUNCA_INJOIN.Proveedor " +
+                        " SET baja_logica = '" + nueva_bl + "'" +
+                        " WHERE proveedor_id LIKE '" + id + "'";
+                ejecutarQuery(query);
+                generarBusqueda();
             }
             else
             {
                 MessageBox.Show("No se guardaron los cambios.");
             }
-            
         }
+
+        private void ejecutarQuery(String query)
+        {
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand consulta = new SqlCommand(query, conexion);
+            consulta.ExecuteNonQuery();
+            Conexiones.CerrarConexion();
+        }
+
     }
 }
