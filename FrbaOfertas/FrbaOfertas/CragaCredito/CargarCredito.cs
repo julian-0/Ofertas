@@ -108,5 +108,10 @@ namespace FrbaOfertas.CragaCredito
             var lines = datosTarjetaSeleccionada.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
             MessageBox.Show(string.Join(Environment.NewLine, lines));
         }
+
+        private void btnAgregarTarjeta_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

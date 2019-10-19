@@ -170,6 +170,7 @@
             this.btnAgregarTarjeta.TabIndex = 27;
             this.btnAgregarTarjeta.Text = "+ Agregar Tarjeta";
             this.btnAgregarTarjeta.UseVisualStyleBackColor = true;
+            this.btnAgregarTarjeta.Click += new System.EventHandler(this.btnAgregarTarjeta_Click);
             // 
             // label5
             // 
