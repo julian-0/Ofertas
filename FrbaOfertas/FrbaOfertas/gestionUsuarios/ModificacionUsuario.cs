@@ -91,7 +91,15 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void botonCrear_Click(object sender, EventArgs e)
         {
-            if (password.Text != password2.Text)
+            if (String.IsNullOrEmpty(nombreUsuario.Text))
+            {
+                MessageBox.Show("Ingrese un nombre de usuario", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (String.IsNullOrEmpty(password.Text))
+            {
+                MessageBox.Show("La contraseña no puede ser vacia", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (password.Text != password2.Text)
             {
                 MessageBox.Show("Las contraseñas no coiniden", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 password.Clear();
