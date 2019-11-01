@@ -394,7 +394,7 @@ CREATE TABLE NUNCA_INJOIN.Cliente (
 	"localidad" NVARCHAR(255),
 	"codigo_postal" NVARCHAR(8),
 	"fecha_nac" DATETIME,
-	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 0,
+	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 200,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
 		)
 	);
@@ -1610,24 +1610,24 @@ BEGIN
 
 	SET @cantMaxima = (
 			SELECT cantidad_maxima_usuario
-			FROM NUNCA_INJOIN.Oferta
+			FROM NUNCA_INJOIN.OfertasActivas(@fecha)
 			WHERE oferta_codigo = @oferta_codigo
 			);
 	SET @cantDisponible = (
 			SELECT cantidad_disponible
-			FROM NUNCA_INJOIN.Oferta
+			FROM NUNCA_INJOIN.OfertasActivas(@fecha)
 			WHERE oferta_codigo = @oferta_codigo
 			);
 	SET @cantYaComprada = NUNCA_INJOIN.cantidadCompradaPorUsuario(@cliente_id, 
 			@oferta_codigo, @fecha);
 	SET @credito = (
 			SELECT credito
-			FROM NUNCA_INJOIN.Cliente
+			FROM NUNCA_INJOIN.ClientesActualizados(@fecha)
 			WHERE cliente_id = @cliente_id
 			);
 	SET @monto = @cantidad * (
 			SELECT precio_oferta
-			FROM NUNCA_INJOIN.Oferta
+			FROM NUNCA_INJOIN.OfertasActivas(@fecha)
 			WHERE oferta_codigo = @oferta_codigo
 			);
 
@@ -1799,12 +1799,12 @@ BEGIN
 
 	SET @importe = @cantidad * (
 			SELECT precio_oferta
-			FROM NUNCA_INJOIN.Oferta
+			FROM NUNCA_INJOIN.OfertasActivas(@fecha)
 			WHERE oferta_codigo = @oferta_codigo
 			);
 	SET @proveedor_id = (
 			SELECT proveedor_id
-			FROM NUNCA_INJOIN.Oferta
+			FROM NUNCA_INJOIN.OfertasActivas(@fecha)
 			WHERE oferta_codigo = @oferta_codigo
 			)
 

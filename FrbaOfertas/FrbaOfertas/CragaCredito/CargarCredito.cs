@@ -48,7 +48,7 @@ namespace FrbaOfertas.CragaCredito
 
         private void btnSeleccionarCliente_Click(object sender, EventArgs e)
         {
-
+            Cursor = Cursors.WaitCursor;
             using (GestionarClientes ventanaSeleccion = new GestionarClientes())
             {
                 if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
@@ -58,7 +58,7 @@ namespace FrbaOfertas.CragaCredito
                     haySeleccionado = true;
                 }
             }
-
+            Cursor = Cursors.Default;
         }
 
         private void cargarComboTarjetas()

@@ -40,7 +40,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void buttonSeleccionarProveedor_Click(object sender, EventArgs e)
         {
-            
+            Cursor = Cursors.WaitCursor;
             using (SeleccionProveedor ventanaCreacion = new SeleccionProveedor())
             {
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
@@ -50,6 +50,7 @@ namespace FrbaOfertas.CrearOferta
                     haySeleccionado = true;
                 }
             }
+            Cursor = Cursors.Default;
         }
 
 

@@ -43,6 +43,9 @@ namespace FrbaOfertas.AbmCliente
             this.btnEliminar.Hide();
             this.btnAlta.Hide();
             this.btnSeleccion.Show();
+            updateHeadersStyle();
+            tablaClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; //Para mas velocidad
+            buscar();
         }
 
         private void GestionarClientes_FormClosed(object sender, FormClosedEventArgs e)
