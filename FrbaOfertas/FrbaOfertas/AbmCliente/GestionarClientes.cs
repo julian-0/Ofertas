@@ -11,6 +11,7 @@ using FrbaOfertas.Menu;
 using System.Data.SqlClient;
 using FrbaOfertas.Conexion;
 using FrbaOfertas.Datos;
+using System.Reflection;
 
 namespace FrbaOfertas.AbmCliente
 {
@@ -27,8 +28,18 @@ namespace FrbaOfertas.AbmCliente
             this.menu = m;
             InitializeComponent();
             updateHeadersStyle();
-            tablaClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; //Para mas velocidad
+            aumentarVelocidad();
             buscar();
+        }
+
+        private void aumentarVelocidad()
+        {
+            tablaClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            tablaClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            tablaClientes.AutoSize = false;
+            Type dgvType = tablaClientes.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(tablaClientes, null);
         }
 
         private void updateHeadersStyle()
@@ -44,7 +55,7 @@ namespace FrbaOfertas.AbmCliente
             this.btnAlta.Hide();
             this.btnSeleccion.Show();
             updateHeadersStyle();
-            tablaClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; //Para mas velocidad
+            aumentarVelocidad();
             buscar();
         }
 

@@ -984,6 +984,28 @@ RETURN (
 		)
 GO
 
+-- Para facilidad de uso con .NET
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CuponesActivos'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CuponesActivos
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.CuponesActivos (@fechaActual NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Cupon
+		WHERE fecha_compra <= convert(DATETIME, @fechaActual, 103)
+		)
+GO
+
 CREATE FUNCTION NUNCA_INJOIN.VerProveedores (
 	@MostrarHabilitados INT, @MostrarInhabilitados INT, @razonSocial NVARCHAR(100), 
 	@usuario VARCHAR(50), @rubro NVARCHAR(100), @email NVARCHAR(255), @localidad 

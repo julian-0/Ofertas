@@ -54,7 +54,7 @@ namespace FrbaOfertas.CragaCredito
                 if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
                 {
                     this.datosClienteSeleccionado = ventanaSeleccion.datosFilaCliente;
-                    txtCliente.Text = datosClienteSeleccionado["Usuario"].ToString();
+                    txtCliente.Text = datosClienteSeleccionado["Nombre"].ToString() + " " + datosClienteSeleccionado["Apellido"].ToString();
                     haySeleccionado = true;
                 }
             }

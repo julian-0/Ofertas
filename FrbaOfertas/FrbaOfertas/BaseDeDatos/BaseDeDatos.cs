@@ -74,10 +74,21 @@ namespace FrbaOfertas.Datos
             return dt;
         }
 
-        public static DataTable getUsuarios()
+        public static DataTable getClientes()
         {
-            return solicitar(String.Format("SELECT * FROM NUNCA_INJOIN.ClientesActualizados({0})", fechaConfigString));
+            return solicitar("SELECT * FROM NUNCA_INJOIN.ClientesActualizados('"+fechaConfigString+ "')");
         }
+
+        public static DataTable getCupones()
+        {
+            return solicitar("SELECT * FROM NUNCA_INJOIN.CuponesActivos('"+fechaConfigString+"')");
+        }
+
+        public static DataTable getAniosOfertas()
+        {
+            return solicitar("SELECT distinct year(fecha_publicacion) as Anio FROM NUNCA_INJOIN.Oferta");
+        }
+
 
         public static DataTable getRoles()
         {
@@ -87,11 +98,6 @@ namespace FrbaOfertas.Datos
         public static DataTable getAniosFacturas()
         {
             return solicitar("SELECT distinct year(fecha) as Anio FROM NUNCA_INJOIN.FacturaProveedor");
-        }
-
-        public static DataTable getAniosOfertas()
-        {
-            return solicitar("SELECT distinct year(fecha_publicacion) as Anio FROM NUNCA_INJOIN.Oferta");
         }
 
         public static DataTable getFuncionalidadesRol(String rol_id)

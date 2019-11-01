@@ -54,9 +54,10 @@
             this.lblElegir.AutoSize = true;
             this.lblElegir.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblElegir.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblElegir.Location = new System.Drawing.Point(95, 30);
+            this.lblElegir.Location = new System.Drawing.Point(127, 37);
+            this.lblElegir.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblElegir.Name = "lblElegir";
-            this.lblElegir.Size = new System.Drawing.Size(84, 15);
+            this.lblElegir.Size = new System.Drawing.Size(114, 20);
             this.lblElegir.TabIndex = 22;
             this.lblElegir.Text = "Elija su tarjeta";
             // 
@@ -66,9 +67,11 @@
             this.groupBox1.Controls.Add(this.monto);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(23, 90);
+            this.groupBox1.Location = new System.Drawing.Point(31, 111);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(471, 197);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(628, 242);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Carga";
@@ -76,14 +79,15 @@
             // monto
             // 
             this.monto.DecimalPlaces = 2;
-            this.monto.Location = new System.Drawing.Point(11, 93);
+            this.monto.Location = new System.Drawing.Point(15, 114);
+            this.monto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.monto.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
             0,
             0});
             this.monto.Name = "monto";
-            this.monto.Size = new System.Drawing.Size(183, 20);
+            this.monto.Size = new System.Drawing.Size(244, 22);
             this.monto.TabIndex = 31;
             this.monto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -96,9 +100,11 @@
             this.groupBox2.Controls.Add(this.lblNumero);
             this.groupBox2.Controls.Add(this.btnAgregarTarjeta);
             this.groupBox2.Controls.Add(this.lblElegir);
-            this.groupBox2.Location = new System.Drawing.Point(220, 19);
+            this.groupBox2.Location = new System.Drawing.Point(293, 23);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(234, 172);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(312, 212);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de la tarjeta";
@@ -109,18 +115,20 @@
             this.comboTipo.Items.AddRange(new object[] {
             "Crédito",
             "Débito"});
-            this.comboTipo.Location = new System.Drawing.Point(80, 61);
+            this.comboTipo.Location = new System.Drawing.Point(107, 75);
+            this.comboTipo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboTipo.Name = "comboTipo";
-            this.comboTipo.Size = new System.Drawing.Size(121, 21);
+            this.comboTipo.Size = new System.Drawing.Size(160, 24);
             this.comboTipo.TabIndex = 110;
             this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
             // 
             // lblTipo
             // 
             this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(26, 64);
+            this.lblTipo.Location = new System.Drawing.Point(35, 79);
+            this.lblTipo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(28, 13);
+            this.lblTipo.Size = new System.Drawing.Size(36, 17);
             this.lblTipo.TabIndex = 109;
             this.lblTipo.Text = "Tipo";
             // 
@@ -133,10 +141,10 @@
             this.btnInfoTarjeta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInfoTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInfoTarjeta.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnInfoTarjeta.Location = new System.Drawing.Point(44, 114);
-            this.btnInfoTarjeta.Margin = new System.Windows.Forms.Padding(2);
+            this.btnInfoTarjeta.Location = new System.Drawing.Point(59, 140);
+            this.btnInfoTarjeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInfoTarjeta.Name = "btnInfoTarjeta";
-            this.btnInfoTarjeta.Size = new System.Drawing.Size(172, 24);
+            this.btnInfoTarjeta.Size = new System.Drawing.Size(229, 30);
             this.btnInfoTarjeta.TabIndex = 108;
             this.btnInfoTarjeta.TabStop = false;
             this.btnInfoTarjeta.Text = "Ver informacion de la tarjeta";
@@ -147,26 +155,29 @@
             // comboNumero
             // 
             this.comboNumero.FormattingEnabled = true;
-            this.comboNumero.Location = new System.Drawing.Point(80, 88);
+            this.comboNumero.Location = new System.Drawing.Point(107, 108);
+            this.comboNumero.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboNumero.Name = "comboNumero";
-            this.comboNumero.Size = new System.Drawing.Size(121, 21);
+            this.comboNumero.Size = new System.Drawing.Size(160, 24);
             this.comboNumero.TabIndex = 29;
             this.comboNumero.SelectedIndexChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged);
             // 
             // lblNumero
             // 
             this.lblNumero.AutoSize = true;
-            this.lblNumero.Location = new System.Drawing.Point(26, 91);
+            this.lblNumero.Location = new System.Drawing.Point(35, 112);
+            this.lblNumero.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNumero.Name = "lblNumero";
-            this.lblNumero.Size = new System.Drawing.Size(44, 13);
+            this.lblNumero.Size = new System.Drawing.Size(58, 17);
             this.lblNumero.TabIndex = 28;
             this.lblNumero.Text = "Numero";
             // 
             // btnAgregarTarjeta
             // 
-            this.btnAgregarTarjeta.Location = new System.Drawing.Point(98, 143);
+            this.btnAgregarTarjeta.Location = new System.Drawing.Point(131, 176);
+            this.btnAgregarTarjeta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAgregarTarjeta.Name = "btnAgregarTarjeta";
-            this.btnAgregarTarjeta.Size = new System.Drawing.Size(103, 23);
+            this.btnAgregarTarjeta.Size = new System.Drawing.Size(137, 28);
             this.btnAgregarTarjeta.TabIndex = 27;
             this.btnAgregarTarjeta.Text = "+ Agregar Tarjeta";
             this.btnAgregarTarjeta.UseVisualStyleBackColor = true;
@@ -177,19 +188,20 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label5.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 75);
+            this.label5.Location = new System.Drawing.Point(11, 92);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 15);
+            this.label5.Size = new System.Drawing.Size(133, 20);
             this.label5.TabIndex = 28;
             this.label5.Text = "Monto (en pesos)";
             // 
             // btnCargar
             // 
             this.btnCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCargar.Location = new System.Drawing.Point(153, 292);
-            this.btnCargar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCargar.Location = new System.Drawing.Point(204, 359);
+            this.btnCargar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(183, 36);
+            this.btnCargar.Size = new System.Drawing.Size(244, 44);
             this.btnCargar.TabIndex = 30;
             this.btnCargar.Text = "Cargar Credito";
             this.btnCargar.UseVisualStyleBackColor = true;
@@ -197,10 +209,10 @@
             // btnSeleccionarCliente
             // 
             this.btnSeleccionarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeleccionarCliente.Location = new System.Drawing.Point(272, 28);
-            this.btnSeleccionarCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSeleccionarCliente.Location = new System.Drawing.Point(363, 34);
+            this.btnSeleccionarCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSeleccionarCliente.Name = "btnSeleccionarCliente";
-            this.btnSeleccionarCliente.Size = new System.Drawing.Size(81, 24);
+            this.btnSeleccionarCliente.Size = new System.Drawing.Size(108, 30);
             this.btnSeleccionarCliente.TabIndex = 105;
             this.btnSeleccionarCliente.Text = "Seleccionar";
             this.btnSeleccionarCliente.UseVisualStyleBackColor = true;
@@ -211,19 +223,20 @@
             this.labelUsuario.AutoSize = true;
             this.labelUsuario.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelUsuario.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUsuario.Location = new System.Drawing.Point(31, 9);
+            this.labelUsuario.Location = new System.Drawing.Point(41, 11);
+            this.labelUsuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUsuario.Name = "labelUsuario";
-            this.labelUsuario.Size = new System.Drawing.Size(111, 15);
+            this.labelUsuario.Size = new System.Drawing.Size(60, 20);
             this.labelUsuario.TabIndex = 106;
-            this.labelUsuario.Text = "Usuario del Cliente";
+            this.labelUsuario.Text = "Cliente";
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(34, 28);
-            this.txtCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCliente.Location = new System.Drawing.Point(45, 34);
+            this.txtCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.ReadOnly = true;
-            this.txtCliente.Size = new System.Drawing.Size(211, 20);
+            this.txtCliente.Size = new System.Drawing.Size(280, 22);
             this.txtCliente.TabIndex = 104;
             // 
             // btnInfoCLiente
@@ -235,10 +248,10 @@
             this.btnInfoCLiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInfoCLiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInfoCLiente.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnInfoCLiente.Location = new System.Drawing.Point(34, 52);
-            this.btnInfoCLiente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnInfoCLiente.Location = new System.Drawing.Point(45, 64);
+            this.btnInfoCLiente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInfoCLiente.Name = "btnInfoCLiente";
-            this.btnInfoCLiente.Size = new System.Drawing.Size(216, 33);
+            this.btnInfoCLiente.Size = new System.Drawing.Size(288, 41);
             this.btnInfoCLiente.TabIndex = 107;
             this.btnInfoCLiente.TabStop = false;
             this.btnInfoCLiente.Text = "Ver información del cliente";
@@ -248,16 +261,17 @@
             // 
             // CargarCredito
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(499, 339);
+            this.ClientSize = new System.Drawing.Size(665, 417);
             this.Controls.Add(this.btnSeleccionarCliente);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.btnInfoCLiente);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CargarCredito";
             this.Text = "CargarCredito";
             this.groupBox1.ResumeLayout(false);

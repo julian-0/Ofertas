@@ -10,11 +10,19 @@ using System.Windows.Forms;
 using FrbaOfertas.Conexion;
 using System.Data.SqlClient;
 using FrbaOfertas.Clases;
+using FrbaOfertas.AbmCliente;
 
 namespace FrbaOfertas.EntregarOferta
 {
     public partial class EntregaOferta : Form
     {
+
+        public Dictionary<string, string> datosClienteSeleccionado = new Dictionary<string, string>();
+        public Dictionary<string, string> datosCupon = new Dictionary<string, string>();
+
+        public bool haySeleccionado = false;
+        public bool hayCupon = false;
+
         public EntregaOferta()
         {
             InitializeComponent();
@@ -34,13 +42,17 @@ namespace FrbaOfertas.EntregarOferta
 
         private bool hayError()
         {
+            if (!haySeleccionado || !hayCupon)
+            {
+                MessageBox.Show("Por favor seleccione el usuario y cupon que retira.");
+                return haySeleccionado;
+            }
             return errorCupon.GetError(cupon) + errorCliente.GetError(cliente) != "";
         }
 
         private void buttonConsumirCupon_Click(object sender, EventArgs e)
         {
             if (hayError()) {
-                MessageBox.Show("Los campos ingresados deben ser numericos", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -70,6 +82,36 @@ namespace FrbaOfertas.EntregarOferta
         private void cupon_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            using (GestionarClientes ventanaSeleccion = new GestionarClientes())
+            {
+                if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
+                {
+                    this.datosClienteSeleccionado = ventanaSeleccion.datosFilaCliente;
+                    cliente.Text = datosClienteSeleccionado["Nombre"].ToString() + " " + datosClienteSeleccionado["Apellido"].ToString();
+                    haySeleccionado = true;
+                }
+            }
+            Cursor = Cursors.Default;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            using (Cupones ventanaSeleccion = new Cupones())
+            {
+                if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
+                {
+                    this.datosCupon = ventanaSeleccion.datosFilaCupon;
+                    cupon.Text = datosCupon["cupon_id"].ToString();
+                    haySeleccionado = true;
+                }
+            }
+            Cursor = Cursors.Default;
         }
     }
 }
