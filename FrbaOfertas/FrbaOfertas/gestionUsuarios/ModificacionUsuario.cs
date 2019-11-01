@@ -123,11 +123,11 @@ namespace FrbaOfertas.gestionUsuarios
                         {
                             case 3:
                                 AltaCliente ventanaModificacionCliente = new AltaCliente(nombreUsuario.Text.ToString(), null);
-                                ventanaModificacionCliente.Show();
+                                ventanaModificacionCliente.ShowDialog();
                                 break;
                             case 4:
                                 ModProv ventanaModificacionProveedor = new ModProv(nombreUsuario.Text.ToString(), null);
-                                ventanaModificacionProveedor.Show();
+                                ventanaModificacionProveedor.ShowDialog();
                                 break;
                         }
                     }
@@ -152,7 +152,7 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void CreacionUsuario_FormClosed(object sender, FormClosedEventArgs e)
         {
-            formAnterior.Show();
+                formAnterior.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
