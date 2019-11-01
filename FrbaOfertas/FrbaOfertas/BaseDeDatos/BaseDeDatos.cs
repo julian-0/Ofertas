@@ -21,6 +21,16 @@ namespace FrbaOfertas.Datos
             MessageBox.Show("Database error:\n" + excepcion.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static DateTime fechaConfig
+        {
+            get { return DateTime.Parse(System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"]); }
+        }
+
+        public static String fechaConfigString
+        {
+            get { return fechaConfig.ToString("d", CultureInfo.CreateSpecificCulture("es-ES")); }
+        }
+
         public static void ejecutarConsulta(string query)
         {
             
@@ -51,118 +61,65 @@ namespace FrbaOfertas.Datos
             return tabla;
         }
 
-        public static DataTable getRoles()
-        {
+        public static DataTable solicitar(String query){
             DataTable dt = new DataTable();
             SqlConnection conexion = Conexiones.AbrirConexion();
             SqlCommand command;
             SqlDataAdapter adapter;
 
-            command = new SqlCommand("SELECT rol_id, nombre_rol, baja_logica FROM NUNCA_INJOIN.Rol", conexion);
+            command = new SqlCommand(query, conexion);
             adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();
             return dt;
+        }
+
+        public static DataTable getUsuarios()
+        {
+            return solicitar(String.Format("SELECT * FROM NUNCA_INJOIN.ClientesActualizados({0})", fechaConfigString));
+        }
+
+        public static DataTable getRoles()
+        {
+            return solicitar("SELECT rol_id, nombre_rol, baja_logica FROM NUNCA_INJOIN.Rol");
         }
         
         public static DataTable getAniosFacturas()
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT distinct year(fecha) as Anio FROM NUNCA_INJOIN.FacturaProveedor", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT distinct year(fecha) as Anio FROM NUNCA_INJOIN.FacturaProveedor");
         }
 
         public static DataTable getAniosOfertas()
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT distinct year(fecha_publicacion) as Anio FROM NUNCA_INJOIN.Oferta", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT distinct year(fecha_publicacion) as Anio FROM NUNCA_INJOIN.Oferta");
         }
 
         public static DataTable getFuncionalidadesRol(String rol_id)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
 
-            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol "+
-            "WHERE rol_id = " + rol_id, conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol " +
+            "WHERE rol_id = " + rol_id);
         }
 
         public static DataTable getFuncionalidadesRestantes(String rol_id)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad WHERE funcionalidad_id not in"+
-            "(SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol where rol_id = "+rol_id+")", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT funcionalidad_id FROM NUNCA_INJOIN.Funcionalidad WHERE funcionalidad_id not in" +
+            "(SELECT funcionalidad_id FROM NUNCA_INJOIN.FuncionalidadPorRol where rol_id = " + rol_id + ")");
         }
 
         public static DataTable getTopFacturas(String anio, String semestre)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.topFacturacion('"+anio+"','"+semestre+"')", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT * FROM NUNCA_INJOIN.topFacturacion('" + anio + "','" + semestre + "')");
         }
 
         public static DataTable getTopDescuentos(String anio, String semestre)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.topDescuentos('" + anio + "','" + semestre + "')", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT * FROM NUNCA_INJOIN.topDescuentos('" + anio + "','" + semestre + "')");
         }
 
-        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov, DateTime fechaConfig)
+        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command;
-            SqlDataAdapter adapter;
-
-            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','" + prov + "','" + fechaConfig.ToString("d", CultureInfo.CreateSpecificCulture("es-ES")) + "')", conexion);
-            adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-            return dt;
+            return solicitar("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','" + prov + "','" + fechaConfigString + "')");
         }
 
         public static void cambiarEstadoProveedor(String proveedor_id)

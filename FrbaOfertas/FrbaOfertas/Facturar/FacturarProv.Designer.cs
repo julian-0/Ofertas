@@ -263,7 +263,7 @@
             this.Controls.Add(this.fechaDesde);
             this.Controls.Add(this.buttonInformacionProveedor);
             this.Name = "FacturarProv";
-            this.Text = "Form1";
+            this.Text = "Facturar Proveedores";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FacturarProv_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

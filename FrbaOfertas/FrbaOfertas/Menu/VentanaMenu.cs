@@ -107,56 +107,74 @@ namespace FrbaOfertas.Menu
 
         private void btnAbmCli_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             new GestionarClientes(this).Show();
             this.Hide();
+            Cursor = Cursors.Default;
         }
 
         private void btnAbmPro_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             ABMProv abmProveedor = new ABMProv();
             abmProveedor.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnRegis_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             ABMUsuarios abmUsuarios = new ABMUsuarios();
             abmUsuarios.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnOfertar_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             CreacionOferta ventanaOferta = new CreacionOferta();
             ventanaOferta.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnRoles_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             ABMRol ventanaRol = new ABMRol();
             ventanaRol.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             VentanaComprar ventanaComprar = new VentanaComprar(login.getUsuario());
             ventanaComprar.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnEst_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             Listado ventanaListado = new Listado();
             ventanaListado.Show();
+            Cursor = Cursors.Default;
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             FacturarProv ventanaFac = new FacturarProv();
             ventanaFac.Show();
+            Cursor = Cursors.Default;
         }
 
         private void botonEntregar_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             EntregaOferta ventanaEntrega = new EntregaOferta();
             ventanaEntrega.Show();
+            Cursor = Cursors.Default;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -166,8 +184,10 @@ namespace FrbaOfertas.Menu
 
         private void btnCarga_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             CargarCredito ventanaCargar = new CargarCredito();
             ventanaCargar.Show();
+            Cursor = Cursors.Default;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void rellenarDatagrid()
         {
+            Cursor = Cursors.WaitCursor;
             dt.Columns.Clear();
             dt.Rows.Clear();
             dataGridView1.DataSource = dt;
@@ -49,6 +50,7 @@ namespace FrbaOfertas.CrearOferta
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             Conexiones.CerrarConexion();
+            Cursor = Cursors.Default;
         }
         private void button2_Click(object sender, EventArgs e)
         {

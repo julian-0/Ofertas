@@ -358,85 +358,124 @@ CREATE TABLE NUNCA_INJOIN.Funcionalidad ("funcionalidad_id" VARCHAR(50) PRIMARY 
 	);
 
 CREATE TABLE NUNCA_INJOIN.Rol (
-	"rol_id" NUMERIC(9) identity PRIMARY KEY, nombre_rol VARCHAR(50) NOT NULL, 
+	"rol_id" NUMERIC(9) identity PRIMARY KEY,
+	nombre_rol VARCHAR(50) NOT NULL,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
 		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.FuncionalidadPorRol (
-	"funcionalidad_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Funcionalidad, "rol_id" 
-	NUMERIC(9) REFERENCES NUNCA_INJOIN.Rol, PRIMARY KEY (rol_id, funcionalidad_id
+	"funcionalidad_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Funcionalidad,
+	"rol_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rol,
+	PRIMARY KEY (
+		rol_id,
+		funcionalidad_id
 		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Usuario (
-	"usuario_id" VARCHAR(50) PRIMARY KEY, "rol_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.
-	Rol, "contrasenia" VARBINARY(32) NOT NULL, "intentos_fallidos" SMALLINT DEFAULT 0, 
+	"usuario_id" VARCHAR(50) PRIMARY KEY,
+	"rol_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rol,
+	"contrasenia" VARBINARY(32) NOT NULL,
+	"intentos_fallidos" SMALLINT DEFAULT 0,
 	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
 		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Cliente (
-	"cliente_id" NUMERIC(9) identity PRIMARY KEY, "usuario_id" VARCHAR(50) REFERENCES 
-	NUNCA_INJOIN.Usuario, "nombre" NVARCHAR(255), "apellido" NVARCHAR(255), "dni" 
-	NUMERIC(18, 0), "mail" NVARCHAR(255), "telefono" NUMERIC(18, 0), "domicilio" 
-	NVARCHAR(255), "localidad" NVARCHAR(255), "codigo_postal" NVARCHAR(8), 
-	"fecha_nac" DATETIME, "credito" NUMERIC(18, 2) NOT NULL DEFAULT 200, "baja_logica" 
-	CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N'))
+	"cliente_id" NUMERIC(9) identity PRIMARY KEY,
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
+	"nombre" NVARCHAR(255),
+	"apellido" NVARCHAR(255),
+	"dni" NUMERIC(18, 0),
+	"mail" NVARCHAR(255),
+	"telefono" NUMERIC(18, 0),
+	"domicilio" NVARCHAR(255),
+	"localidad" NVARCHAR(255),
+	"codigo_postal" NVARCHAR(8),
+	"fecha_nac" DATETIME,
+	"credito" NUMERIC(18, 2) NOT NULL DEFAULT 0,
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
+		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Tarjeta (
-	"tarjeta_id" NUMERIC(9) identity PRIMARY KEY, "cliente_id" NUMERIC(9) REFERENCES 
-	NUNCA_INJOIN.Cliente, "duenio" NVARCHAR(255), "tipo_pago" NVARCHAR(100), numero 
-	NUMERIC(19)
+	"tarjeta_id" NUMERIC(9) identity PRIMARY KEY,
+	"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	"duenio" NVARCHAR(255),
+	"tipo_pago" NVARCHAR(100),
+	numero NUMERIC(19)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Carga (
-	"carga_id" NUMERIC(9) identity PRIMARY KEY, "cliente_id" NUMERIC(9) REFERENCES 
-	NUNCA_INJOIN.Cliente, "tarjeta_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Tarjeta, 
-	"fecha" DATETIME NOT NULL, "monto" NUMERIC(18, 2), "tipo_pago" NVARCHAR(100)
+	"carga_id" NUMERIC(9) identity PRIMARY KEY,
+	"cliente_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	"tarjeta_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Tarjeta,
+	"fecha" DATETIME NOT NULL,
+	"monto" NUMERIC(18, 2),
+	"tipo_pago" NVARCHAR(100)
 	);
 
-CREATE TABLE NUNCA_INJOIN.Rubro ("rubro_id" NUMERIC(9) identity PRIMARY KEY, "nombre_rubro" NVARCHAR(100)
+CREATE TABLE NUNCA_INJOIN.Rubro (
+	"rubro_id" NUMERIC(9) identity PRIMARY KEY,
+	"nombre_rubro" NVARCHAR(100)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Proveedor (
-	"proveedor_id" NUMERIC(9) identity PRIMARY KEY, "rubro_id" NUMERIC(9) REFERENCES 
-	NUNCA_INJOIN.Rubro, "usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario, 
-	"razon_social" NVARCHAR(100), "mail" NVARCHAR(255), "telefono" NUMERIC(18, 0), 
-	"domicilio" NVARCHAR(255), "localidad" NVARCHAR(255), "ciudad" NVARCHAR(255), 
-	"codigo_postal" NVARCHAR(8), "cuit" NVARCHAR(20), "nombre_contacto" NVARCHAR(255)
-	, "baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
+	"proveedor_id" NUMERIC(9) identity PRIMARY KEY,
+	"rubro_id" NUMERIC(9) REFERENCES NUNCA_INJOIN.Rubro,
+	"usuario_id" VARCHAR(50) REFERENCES NUNCA_INJOIN.Usuario,
+	"razon_social" NVARCHAR(100),
+	"mail" NVARCHAR(255),
+	"telefono" NUMERIC(18, 0),
+	"domicilio" NVARCHAR(255),
+	"localidad" NVARCHAR(255),
+	"ciudad" NVARCHAR(255),
+	"codigo_postal" NVARCHAR(8),
+	"cuit" NVARCHAR(20),
+	"nombre_contacto" NVARCHAR(255),
+	"baja_logica" CHAR(1) NOT NULL DEFAULT 'N' CHECK (baja_logica IN ('S', 'N')
 		)
 	);
 
 CREATE TABLE NUNCA_INJOIN.Oferta (
-	oferta_codigo NVARCHAR(50) PRIMARY KEY, proveedor_id NUMERIC(9) REFERENCES 
-	NUNCA_INJOIN.Proveedor, descripcion NVARCHAR(255), fecha_publicacion DATETIME, 
-	fecha_vencimiento DATETIME, precio_oferta NUMERIC(18, 2), precio_lista NUMERIC(18, 
-		2), cantidad_disponible NUMERIC(18, 0), cantidad_maxima_usuario NUMERIC(18, 0)
-	, plazo_entrega_dias NUMERIC(9)
+	oferta_codigo NVARCHAR(50) PRIMARY KEY,
+	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
+	descripcion NVARCHAR(255),
+	fecha_publicacion DATETIME,
+	fecha_vencimiento DATETIME,
+	precio_oferta NUMERIC(18, 2),
+	precio_lista NUMERIC(18, 2),
+	cantidad_disponible NUMERIC(18, 0),
+	cantidad_maxima_usuario NUMERIC(18, 0),
+	plazo_entrega_dias NUMERIC(9)
 	)
 
 CREATE TABLE NUNCA_INJOIN.FacturaProveedor (
-	factura_numero NUMERIC(18, 0) identity PRIMARY KEY, proveedor_id NUMERIC(9) 
-	REFERENCES NUNCA_INJOIN.Proveedor, fecha DATETIME, importe NUMERIC(26, 2)
+	factura_numero NUMERIC(18, 0) identity PRIMARY KEY,
+	proveedor_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Proveedor,
+	fecha DATETIME,
+	importe NUMERIC(26, 2)
 	)
 
 SET IDENTITY_INSERT NUNCA_INJOIN.FacturaProveedor ON
 
 CREATE TABLE NUNCA_INJOIN.Cupon (
-	cupon_id NUMERIC(9) identity PRIMARY KEY, oferta_codigo NVARCHAR(50) REFERENCES 
-	NUNCA_INJOIN.Oferta, cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.
-	Cliente, factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor, 
-	fecha_compra DATETIME, cantidad_comprada NUMERIC(18, 0), vencimiento DATETIME, 
+	cupon_id NUMERIC(9) identity PRIMARY KEY,
+	oferta_codigo NVARCHAR(50) REFERENCES NUNCA_INJOIN.Oferta,
+	cliente_compra_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	factura_id NUMERIC(18, 0) REFERENCES NUNCA_INJOIN.FacturaProveedor,
+	fecha_compra DATETIME,
+	cantidad_comprada NUMERIC(18, 0),
+	vencimiento DATETIME,
 	fecha_entrega DATETIME -- Droppeada al terminar la migración
 	)
 
 CREATE TABLE NUNCA_INJOIN.Entrega (
-	entrega_id NUMERIC(9) identity, cupon_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cupon, 
-	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente, fecha_consumo 
-	DATETIME
+	entrega_id NUMERIC(9) identity,
+	cupon_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cupon,
+	cliente_entrega_id NUMERIC(9) REFERENCES NUNCA_INJOIN.Cliente,
+	fecha_consumo DATETIME
 	)
 
 /*
@@ -1028,7 +1067,7 @@ GO
 CREATE FUNCTION NUNCA_INJOIN.VerClientes (
 	@MostrarHabilitados INT, @MostrarInhabilitados INT, @nombre NVARCHAR(255), 
 	@apellido NVARCHAR(255), @email NVARCHAR(255), @ciudad NVARCHAR(255), @localidad 
-	NVARCHAR(255)
+	NVARCHAR(255), @fechaConfig NVARCHAR(50)
 	)
 RETURNS TABLE
 AS
@@ -1038,7 +1077,7 @@ RETURN (
 			Domicilio, localidad AS Localidad, ISNULL(codigo_postal, 'NO CP') AS 
 			Codigo_Postal, fecha_nac AS Nacimiento, credito AS Credito, baja_logica AS 
 			[Inhabilitado], cliente_id AS ID
-		FROM NUNCA_INJOIN.Cliente
+		FROM NUNCA_INJOIN.ClientesActualizados(@fechaConfig)
 		WHERE baja_logica LIKE (
 				CASE 
 					WHEN (@MostrarHabilitados & @MostrarInhabilitados
@@ -1055,11 +1094,11 @@ RETURN (
 							END
 					END
 				)
-			AND nombre LIKE '%' + @nombre + '%'
-			AND apellido LIKE '%' + @apellido + '%'
-			AND mail LIKE '%' + @email + '%'
-			AND localidad LIKE '%' + @ciudad + '%'
-			AND domicilio LIKE '%' + @localidad + '%'
+			AND nombre LIKE CONCAT('%',@nombre, '%')
+			AND apellido LIKE CONCAT('%',@apellido,'%')
+			AND mail LIKE CONCAT('%',@email,'%')
+			AND localidad LIKE CONCAT('%',@ciudad + '%')
+			AND domicilio LIKE CONCAT('%',@localidad,'%')
 		)
 GO
 
@@ -1905,7 +1944,7 @@ RETURN (
 		SELECT o.[oferta_codigo] AS [Código oferta], o.descripcion AS [Descripción], 
 			sum([cantidad_comprada]) AS [Cant ventida], o.precio_lista AS 
 			[Precio Unitario], sum([cantidad_comprada]) * o.precio_lista AS [Total], p
-			.razon_social AS [Proveedor], fp.fecha AS [Fecha facturacion], convert(DATETIME, @fechaConfig, 121) as [f config]
+			.razon_social AS [Proveedor]
 		FROM [GD2C2019].[NUNCA_INJOIN].[Cupon] c
 		JOIN NUNCA_INJOIN.Oferta o ON o.oferta_codigo = c.oferta_codigo
 		JOIN NUNCA_INJOIN.Proveedor p ON p.proveedor_id = o.proveedor_id
@@ -2141,3 +2180,42 @@ DEALLOCATE prov_cursor
 
 COMMIT
 GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'ClientesActualizados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.ClientesActualizados
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.ClientesActualizados (@fechaConfig NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN (
+		SELECT [cliente_id],
+			[usuario_id],
+			[nombre],
+			[apellido],
+			[dni],
+			[mail],
+			[telefono],
+			[domicilio],
+			[localidad],
+			[codigo_postal],
+			[fecha_nac],
+			(
+				SELECT sum(monto)
+				FROM NUNCA_INJOIN.Carga c
+				WHERE c.fecha <= convert(DATETIME, @fechaConfig, 103)
+					AND c.cliente_id = cli.cliente_id
+				)as [credito],
+			[baja_logica]
+		FROM [GD2C2019].[NUNCA_INJOIN].[Cliente] cli
+		);
+GO
+
+

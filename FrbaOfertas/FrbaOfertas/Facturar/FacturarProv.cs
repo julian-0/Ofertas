@@ -35,6 +35,7 @@ namespace FrbaOfertas.Facturar
 
         private void buttonSeleccionarProveedor_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             using (SeleccionProveedor ventanaCreacion = new SeleccionProveedor())
             {
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
@@ -44,6 +45,7 @@ namespace FrbaOfertas.Facturar
                     haySeleccionado = true;
                 }
             }
+            Cursor = Cursors.Default;
         }
 
         private void rellenarDataGrid()
@@ -51,7 +53,7 @@ namespace FrbaOfertas.Facturar
             if (camposCompletos())
             {
                 DataTable dt;
-                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["proveedor_id"].ToString(), fechaConfig);
+                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["proveedor_id"].ToString());
                 dataGridView1.DataSource = dt;
             }
             completarTotal();
@@ -63,7 +65,9 @@ namespace FrbaOfertas.Facturar
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             rellenarDataGrid();
+            Cursor = Cursors.Default;
         }
 
         private void completarTotal()

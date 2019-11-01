@@ -27,6 +27,8 @@ namespace FrbaOfertas.AbmCliente
             this.menu = m;
             InitializeComponent();
             updateHeadersStyle();
+            tablaClientes.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; //Para mas velocidad
+            buscar();
         }
 
         private void updateHeadersStyle()
@@ -67,6 +69,12 @@ namespace FrbaOfertas.AbmCliente
 
         private void buscar()
         {
+            Cursor = Cursors.WaitCursor;
+            foreach (DataGridViewColumn c in tablaClientes.Columns)
+            {
+                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            }
+
             buscarWasClicked = true;
             DataTable dt = new DataTable();
             tablaClientes.DataSource = dt;
@@ -82,6 +90,7 @@ namespace FrbaOfertas.AbmCliente
                                                 "', '" + txtMail.Text +
                                                 "', '" + txtCiudad.Text +
                                                 "', '" + txtLocalidad.Text +
+                                                "', '" + BaseDeDatos.fechaConfigString +
                                                 "' )", conexion);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -107,6 +116,7 @@ namespace FrbaOfertas.AbmCliente
             dv.RowFilter = filter;
             tablaClientes.DataSource = dv;
             Conexiones.CerrarConexion();
+            Cursor = Cursors.Default;
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
