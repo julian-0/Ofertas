@@ -46,18 +46,20 @@
             this.tablaOfertas.AllowUserToAddRows = false;
             this.tablaOfertas.AllowUserToDeleteRows = false;
             this.tablaOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaOfertas.Location = new System.Drawing.Point(12, 65);
+            this.tablaOfertas.Location = new System.Drawing.Point(16, 80);
+            this.tablaOfertas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tablaOfertas.MultiSelect = false;
             this.tablaOfertas.Name = "tablaOfertas";
             this.tablaOfertas.ReadOnly = true;
             this.tablaOfertas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tablaOfertas.Size = new System.Drawing.Size(639, 214);
+            this.tablaOfertas.Size = new System.Drawing.Size(852, 263);
             this.tablaOfertas.TabIndex = 0;
             this.tablaOfertas.SelectionChanged += new System.EventHandler(this.tablaOfertas_SelectionChanged);
             // 
             // cantidad
             // 
-            this.cantidad.Location = new System.Drawing.Point(520, 297);
+            this.cantidad.Location = new System.Drawing.Point(693, 366);
+            this.cantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cantidad.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
@@ -69,7 +71,7 @@
             0,
             0});
             this.cantidad.Name = "cantidad";
-            this.cantidad.Size = new System.Drawing.Size(60, 20);
+            this.cantidad.Size = new System.Drawing.Size(80, 22);
             this.cantidad.TabIndex = 2;
             this.cantidad.Value = new decimal(new int[] {
             1,
@@ -84,9 +86,10 @@
             this.btnComprar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnComprar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComprar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnComprar.Location = new System.Drawing.Point(360, 323);
+            this.btnComprar.Location = new System.Drawing.Point(480, 398);
+            this.btnComprar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnComprar.Name = "btnComprar";
-            this.btnComprar.Size = new System.Drawing.Size(282, 45);
+            this.btnComprar.Size = new System.Drawing.Size(376, 55);
             this.btnComprar.TabIndex = 23;
             this.btnComprar.Text = "Comprar";
             this.btnComprar.UseVisualStyleBackColor = false;
@@ -95,9 +98,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(465, 299);
+            this.label1.Location = new System.Drawing.Point(620, 368);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 24;
             this.label1.Text = "Cantidad";
             // 
@@ -108,9 +112,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelBienvenida.AutoSize = true;
             this.labelBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBienvenida.Location = new System.Drawing.Point(255, 25);
+            this.labelBienvenida.Location = new System.Drawing.Point(340, 31);
+            this.labelBienvenida.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBienvenida.Name = "labelBienvenida";
-            this.labelBienvenida.Size = new System.Drawing.Size(179, 25);
+            this.labelBienvenida.Size = new System.Drawing.Size(230, 29);
             this.labelBienvenida.TabIndex = 25;
             this.labelBienvenida.Text = "Ofertas disponibles";
             this.labelBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -118,10 +123,10 @@
             // btnSeleccionarCliente
             // 
             this.btnSeleccionarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeleccionarCliente.Location = new System.Drawing.Point(12, 335);
-            this.btnSeleccionarCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSeleccionarCliente.Location = new System.Drawing.Point(16, 412);
+            this.btnSeleccionarCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSeleccionarCliente.Name = "btnSeleccionarCliente";
-            this.btnSeleccionarCliente.Size = new System.Drawing.Size(81, 24);
+            this.btnSeleccionarCliente.Size = new System.Drawing.Size(108, 30);
             this.btnSeleccionarCliente.TabIndex = 101;
             this.btnSeleccionarCliente.Text = "Seleccionar";
             this.btnSeleccionarCliente.UseVisualStyleBackColor = true;
@@ -132,20 +137,22 @@
             this.labelUsuario.AutoSize = true;
             this.labelUsuario.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelUsuario.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUsuario.Location = new System.Drawing.Point(9, 292);
+            this.labelUsuario.Location = new System.Drawing.Point(12, 359);
+            this.labelUsuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUsuario.Name = "labelUsuario";
-            this.labelUsuario.Size = new System.Drawing.Size(111, 15);
+            this.labelUsuario.Size = new System.Drawing.Size(161, 20);
             this.labelUsuario.TabIndex = 102;
-            this.labelUsuario.Text = "Usuario del Cliente";
+            this.labelUsuario.Text = "Cliente seleccionado:";
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(12, 311);
-            this.txtCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCliente.Location = new System.Drawing.Point(16, 383);
+            this.txtCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.ReadOnly = true;
-            this.txtCliente.Size = new System.Drawing.Size(211, 20);
+            this.txtCliente.Size = new System.Drawing.Size(280, 22);
             this.txtCliente.TabIndex = 100;
+            this.txtCliente.TextChanged += new System.EventHandler(this.txtCliente_TextChanged);
             // 
             // btnInfoCLiente
             // 
@@ -156,10 +163,10 @@
             this.btnInfoCLiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInfoCLiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInfoCLiente.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnInfoCLiente.Location = new System.Drawing.Point(7, 349);
-            this.btnInfoCLiente.Margin = new System.Windows.Forms.Padding(2);
+            this.btnInfoCLiente.Location = new System.Drawing.Point(9, 430);
+            this.btnInfoCLiente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInfoCLiente.Name = "btnInfoCLiente";
-            this.btnInfoCLiente.Size = new System.Drawing.Size(216, 33);
+            this.btnInfoCLiente.Size = new System.Drawing.Size(288, 41);
             this.btnInfoCLiente.TabIndex = 103;
             this.btnInfoCLiente.TabStop = false;
             this.btnInfoCLiente.Text = "Ver información del cliente";
@@ -169,10 +176,10 @@
             // 
             // VentanaComprar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(663, 378);
+            this.ClientSize = new System.Drawing.Size(884, 465);
             this.Controls.Add(this.btnSeleccionarCliente);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.txtCliente);
@@ -182,6 +189,7 @@
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.cantidad);
             this.Controls.Add(this.tablaOfertas);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "VentanaComprar";
             this.Text = "Comprar Oferta";
             this.Load += new System.EventHandler(this.ComprarOferta_Load);

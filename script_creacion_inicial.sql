@@ -1502,25 +1502,48 @@ END
 GO
 
 CREATE PROC NUNCA_INJOIN.CrearOferta (
-	@oferta_codigo NVARCHAR(50), @proveedor_id NVARCHAR(50), @descripcion NVARCHAR(
-		255), @fecha_publicacion NVARCHAR(50), @fecha_vencimiento NVARCHAR(50), 
-	@precio_oferta NVARCHAR(50), @precio_lista NVARCHAR(50), @cantidad_disponible 
-	NVARCHAR(50), @cantidad_maxima_usuario NVARCHAR(50), @plazo_entrega_dias 
-	NVARCHAR(50)
+	@oferta_codigo NVARCHAR(50),
+	@proveedor_id NVARCHAR(50),
+	@descripcion NVARCHAR(255),
+	@fecha_publicacion NVARCHAR(50),
+	@fecha_vencimiento NVARCHAR(50),
+	@precio_oferta NVARCHAR(50),
+	@precio_lista NVARCHAR(50),
+	@cantidad_disponible NVARCHAR(50),
+	@cantidad_maxima_usuario NVARCHAR(50),
+	@plazo_entrega_dias NVARCHAR(50)
 	)
 AS
 BEGIN
 	INSERT INTO NUNCA_INJOIN.Oferta (
-		oferta_codigo, proveedor_id, descripcion, fecha_publicacion, 
-		fecha_vencimiento, precio_oferta, precio_lista, cantidad_disponible, 
-		cantidad_maxima_usuario, plazo_entrega_dias
+		oferta_codigo,
+		proveedor_id,
+		descripcion,
+		fecha_publicacion,
+		fecha_vencimiento,
+		precio_oferta,
+		precio_lista,
+		cantidad_disponible,
+		cantidad_maxima_usuario,
+		plazo_entrega_dias
 		)
 	VALUES (
-		@oferta_codigo, @proveedor_id, @descripcion, (CONVERT(DATETIME, @fecha_publicacion, 121)
-			), (CONVERT(DATETIME, @fecha_vencimiento, 121)), CONVERT(
-			NUMERIC(18, 2), @precio_oferta), CONVERT(NUMERIC(18, 2), @precio_lista), 
-		CONVERT(NUMERIC(18, 0), @cantidad_disponible), CONVERT(NUMERIC(18, 0), 
-			@cantidad_maxima_usuario), CONVERT(NUMERIC(9, 0), @plazo_entrega_dias)
+		@oferta_codigo,
+		@proveedor_id,
+		@descripcion,
+		(CONVERT(DATETIME, @fecha_publicacion, 121)),
+		(CONVERT(DATETIME, @fecha_vencimiento, 121)),
+		CONVERT(NUMERIC(18, 2), @precio_oferta),
+		CONVERT(NUMERIC(18, 2), @precio_lista),
+		CONVERT(NUMERIC(18, 0), @cantidad_disponible),
+		CONVERT(NUMERIC(18, 0), @cantidad_maxima_usuario),
+		(
+			CASE 
+				WHEN @plazo_entrega_dias NOT LIKE ''
+					THEN CONVERT(NUMERIC(9, 0), @plazo_entrega_dias)
+				ELSE NULL
+				END
+			)
 		)
 END
 GO

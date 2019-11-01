@@ -46,7 +46,7 @@ namespace FrbaOfertas.CrearOferta
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {
                     this.datosProveedorSeleccionado = ventanaCreacion.datosProveedor;
-                    textBoxProveedor.Text = datosProveedorSeleccionado["usuario_id"].ToString();
+                    textBoxProveedor.Text = datosProveedorSeleccionado["razon_social"].ToString();
                     haySeleccionado = true;
                 }
             }
@@ -60,49 +60,31 @@ namespace FrbaOfertas.CrearOferta
                 && fechaHasta.Text != "";
         }
 
-        private void validarFechas()
-        {
-            DateTime desde = this.fechaDesde.Value.Date;
-            DateTime hasta = this.fechaHasta.Value.Date;
-            if (desde.CompareTo(fechaConfig) <= 0 || hasta.CompareTo(fechaConfig) <= 0)
-            {
-                throw new ArgumentException("La publicación no puede tener una fecha anterior a la fecha del sistema");
-            }
-        }
-
         private void buttonCrearOferta_Click(object sender, EventArgs e)
         {
             SqlConnection conex = Conexiones.AbrirConexion();
-            try
+            String ts = Stopwatch.GetTimestamp().ToString();
+            if (this.CamposCompletos())
             {
-                String ts = Stopwatch.GetTimestamp().ToString();
-                this.validarFechas();
-                if (this.CamposCompletos())
-                {
-                    SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].CrearOferta", conex);
-                    procedure.CommandType = CommandType.StoredProcedure;
-                    procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ts;
-                    procedure.Parameters.Add("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
-                    procedure.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = textBoxDescripcion.Text;
-                    procedure.Parameters.Add("@fecha_publicacion", SqlDbType.NVarChar).Value = fechaDesde.Text.ToString();
-                    procedure.Parameters.Add("@fecha_vencimiento", SqlDbType.NVarChar).Value = fechaHasta.Text.ToString();
-                    procedure.Parameters.Add("@precio_oferta", SqlDbType.NVarChar).Value = numericPrecioOferta.Value.ToString();
-                    procedure.Parameters.Add("@precio_lista", SqlDbType.NVarChar).Value = numericPrecioOriginal.Value.ToString();
-                    procedure.Parameters.Add("@cantidad_disponible", SqlDbType.NVarChar).Value = numericStock.Value.ToString();
-                    procedure.Parameters.Add("@cantidad_maxima_usuario", SqlDbType.NVarChar).Value = numericMaxUsuario.Value.ToString();
-                    procedure.Parameters.Add("@plazo_entrega_dias", SqlDbType.NVarChar).Value = numericPlazo.Value.ToString();
-                    procedure.ExecuteNonQuery();
-                    Conexiones.CerrarConexion();
-                    MessageBox.Show("Oferta creada correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
-                else
-                    MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].CrearOferta", conex);
+                procedure.CommandType = CommandType.StoredProcedure;
+                procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ts;
+                procedure.Parameters.Add("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
+                procedure.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = textBoxDescripcion.Text;
+                procedure.Parameters.Add("@fecha_publicacion", SqlDbType.NVarChar).Value = fechaDesde.Text.ToString();
+                procedure.Parameters.Add("@fecha_vencimiento", SqlDbType.NVarChar).Value = fechaHasta.Text.ToString();
+                procedure.Parameters.Add("@precio_oferta", SqlDbType.NVarChar).Value = numericPrecioOferta.Value.ToString();
+                procedure.Parameters.Add("@precio_lista", SqlDbType.NVarChar).Value = numericPrecioOriginal.Value.ToString();
+                procedure.Parameters.Add("@cantidad_disponible", SqlDbType.NVarChar).Value = numericStock.Value.ToString();
+                procedure.Parameters.Add("@cantidad_maxima_usuario", SqlDbType.NVarChar).Value = numericMaxUsuario.Value.ToString();
+                procedure.Parameters.Add("@plazo_entrega_dias", SqlDbType.NVarChar).Value = checkBox1.Checked ? numericPlazo.Value.ToString() : "";
+                procedure.ExecuteNonQuery();
+                Conexiones.CerrarConexion();
+                MessageBox.Show("Oferta creada correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
-            catch (ArgumentException exeption)
-            {
-                MessageBox.Show("La publicación debe tener fecha mayor o igual a la fecha actual del sistema");
-            }
+            else
+                MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonInformacionProveedor_Click(object sender, EventArgs e)
@@ -134,6 +116,11 @@ namespace FrbaOfertas.CrearOferta
         private void label9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            numericPlazo.Visible = !numericPlazo.Visible;
         }
     }
 }
