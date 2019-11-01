@@ -106,7 +106,7 @@ namespace FrbaOfertas.AbmCliente
                     InfoUsuario.Actualizar();
                 }
                 else
-                    MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Complete todos los campos correctamente para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

@@ -21,6 +21,7 @@ namespace FrbaOfertas.gestionUsuarios
         {
             InitializeComponent();
             updateHeadersStyle();
+            cargarDatos();
         }
 
         private void updateHeadersStyle()
@@ -82,5 +83,10 @@ namespace FrbaOfertas.gestionUsuarios
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

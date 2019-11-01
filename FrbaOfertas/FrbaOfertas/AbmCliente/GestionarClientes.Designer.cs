@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupMasFiltros = new System.Windows.Forms.GroupBox();
             this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
@@ -71,7 +71,7 @@
             this.btnAlta.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.btnAlta.ForeColor = System.Drawing.Color.White;
             this.btnAlta.Location = new System.Drawing.Point(931, 28);
-            this.btnAlta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAlta.Margin = new System.Windows.Forms.Padding(4);
             this.btnAlta.Name = "btnAlta";
             this.btnAlta.Size = new System.Drawing.Size(315, 64);
             this.btnAlta.TabIndex = 0;
@@ -251,12 +251,13 @@
             // btnSeleccion
             // 
             this.btnSeleccion.BackColor = System.Drawing.Color.Lime;
+            this.btnSeleccion.ForeColor = System.Drawing.SystemColors.Window;
             this.btnSeleccion.Location = new System.Drawing.Point(1065, 481);
-            this.btnSeleccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSeleccion.Margin = new System.Windows.Forms.Padding(4);
             this.btnSeleccion.Name = "btnSeleccion";
             this.btnSeleccion.Size = new System.Drawing.Size(156, 46);
             this.btnSeleccion.TabIndex = 36;
-            this.btnSeleccion.Text = "Selección";
+            this.btnSeleccion.Text = "Seleccionar";
             this.btnSeleccion.UseVisualStyleBackColor = false;
             this.btnSeleccion.Visible = false;
             this.btnSeleccion.Click += new System.EventHandler(this.btnSeleccion_Click);
@@ -429,8 +430,8 @@
             this.tablaClientes.Name = "tablaClientes";
             this.tablaClientes.ReadOnly = true;
             this.tablaClientes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tablaClientes.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tablaClientes.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.tablaClientes.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tablaClientes.RowTemplate.Height = 24;
             this.tablaClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -450,7 +451,7 @@
             this.Controls.Add(this.groupMasFiltros);
             this.Controls.Add(this.ProvExistentes);
             this.Controls.Add(this.btnAlta);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GestionarClientes";
             this.Text = "ABM Clientes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GestionarClientes_FormClosed);

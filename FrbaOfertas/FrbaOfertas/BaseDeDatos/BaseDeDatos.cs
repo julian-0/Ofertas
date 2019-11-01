@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using FrbaOfertas.Conexion;
 using System.Windows.Forms;
+using System.Globalization;
 using System.Data;
 
 namespace FrbaOfertas.Datos
@@ -150,14 +151,14 @@ namespace FrbaOfertas.Datos
             return dt;
         }
 
-        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov)
+        internal static DataTable getOfertasProveedor(String desde, String hasta, String prov, DateTime fechaConfig)
         {
             DataTable dt = new DataTable();
             SqlConnection conexion = Conexiones.AbrirConexion();
             SqlCommand command;
             SqlDataAdapter adapter;
 
-            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','"+prov+"')", conexion);
+            command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.ofertasAFacturar('" + desde + "','" + hasta + "','" + prov + "','" + fechaConfig.ToString("d", CultureInfo.CreateSpecificCulture("es-ES")) + "')", conexion);
             adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();

@@ -43,6 +43,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonInformacionProveedor = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,13 +132,13 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 124);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 147);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(987, 378);
+            this.dataGridView1.Size = new System.Drawing.Size(987, 391);
             this.dataGridView1.TabIndex = 33;
             // 
             // buttonFacturar
@@ -146,7 +147,7 @@
             this.buttonFacturar.BackColor = System.Drawing.Color.LimeGreen;
             this.buttonFacturar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonFacturar.ForeColor = System.Drawing.Color.White;
-            this.buttonFacturar.Location = new System.Drawing.Point(660, 528);
+            this.buttonFacturar.Location = new System.Drawing.Point(660, 581);
             this.buttonFacturar.Name = "buttonFacturar";
             this.buttonFacturar.Size = new System.Drawing.Size(339, 46);
             this.buttonFacturar.TabIndex = 34;
@@ -156,7 +157,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 541);
+            this.textBox1.Location = new System.Drawing.Point(67, 594);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(213, 22);
@@ -167,19 +168,19 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(361, 518);
+            this.label2.Location = new System.Drawing.Point(351, 571);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 20);
+            this.label2.Size = new System.Drawing.Size(209, 20);
             this.label2.TabIndex = 37;
-            this.label2.Text = "N° de Factura";
+            this.label2.Text = "N° de última Factura creada";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(73, 518);
+            this.label1.Location = new System.Drawing.Point(63, 571);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 20);
@@ -188,7 +189,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(364, 541);
+            this.textBox2.Location = new System.Drawing.Point(354, 594);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(252, 22);
@@ -200,11 +201,11 @@
             this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(800, 37);
+            this.button1.Location = new System.Drawing.Point(757, 48);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(199, 47);
+            this.button1.Size = new System.Drawing.Size(242, 47);
             this.button1.TabIndex = 40;
-            this.button1.Text = "Ver ventas";
+            this.button1.Text = "Ver ventas sin facturar";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -227,12 +228,25 @@
             this.buttonInformacionProveedor.UseVisualStyleBackColor = false;
             this.buttonInformacionProveedor.Click += new System.EventHandler(this.buttonInformacionProveedor_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 124);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(143, 20);
+            this.label3.TabIndex = 101;
+            this.label3.Text = "Ventas sin facturar";
+            // 
             // FacturarProv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1011, 586);
+            this.ClientSize = new System.Drawing.Size(1011, 639);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
@@ -274,5 +288,6 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonInformacionProveedor;
+        private System.Windows.Forms.Label label3;
     }
 }

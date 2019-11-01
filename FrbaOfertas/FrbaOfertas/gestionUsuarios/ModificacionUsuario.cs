@@ -108,9 +108,9 @@ namespace FrbaOfertas.gestionUsuarios
                     procedure.Parameters.Add("@contrasenia", SqlDbType.NVarChar).Value = password.Text;
                     procedure.ExecuteNonQuery();
                     Conexiones.CerrarConexion();
-                    MessageBox.Show("Usuario creado correctamente! Para poder acceder, complete sus datos");
                     if (rolUsuario == null) //Se entro desde el login
                     {
+                        MessageBox.Show("Usuario creado correctamente! Para poder acceder, complete sus datos");
                         switch (Int32.Parse(comboBox1.SelectedValue.ToString()))
                         {
                             case 3:
@@ -125,6 +125,7 @@ namespace FrbaOfertas.gestionUsuarios
                     }
                     else //Se entro desde abm proveedor
                     {
+                        MessageBox.Show("Usuario creado correctamente! Recuerde completar sus datos");
                         this.DialogResult = DialogResult.OK;
                     }
                     this.Close();

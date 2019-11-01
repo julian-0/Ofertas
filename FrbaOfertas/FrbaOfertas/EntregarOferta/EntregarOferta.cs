@@ -26,13 +26,10 @@ namespace FrbaOfertas.EntregarOferta
         }
 
         private void cliente_leave(object sender, EventArgs e) 
-        {
-            ValidadorCampos.numerico(cliente, errorCliente);
-        }
+        {        }
 
         private void cupon_leave(object sender, EventArgs e)
         {
-            ValidadorCampos.numerico(cupon, errorCupon);
         }
 
         private bool hayError()

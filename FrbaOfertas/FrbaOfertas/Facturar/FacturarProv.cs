@@ -25,6 +25,7 @@ namespace FrbaOfertas.Facturar
         public FacturarProv()
         {
             InitializeComponent();
+            fechaHasta.MaxDate = fechaConfig; 
         }
 
         public bool camposCompletos()
@@ -50,7 +51,7 @@ namespace FrbaOfertas.Facturar
             if (camposCompletos())
             {
                 DataTable dt;
-                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["proveedor_id"].ToString());
+                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["proveedor_id"].ToString(), fechaConfig);
                 dataGridView1.DataSource = dt;
             }
             completarTotal();
@@ -97,7 +98,9 @@ namespace FrbaOfertas.Facturar
                     float.TryParse(textBox1.Text.Trim('$'), out total);
                     procedure.Parameters.AddWithValue("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
                     procedure.Parameters.AddWithValue("@importe", SqlDbType.Int).Value = total;
-                    procedure.Parameters.AddWithValue("@fecha", SqlDbType.DateTime).Value = fechaConfig;
+                    procedure.Parameters.AddWithValue("@fechaFactura", SqlDbType.DateTime).Value = fechaConfig;
+                    procedure.Parameters.AddWithValue("@fechaDesde", SqlDbType.DateTime).Value = fechaDesde.Value;
+                    procedure.Parameters.AddWithValue("@fechaHasta", SqlDbType.DateTime).Value = fechaHasta.Value;
                     procedure.Parameters.Add("@factura_numero", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                     procedure.ExecuteNonQuery();
