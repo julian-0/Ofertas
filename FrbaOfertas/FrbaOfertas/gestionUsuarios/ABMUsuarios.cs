@@ -16,12 +16,29 @@ namespace FrbaOfertas.gestionUsuarios
     public partial class ABMUsuarios : Form
     {
         DataTable dt = new DataTable();
+        DataTable dtRoles = new DataTable();
 
         public ABMUsuarios()
         {
             InitializeComponent();
             updateHeadersStyle();
+            cargarComboRoles();
             cargarDatos();
+        }
+
+        private void cargarComboRoles()
+        {
+            dtRoles.Columns.Clear();
+            dtRoles.Rows.Clear();
+            rol.DataSource = dtRoles;
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT rol_id, nombre_rol FROM NUNCA_INJOIN.RolesActivos", conexion);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dtRoles);
+            rol.ValueMember = "rol_id";
+            rol.DisplayMember = "nombre_rol";
+            rol.DataSource = dtRoles;
+            Conexiones.CerrarConexion();
         }
 
         private void updateHeadersStyle()
@@ -87,6 +104,12 @@ namespace FrbaOfertas.gestionUsuarios
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void resetRol_Click(object sender, EventArgs e)
+        {
+            rol.ResetText();
+            rol.SelectedIndex = -1;
         }
     }
 }
