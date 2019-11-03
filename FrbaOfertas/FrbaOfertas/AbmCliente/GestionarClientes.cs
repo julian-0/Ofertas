@@ -100,7 +100,7 @@ namespace FrbaOfertas.AbmCliente
                                                 verHabilitados +
                                                 "," + verInhabilitados +
                                                 ", '" + txtNombre.Text +
-                                                "', '" + txtApellido.Text +
+                                                "', '" + apellido.Text +
                                                 "', '" + txtMail.Text +
                                                 "', '" + txtCiudad.Text +
                                                 "', '" + txtLocalidad.Text +

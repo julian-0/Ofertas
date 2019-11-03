@@ -22,7 +22,22 @@ namespace FrbaOfertas.CrearOferta
         {
             InitializeComponent();
             this.updateHeadersStyle();
-            rellenarDatagrid();
+            rellenarRoles();
+            generarBusqueda();
+        }
+
+        public void rellenarRoles()
+        {
+            SqlConnection conexion = Conexiones.AbrirConexion();
+            SqlCommand command = new SqlCommand("SELECT nombre_rubro FROM NUNCA_INJOIN.Rubro", conexion);
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                rubro.Items.Add(dataReader[0]);
+            }
+
+            Conexiones.CerrarConexion();
         }
 
         //Hay un bug que resetea la fuente de ColumnHeadersDefaultCellStyle con cada build
@@ -36,25 +51,51 @@ namespace FrbaOfertas.CrearOferta
 
         }
 
-        private void rellenarDatagrid()
+        private void generarBusqueda()
         {
             Cursor = Cursors.WaitCursor;
-            dt.Columns.Clear();
-            dt.Rows.Clear();
+            DataTable dt = new DataTable();
+
             dataGridView1.DataSource = dt;
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT [proveedor_id],[rubro_id],[usuario_id],[razon_social],"
-                + "[mail],[telefono],[domicilio],[localidad],[ciudad],[codigo_postal],[cuit],[nombre_contacto],"
-                                                        + "[baja_logica] FROM NUNCA_INJOIN.Proveedor", conexion);
+
+            SqlCommand command = new SqlCommand("SELECT * FROM NUNCA_INJOIN.VerProveedores(1,0" +
+                ", '" + razonSocial.Text.ToString() +
+                "', '" + usuario.Text.ToString() +
+                "', '" + rubro.Text.ToString() +
+                "', '" + email.Text.ToString() +
+                "', '" + localidad.Text.ToString() +
+                "', '" + nombre_de_contacto.Text.ToString() +
+                "', '" + ciudad.Text.ToString() +
+                "', '" + codigo_postal.Text.ToString() +
+                "' )", conexion);
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
+
+            DataView dv = new DataView(dt);
+            string filter = "";
+            if (cuit.Text != "")
+            {
+                filter += "CUIT = '" + cuit.Text + "'";
+            }
+            if (telefono.Text != "")
+            {
+                if (filter != "") filter += " AND ";
+                filter += "Telefono =" + telefono.Text;
+            }
+
+            dv.RowFilter = filter;
+            dataGridView1.DataSource = dv;
             Conexiones.CerrarConexion();
             Cursor = Cursors.Default;
         }
+
+
+
         private void button2_Click(object sender, EventArgs e)
         {
-            rellenarDatagrid();
+            generarBusqueda();
            
         }
 

@@ -38,7 +38,7 @@
             this.cuit = new System.Windows.Forms.TextBox();
             this.mostrarMas = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.usuario = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -90,7 +90,7 @@
             this.groupBox2.Controls.Add(this.cuit);
             this.groupBox2.Controls.Add(this.mostrarMas);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.usuario);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Cursor = System.Windows.Forms.Cursors.Default;
@@ -171,13 +171,13 @@
             this.label1.TabIndex = 42;
             this.label1.Text = "Rubro";
             // 
-            // textBox1
+            // usuario
             // 
-            this.textBox1.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(278, 43);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 25);
-            this.textBox1.TabIndex = 1;
+            this.usuario.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usuario.Location = new System.Drawing.Point(278, 43);
+            this.usuario.Name = "usuario";
+            this.usuario.Size = new System.Drawing.Size(230, 25);
+            this.usuario.TabIndex = 1;
             // 
             // label12
             // 
@@ -393,7 +393,7 @@
         private System.Windows.Forms.TextBox cuit;
         private System.Windows.Forms.Button mostrarMas;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox usuario;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;

@@ -51,7 +51,6 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.txtApellido = new System.Windows.Forms.ComboBox();
             this.txtMail = new System.Windows.Forms.TextBox();
             this.mostrarMas = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,6 +58,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tablaClientes = new System.Windows.Forms.DataGridView();
+            this.apellido = new System.Windows.Forms.TextBox();
             this.groupMasFiltros.SuspendLayout();
             this.ProvExistentes.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -288,10 +288,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.apellido);
             this.groupBox2.Controls.Add(this.txtNombre);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.btnBuscar);
-            this.groupBox2.Controls.Add(this.txtApellido);
             this.groupBox2.Controls.Add(this.txtMail);
             this.groupBox2.Controls.Add(this.mostrarMas);
             this.groupBox2.Controls.Add(this.label1);
@@ -338,16 +338,6 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // txtApellido
-            // 
-            this.txtApellido.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApellido.FormattingEnabled = true;
-            this.txtApellido.Location = new System.Drawing.Point(21, 89);
-            this.txtApellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(231, 27);
-            this.txtApellido.TabIndex = 41;
             // 
             // txtMail
             // 
@@ -439,6 +429,15 @@
             this.tablaClientes.TabIndex = 0;
             this.tablaClientes.SelectionChanged += new System.EventHandler(this.tablaClientes_SelectionChanged);
             // 
+            // apellido
+            // 
+            this.apellido.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.apellido.Location = new System.Drawing.Point(21, 93);
+            this.apellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.apellido.Name = "apellido";
+            this.apellido.Size = new System.Drawing.Size(231, 25);
+            this.apellido.TabIndex = 54;
+            // 
             // GestionarClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -489,7 +488,6 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.ComboBox txtApellido;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.Button mostrarMas;
         private System.Windows.Forms.Label label1;
@@ -498,5 +496,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView tablaClientes;
         private System.Windows.Forms.Button btnSeleccion;
+        private System.Windows.Forms.TextBox apellido;
     }
 }
