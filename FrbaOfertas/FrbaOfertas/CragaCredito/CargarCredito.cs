@@ -86,10 +86,15 @@ namespace FrbaOfertas.CragaCredito
 
         private void comboNumero_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnInfoTarjeta_Click(object sender, EventArgs e)
+        {
             dt.Columns.Clear();
             dt.Rows.Clear();
             SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero,tipo_pago FROM NUNCA_INJOIN.Tarjeta WHERE tarjeta_id = '" + comboTipo.SelectedText + "'", conexion);
+            SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero,tipo_pago FROM NUNCA_INJOIN.Tarjeta WHERE tipo_pago = '" + comboTipo.SelectedText + "'", conexion);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
             Conexiones.CerrarConexion();
@@ -101,17 +106,48 @@ namespace FrbaOfertas.CragaCredito
                     datosTarjetaSeleccionada.Add(column.ColumnName.ToString(), row[column].ToString());
                 }
             }
-        }
 
-        private void btnInfoTarjeta_Click(object sender, EventArgs e)
-        {
             var lines = datosTarjetaSeleccionada.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
             MessageBox.Show(string.Join(Environment.NewLine, lines));
         }
 
         private void btnAgregarTarjeta_Click(object sender, EventArgs e)
         {
-            
+            Cursor = Cursors.WaitCursor;
+            if(seleccionoCliente())
+            (new AgregarTarjeta(Int32.Parse(datosClienteSeleccionado["ID"]))).ShowDialog();
+            Cursor = Cursors.Default;
+        }
+
+        private bool seleccionoCliente()
+        {
+            //TODO
+            return true;
+        }
+
+        private bool camposCompletos()
+        {
+            //TODO
+            return true;
+        }
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            SqlConnection conex = Conexiones.AbrirConexion();
+            if (this.camposCompletos())
+            {
+                SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].cargarCredito", conex);
+                procedure.CommandType = CommandType.StoredProcedure;
+                procedure.Parameters.Add("@cliente", SqlDbType.Int).Value = Int32.Parse(datosClienteSeleccionado["ID"]);
+                procedure.Parameters.Add("@cantidad", SqlDbType.Int).Value = Int32.Parse(monto.Value.ToString());
+                procedure.Parameters.Add("@tarjeta", SqlDbType.Int).Value = comboNumero.SelectedValue;
+                procedure.Parameters.Add("@fecha", SqlDbType.NVarChar).Value = BaseDeDatos.fechaConfigString;
+                procedure.ExecuteNonQuery();
+                Conexiones.CerrarConexion();
+                MessageBox.Show("Carga realizada", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+                MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

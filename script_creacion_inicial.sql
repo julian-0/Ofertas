@@ -2306,5 +2306,68 @@ COMMIT
 GO
 
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'cargarCredito'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROC NUNCA_INJOIN.cargarCredito
+END
+GO
+
+CREATE PROCEDURE NUNCA_INJOIN.cargarCredito (
+	@cliente NUMERIC(9),
+	@cantidad NUMERIC(18, 2),
+	@tarjeta NUMERIC(9, 0),
+	@fecha NVARCHAR(50)
+	)
+AS
+BEGIN
+	INSERT INTO NUNCA_INJOIN.Carga (
+		cliente_id,
+		tarjeta_id,
+		fecha,
+		monto
+		)
+	VALUES (
+		@cliente,
+		@tarjeta,
+		convert(DATETIME, @fecha, 103),
+		@cantidad
+		)
+END
+GO
 
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'crearTarjeta'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP PROC NUNCA_INJOIN.crearTarjeta
+END
+GO
+
+CREATE PROCEDURE NUNCA_INJOIN.crearTarjeta (
+	@cliente NUMERIC(9),
+	@duenio nvarchar(50),
+	@tarjeta_tipo nvarchar(50),
+	@tarjeta_numero NUMERIC(9, 0)
+	)
+AS
+BEGIN
+	INSERT INTO NUNCA_INJOIN.Tarjeta(
+		cliente_id, duenio,
+		tipo_pago,
+		numero
+		)
+	VALUES (
+		@cliente, @duenio, @tarjeta_tipo,
+		@tarjeta_numero
+		)
+END
+GO

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblElegir = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.monto = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -49,18 +48,6 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblElegir
-            // 
-            this.lblElegir.AutoSize = true;
-            this.lblElegir.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblElegir.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblElegir.Location = new System.Drawing.Point(127, 37);
-            this.lblElegir.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblElegir.Name = "lblElegir";
-            this.lblElegir.Size = new System.Drawing.Size(114, 20);
-            this.lblElegir.TabIndex = 22;
-            this.lblElegir.Text = "Elija su tarjeta";
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -68,9 +55,9 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(31, 111);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(628, 242);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
@@ -80,7 +67,7 @@
             // 
             this.monto.DecimalPlaces = 2;
             this.monto.Location = new System.Drawing.Point(15, 114);
-            this.monto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.monto.Margin = new System.Windows.Forms.Padding(4);
             this.monto.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
@@ -99,11 +86,10 @@
             this.groupBox2.Controls.Add(this.comboNumero);
             this.groupBox2.Controls.Add(this.lblNumero);
             this.groupBox2.Controls.Add(this.btnAgregarTarjeta);
-            this.groupBox2.Controls.Add(this.lblElegir);
             this.groupBox2.Location = new System.Drawing.Point(293, 23);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(312, 212);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
@@ -115,8 +101,8 @@
             this.comboTipo.Items.AddRange(new object[] {
             "Crédito",
             "Débito"});
-            this.comboTipo.Location = new System.Drawing.Point(107, 75);
-            this.comboTipo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboTipo.Location = new System.Drawing.Point(103, 91);
+            this.comboTipo.Margin = new System.Windows.Forms.Padding(4);
             this.comboTipo.Name = "comboTipo";
             this.comboTipo.Size = new System.Drawing.Size(160, 24);
             this.comboTipo.TabIndex = 110;
@@ -125,7 +111,7 @@
             // lblTipo
             // 
             this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(35, 79);
+            this.lblTipo.Location = new System.Drawing.Point(31, 95);
             this.lblTipo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTipo.Name = "lblTipo";
             this.lblTipo.Size = new System.Drawing.Size(36, 17);
@@ -141,7 +127,7 @@
             this.btnInfoTarjeta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInfoTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInfoTarjeta.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnInfoTarjeta.Location = new System.Drawing.Point(59, 140);
+            this.btnInfoTarjeta.Location = new System.Drawing.Point(55, 156);
             this.btnInfoTarjeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInfoTarjeta.Name = "btnInfoTarjeta";
             this.btnInfoTarjeta.Size = new System.Drawing.Size(229, 30);
@@ -155,8 +141,8 @@
             // comboNumero
             // 
             this.comboNumero.FormattingEnabled = true;
-            this.comboNumero.Location = new System.Drawing.Point(107, 108);
-            this.comboNumero.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboNumero.Location = new System.Drawing.Point(103, 124);
+            this.comboNumero.Margin = new System.Windows.Forms.Padding(4);
             this.comboNumero.Name = "comboNumero";
             this.comboNumero.Size = new System.Drawing.Size(160, 24);
             this.comboNumero.TabIndex = 29;
@@ -165,7 +151,7 @@
             // lblNumero
             // 
             this.lblNumero.AutoSize = true;
-            this.lblNumero.Location = new System.Drawing.Point(35, 112);
+            this.lblNumero.Location = new System.Drawing.Point(31, 128);
             this.lblNumero.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNumero.Name = "lblNumero";
             this.lblNumero.Size = new System.Drawing.Size(58, 17);
@@ -174,12 +160,12 @@
             // 
             // btnAgregarTarjeta
             // 
-            this.btnAgregarTarjeta.Location = new System.Drawing.Point(131, 176);
-            this.btnAgregarTarjeta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregarTarjeta.Location = new System.Drawing.Point(163, 23);
+            this.btnAgregarTarjeta.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarTarjeta.Name = "btnAgregarTarjeta";
-            this.btnAgregarTarjeta.Size = new System.Drawing.Size(137, 28);
+            this.btnAgregarTarjeta.Size = new System.Drawing.Size(141, 40);
             this.btnAgregarTarjeta.TabIndex = 27;
-            this.btnAgregarTarjeta.Text = "+ Agregar Tarjeta";
+            this.btnAgregarTarjeta.Text = "+ Nueva Tarjeta";
             this.btnAgregarTarjeta.UseVisualStyleBackColor = true;
             this.btnAgregarTarjeta.Click += new System.EventHandler(this.btnAgregarTarjeta_Click);
             // 
@@ -205,11 +191,12 @@
             this.btnCargar.TabIndex = 30;
             this.btnCargar.Text = "Cargar Credito";
             this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
             // btnSeleccionarCliente
             // 
             this.btnSeleccionarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeleccionarCliente.Location = new System.Drawing.Point(363, 34);
+            this.btnSeleccionarCliente.Location = new System.Drawing.Point(358, 29);
             this.btnSeleccionarCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSeleccionarCliente.Name = "btnSeleccionarCliente";
             this.btnSeleccionarCliente.Size = new System.Drawing.Size(108, 30);
@@ -271,7 +258,7 @@
             this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.btnInfoCLiente);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CargarCredito";
             this.Text = "CargarCredito";
             this.groupBox1.ResumeLayout(false);
@@ -286,7 +273,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblElegir;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCargar;
