@@ -1006,6 +1006,48 @@ RETURN (
 		)
 GO
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CuponesActivosFiltradosPor'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CuponesActivosFiltradosPor
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.CuponesActivosFiltradosPor (@oferta NVARCHAR(50), @cliente NVARCHAR(9), @fechaActual NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Cupon
+		WHERE fecha_compra <= convert(DATETIME, @fechaActual, 103) AND oferta_codigo LIKE '%' + @oferta + '%' AND @cliente = cliente_compra_id
+		)
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'CuponesActivosFiltradosPorOferta'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.CuponesActivosFiltradosPorOferta
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.CuponesActivosFiltradosPorOferta (@oferta NVARCHAR(50), @fechaActual NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN (
+		SELECT *
+		FROM NUNCA_INJOIN.Cupon
+		WHERE fecha_compra <= convert(DATETIME, @fechaActual, 103) AND oferta_codigo LIKE '%' + @oferta + '%'
+		)
+GO
+
 CREATE FUNCTION NUNCA_INJOIN.VerProveedores (
 	@MostrarHabilitados INT, @MostrarInhabilitados INT, @razonSocial NVARCHAR(100), 
 	@usuario VARCHAR(50), @rubro NVARCHAR(100), @email NVARCHAR(255), @localidad 
@@ -1084,6 +1126,43 @@ RETURN (
 			AND usuario_id LIKE '%' + @usuario + '%'
 			AND r.nombre_rol LIKE '%' + @rol + '%'
 		)
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_name(object_id) = 'ClientesActualizados'
+			AND schema_name(schema_id) = 'NUNCA_INJOIN'
+		)
+BEGIN
+	DROP FUNCTION NUNCA_INJOIN.ClientesActualizados
+END
+GO
+
+CREATE FUNCTION NUNCA_INJOIN.ClientesActualizados (@fechaConfig NVARCHAR(50))
+RETURNS TABLE
+AS
+RETURN (
+		SELECT [cliente_id],
+			[usuario_id],
+			[nombre],
+			[apellido],
+			[dni],
+			[mail],
+			[telefono],
+			[domicilio],
+			[localidad],
+			[codigo_postal],
+			[fecha_nac],
+			(
+				SELECT sum(monto)
+				FROM NUNCA_INJOIN.Carga c
+				WHERE c.fecha <= convert(DATETIME, @fechaConfig, 103)
+					AND c.cliente_id = cli.cliente_id
+				)as [credito],
+			[baja_logica]
+		FROM [GD2C2019].[NUNCA_INJOIN].[Cliente] cli
+		);
 GO
 
 CREATE FUNCTION NUNCA_INJOIN.VerClientes (
@@ -2226,41 +2305,6 @@ DEALLOCATE prov_cursor
 COMMIT
 GO
 
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_name(object_id) = 'ClientesActualizados'
-			AND schema_name(schema_id) = 'NUNCA_INJOIN'
-		)
-BEGIN
-	DROP FUNCTION NUNCA_INJOIN.ClientesActualizados
-END
-GO
 
-CREATE FUNCTION NUNCA_INJOIN.ClientesActualizados (@fechaConfig NVARCHAR(50))
-RETURNS TABLE
-AS
-RETURN (
-		SELECT [cliente_id],
-			[usuario_id],
-			[nombre],
-			[apellido],
-			[dni],
-			[mail],
-			[telefono],
-			[domicilio],
-			[localidad],
-			[codigo_postal],
-			[fecha_nac],
-			(
-				SELECT sum(monto)
-				FROM NUNCA_INJOIN.Carga c
-				WHERE c.fecha <= convert(DATETIME, @fechaConfig, 103)
-					AND c.cliente_id = cli.cliente_id
-				)as [credito],
-			[baja_logica]
-		FROM [GD2C2019].[NUNCA_INJOIN].[Cliente] cli
-		);
-GO
 
 

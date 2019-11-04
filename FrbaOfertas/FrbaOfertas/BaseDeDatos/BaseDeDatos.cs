@@ -79,6 +79,15 @@ namespace FrbaOfertas.Datos
             return solicitar("SELECT * FROM NUNCA_INJOIN.ClientesActualizados('"+fechaConfigString+ "')");
         }
 
+        public static DataTable getCuponesFiltrados(String oferta, String cliente) {
+            return solicitar("SELECT * FROM NUNCA_INJOIN.CuponesActivosFiltradosPor('" + oferta + "', '" + cliente + "', '" + fechaConfigString + "')");
+        }
+
+        public static DataTable getCuponesFiltradosPorOferta(String oferta)
+        {
+            return solicitar("SELECT * FROM NUNCA_INJOIN.CuponesActivosFiltradosPorOferta('" + oferta + "', '" + fechaConfigString + "')");
+        }
+
         public static DataTable getCupones()
         {
             return solicitar("SELECT * FROM NUNCA_INJOIN.CuponesActivos('"+fechaConfigString+"')");

@@ -74,7 +74,12 @@ namespace FrbaOfertas.EntregarOferta
         {
             Cursor = Cursors.WaitCursor;
             buscarWasClicked = true;
-            tablaCupones.DataSource = BaseDeDatos.getCupones() ;
+            if (comprador.Text == "") {
+                tablaCupones.DataSource = BaseDeDatos.getCuponesFiltradosPorOferta(txtNombre.Text);
+                Cursor = Cursors.Default;
+                return;
+            }
+            tablaCupones.DataSource = BaseDeDatos.getCuponesFiltrados(txtNombre.Text, comprador.Text) ;
             Cursor = Cursors.Default;
         }
 
