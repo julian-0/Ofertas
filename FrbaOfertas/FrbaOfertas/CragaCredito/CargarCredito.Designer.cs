@@ -160,13 +160,16 @@
             // 
             // btnAgregarTarjeta
             // 
+            this.btnAgregarTarjeta.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnAgregarTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarTarjeta.ForeColor = System.Drawing.Color.White;
             this.btnAgregarTarjeta.Location = new System.Drawing.Point(163, 23);
             this.btnAgregarTarjeta.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarTarjeta.Name = "btnAgregarTarjeta";
             this.btnAgregarTarjeta.Size = new System.Drawing.Size(141, 40);
             this.btnAgregarTarjeta.TabIndex = 27;
             this.btnAgregarTarjeta.Text = "+ Nueva Tarjeta";
-            this.btnAgregarTarjeta.UseVisualStyleBackColor = true;
+            this.btnAgregarTarjeta.UseVisualStyleBackColor = false;
             this.btnAgregarTarjeta.Click += new System.EventHandler(this.btnAgregarTarjeta_Click);
             // 
             // label5
@@ -183,14 +186,16 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCargar.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnCargar.ForeColor = System.Drawing.Color.White;
             this.btnCargar.Location = new System.Drawing.Point(204, 359);
             this.btnCargar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(244, 44);
+            this.btnCargar.Size = new System.Drawing.Size(262, 47);
             this.btnCargar.TabIndex = 30;
             this.btnCargar.Text = "Cargar Credito";
-            this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.UseVisualStyleBackColor = false;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
             // btnSeleccionarCliente

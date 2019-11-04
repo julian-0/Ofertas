@@ -11,6 +11,7 @@ using FrbaOfertas.Conexion;
 using System.Data.SqlClient;
 using FrbaOfertas.Clases;
 using FrbaOfertas.AbmCliente;
+using FrbaOfertas.Datos;
 
 namespace FrbaOfertas.EntregarOferta
 {
@@ -40,43 +41,52 @@ namespace FrbaOfertas.EntregarOferta
         {
         }
 
-        private bool hayError()
+        private void verificarCampos()
         {
-            if (!haySeleccionado || !hayCupon)
+            if (cupon.Text == "" || cliente.Text == "")
             {
-                MessageBox.Show("Por favor seleccione el usuario y cupon que retira.");
-                return haySeleccionado;
+                throw new ArgumentException("Complete los campos");
             }
-            return errorCupon.GetError(cupon) + errorCliente.GetError(cliente) != "";
+            else if (!BaseDeDatos.existeCliente(Convert.ToInt32(cliente.Text)))
+            {
+                throw new ArgumentException("No existe el cliente solicidato");
+            }
+            else if (!BaseDeDatos.existeCupon(Convert.ToInt32(cliente.Text)))
+            {
+                throw new ArgumentException("No existe el cupon solicidato");
+            }
         }
 
         private void buttonConsumirCupon_Click(object sender, EventArgs e)
         {
-            if (hayError()) {
-                return;
-            }
-
-            SqlCommand procedure = new SqlCommand();
-            procedure.Connection = Conexiones.AbrirConexion();
-            procedure.Parameters.Clear();
-
-            procedure.CommandText = "NUNCA_INJOIN.consumirOferta";
-            procedure.CommandType = CommandType.StoredProcedure;
-
-            procedure.Parameters.Add("@cupon_id", SqlDbType.Decimal).Value = Convert.ToInt32(cupon.Text);
-            procedure.Parameters.Add("@cliente_entrega_id", SqlDbType.Decimal).Value = Convert.ToInt32(cliente.Text);
-            procedure.Parameters.Add("@fecha", SqlDbType.NVarChar).Value = System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"];
-
             try
             {
+                verificarCampos();
+                SqlCommand procedure = new SqlCommand();
+                procedure.Connection = Conexiones.AbrirConexion();
+                procedure.Parameters.Clear();
+
+                procedure.CommandText = "NUNCA_INJOIN.consumirOferta";
+                procedure.CommandType = CommandType.StoredProcedure;
+
+                procedure.Parameters.Add("@cupon_id", SqlDbType.Decimal).Value = Convert.ToInt32(cupon.Text);
+                procedure.Parameters.Add("@cliente_entrega_id", SqlDbType.Decimal).Value = Convert.ToInt32(cliente.Text);
+                procedure.Parameters.Add("@fecha", SqlDbType.NVarChar).Value = System.Configuration.ConfigurationSettings.AppSettings["fechaConfig"];
+
                 procedure.ExecuteNonQuery();
-                MessageBox.Show("Consumicion realizada exitosamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Conexiones.CerrarConexion();
+                MessageBox.Show("Cupón consumido exitosamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + ". No se realizó la entrega.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + " No se realizó la entrega.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Conexiones.CerrarConexion();
+
+            
         }
 
         private void cupon_TextChanged(object sender, EventArgs e)
@@ -92,8 +102,7 @@ namespace FrbaOfertas.EntregarOferta
                 if (ventanaSeleccion.ShowDialog() == DialogResult.OK)
                 {
                     this.datosClienteSeleccionado = ventanaSeleccion.datosFilaCliente;
-                    cliente.Text = datosClienteSeleccionado["Nombre"].ToString() + " " + datosClienteSeleccionado["Apellido"].ToString();
-                    haySeleccionado = true;
+                    cliente.Text = datosClienteSeleccionado["ID"].ToString();
                 }
             }
             Cursor = Cursors.Default;

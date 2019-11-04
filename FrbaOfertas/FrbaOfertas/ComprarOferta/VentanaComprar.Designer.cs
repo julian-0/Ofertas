@@ -47,7 +47,7 @@
             this.tablaOfertas.AllowUserToDeleteRows = false;
             this.tablaOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaOfertas.Location = new System.Drawing.Point(16, 80);
-            this.tablaOfertas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tablaOfertas.Margin = new System.Windows.Forms.Padding(4);
             this.tablaOfertas.MultiSelect = false;
             this.tablaOfertas.Name = "tablaOfertas";
             this.tablaOfertas.ReadOnly = true;
@@ -59,7 +59,7 @@
             // cantidad
             // 
             this.cantidad.Location = new System.Drawing.Point(693, 366);
-            this.cantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cantidad.Margin = new System.Windows.Forms.Padding(4);
             this.cantidad.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
@@ -87,7 +87,7 @@
             this.btnComprar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComprar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnComprar.Location = new System.Drawing.Point(480, 398);
-            this.btnComprar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnComprar.Margin = new System.Windows.Forms.Padding(4);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(376, 55);
             this.btnComprar.TabIndex = 23;
@@ -176,6 +176,7 @@
             // 
             // VentanaComprar
             // 
+            this.AcceptButton = this.btnComprar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -189,7 +190,7 @@
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.cantidad);
             this.Controls.Add(this.tablaOfertas);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "VentanaComprar";
             this.Text = "Comprar Oferta";
             this.Load += new System.EventHandler(this.ComprarOferta_Load);

@@ -146,6 +146,16 @@ namespace FrbaOfertas.Datos
             procedure.ExecuteNonQuery();
             Conexiones.CerrarConexion();
         }
+
+        public static bool existeCliente(int p)
+        {
+            return getClientes().Select("cliente_id = " + p).Any();
+        }
+
+        public static bool existeCupon(int cupon)
+        {
+            return solicitar("SELECT * FROM NUNCA_INJOIN.Cupon").Select("cupon_id = " + cupon).Any();
+        }
     }
 
     class InfoUsuario

@@ -44,7 +44,7 @@
             // 
             // cupon
             // 
-            this.cupon.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cupon.BackColor = System.Drawing.SystemColors.Window;
             this.cupon.Location = new System.Drawing.Point(12, 76);
             this.cupon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cupon.Name = "cupon";
@@ -74,13 +74,13 @@
             this.label1.Location = new System.Drawing.Point(11, 163);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 18);
+            this.label1.Size = new System.Drawing.Size(175, 18);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Cliente que lo retira:";
+            this.label1.Text = "N° de Cliente que lo retira";
             // 
             // cliente
             // 
-            this.cliente.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cliente.BackColor = System.Drawing.Color.White;
             this.cliente.Location = new System.Drawing.Point(14, 185);
             this.cliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cliente.Name = "cliente";
@@ -99,7 +99,7 @@
             this.buttonConsumirCupon.Name = "buttonConsumirCupon";
             this.buttonConsumirCupon.Size = new System.Drawing.Size(349, 46);
             this.buttonConsumirCupon.TabIndex = 14;
-            this.buttonConsumirCupon.Text = "Consumir";
+            this.buttonConsumirCupon.Text = "Entregar";
             this.buttonConsumirCupon.UseVisualStyleBackColor = false;
             this.buttonConsumirCupon.Click += new System.EventHandler(this.buttonConsumirCupon_Click);
             // 
@@ -117,7 +117,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 23);
             this.button1.TabIndex = 15;
-            this.button1.Text = "Seleccionar";
+            this.button1.Text = "Buscar...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -127,12 +127,13 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(110, 23);
             this.button2.TabIndex = 16;
-            this.button2.Text = "Seleccionar";
+            this.button2.Text = "Buscar...";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // EntregaOferta
             // 
+            this.AcceptButton = this.buttonConsumirCupon;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -144,7 +145,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.cupon);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EntregaOferta";
             this.Text = "Entrega";
             ((System.ComponentModel.ISupportInitialize)(this.errorCupon)).EndInit();

@@ -350,9 +350,9 @@
             this.button1.BackColor = System.Drawing.Color.LimeGreen;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(50, 452);
+            this.button1.Location = new System.Drawing.Point(969, 429);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 43);
+            this.button1.Size = new System.Drawing.Size(164, 43);
             this.button1.TabIndex = 2;
             this.button1.Text = "Seleccionar";
             this.button1.UseVisualStyleBackColor = false;

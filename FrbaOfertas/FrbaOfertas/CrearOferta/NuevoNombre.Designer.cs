@@ -69,12 +69,14 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(161, 96);
+            this.button1.BackColor = System.Drawing.Color.LimeGreen;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(142, 96);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 27);
+            this.button1.Size = new System.Drawing.Size(118, 40);
             this.button1.TabIndex = 2;
             this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // NuevoNombre
@@ -82,8 +84,10 @@
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(337, 166);
             this.Controls.Add(this.groupBox1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "NuevoNombre";
             this.Text = "NuevoNombre";
             this.groupBox1.ResumeLayout(false);

@@ -48,6 +48,7 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.apellido = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tablaClientes = new System.Windows.Forms.DataGridView();
-            this.apellido = new System.Windows.Forms.TextBox();
             this.groupMasFiltros.SuspendLayout();
             this.ProvExistentes.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -252,10 +252,10 @@
             // 
             this.btnSeleccion.BackColor = System.Drawing.Color.Lime;
             this.btnSeleccion.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnSeleccion.Location = new System.Drawing.Point(1065, 481);
+            this.btnSeleccion.Location = new System.Drawing.Point(1057, 481);
             this.btnSeleccion.Margin = new System.Windows.Forms.Padding(4);
             this.btnSeleccion.Name = "btnSeleccion";
-            this.btnSeleccion.Size = new System.Drawing.Size(156, 46);
+            this.btnSeleccion.Size = new System.Drawing.Size(189, 46);
             this.btnSeleccion.TabIndex = 36;
             this.btnSeleccion.Text = "Seleccionar";
             this.btnSeleccion.UseVisualStyleBackColor = false;
@@ -306,6 +306,15 @@
             this.groupBox2.Size = new System.Drawing.Size(691, 129);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
+            // 
+            // apellido
+            // 
+            this.apellido.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.apellido.Location = new System.Drawing.Point(21, 93);
+            this.apellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.apellido.Name = "apellido";
+            this.apellido.Size = new System.Drawing.Size(231, 25);
+            this.apellido.TabIndex = 54;
             // 
             // txtNombre
             // 
@@ -429,17 +438,9 @@
             this.tablaClientes.TabIndex = 0;
             this.tablaClientes.SelectionChanged += new System.EventHandler(this.tablaClientes_SelectionChanged);
             // 
-            // apellido
-            // 
-            this.apellido.Font = new System.Drawing.Font("Cambria", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.apellido.Location = new System.Drawing.Point(21, 93);
-            this.apellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.apellido.Name = "apellido";
-            this.apellido.Size = new System.Drawing.Size(231, 25);
-            this.apellido.TabIndex = 54;
-            // 
             // GestionarClientes
             // 
+            this.AcceptButton = this.btnSeleccion;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;

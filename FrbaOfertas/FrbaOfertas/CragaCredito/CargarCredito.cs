@@ -23,11 +23,14 @@ namespace FrbaOfertas.CragaCredito
         public Dictionary<string, string> datosClienteSeleccionado = new Dictionary<string, string>();
         public Dictionary<string, string> datosTarjetaSeleccionada = new Dictionary<string, string>();
         public bool haySeleccionado = false;
+        private bool seleccionoTipo = false;
+        private bool seleccionoNumero = false;
 
         public CargarCredito()
         {
             InitializeComponent();
             comboNumero.Enabled = false;
+            btnAgregarTarjeta.Enabled = false;
 
             if (InfoUsuario.rolUsuario > 2)
             {
@@ -36,7 +39,9 @@ namespace FrbaOfertas.CragaCredito
                 txtCliente.Text = InfoUsuario.nombreUsuario;
                 datosClienteSeleccionado = InfoUsuario.datosCuenta;
                 haySeleccionado = true;
+                btnAgregarTarjeta.Enabled = true;
             } 
+
         }
 
         private void btnInfoCLiente_Click(object sender, EventArgs e)
@@ -56,6 +61,7 @@ namespace FrbaOfertas.CragaCredito
                     this.datosClienteSeleccionado = ventanaSeleccion.datosFilaCliente;
                     txtCliente.Text = datosClienteSeleccionado["Nombre"].ToString() + " " + datosClienteSeleccionado["Apellido"].ToString();
                     haySeleccionado = true;
+                    btnAgregarTarjeta.Enabled = true;
                 }
             }
             Cursor = Cursors.Default;
@@ -82,11 +88,12 @@ namespace FrbaOfertas.CragaCredito
         {
             cargarComboTarjetas();
             comboNumero.Enabled = true;
+            seleccionoTipo = true;
         }
 
         private void comboNumero_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            seleccionoNumero = true;
         }
 
         private void btnInfoTarjeta_Click(object sender, EventArgs e)
@@ -116,19 +123,19 @@ namespace FrbaOfertas.CragaCredito
             Cursor = Cursors.WaitCursor;
             if(seleccionoCliente())
             (new AgregarTarjeta(Int32.Parse(datosClienteSeleccionado["ID"]))).ShowDialog();
+            else
+                MessageBox.Show("Seleccione un cliente para vincular la tarjeta", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             Cursor = Cursors.Default;
         }
 
         private bool seleccionoCliente()
         {
-            //TODO
-            return true;
+            return haySeleccionado;
         }
 
         private bool camposCompletos()
         {
-            //TODO
-            return true;
+            return seleccionoTipo && seleccionoNumero && haySeleccionado;
         }
         private void btnCargar_Click(object sender, EventArgs e)
         {

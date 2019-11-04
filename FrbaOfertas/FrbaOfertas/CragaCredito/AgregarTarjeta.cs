@@ -24,7 +24,6 @@ namespace FrbaOfertas.CragaCredito
         }
 
         private bool camposCompletos(){
-            //TODO
             return true;
         }
         private void btnAgregar_Click(object sender, EventArgs e)

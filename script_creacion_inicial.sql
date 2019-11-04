@@ -2106,7 +2106,7 @@ BEGIN
 	BEGIN
 			;
 
-		THROW 60001, 'no existe el cupon seleccionado, o ya esta vencido.', 1
+		THROW 60001, 'No existe el cupon seleccionado, o ya esta vencido.', 1
 	END
 	ELSE
 	BEGIN
@@ -2118,7 +2118,7 @@ BEGIN
 		BEGIN
 				;
 
-			THROW 60002, 'no existe el cliente seleccionado.', 1
+			THROW 60002, 'No existe el cliente seleccionado.', 1
 		END
 		ELSE
 		BEGIN
@@ -2134,7 +2134,7 @@ BEGIN
 			BEGIN
 					;
 
-				THROW 60003, 'El cupon ya fue consumido totalmente.', 1
+				THROW 60003, 'El cupon ya había sido entregado.', 1
 			END
 			ELSE
 			BEGIN
