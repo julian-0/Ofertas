@@ -163,10 +163,10 @@
             this.btnAgregarTarjeta.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnAgregarTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.btnAgregarTarjeta.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarTarjeta.Location = new System.Drawing.Point(163, 23);
+            this.btnAgregarTarjeta.Location = new System.Drawing.Point(128, 23);
             this.btnAgregarTarjeta.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarTarjeta.Name = "btnAgregarTarjeta";
-            this.btnAgregarTarjeta.Size = new System.Drawing.Size(141, 40);
+            this.btnAgregarTarjeta.Size = new System.Drawing.Size(176, 40);
             this.btnAgregarTarjeta.TabIndex = 27;
             this.btnAgregarTarjeta.Text = "+ Nueva Tarjeta";
             this.btnAgregarTarjeta.UseVisualStyleBackColor = false;

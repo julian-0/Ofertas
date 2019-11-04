@@ -21,10 +21,11 @@ namespace FrbaOfertas.CragaCredito
         {
             InitializeComponent();
             cliente = _cliente;
+            comboTipo.SelectedIndex = 0;
         }
 
         private bool camposCompletos(){
-            return true;
+            return txtNumero.Text.ToString() != "" && txtNombre.Text.ToString() != "";
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
