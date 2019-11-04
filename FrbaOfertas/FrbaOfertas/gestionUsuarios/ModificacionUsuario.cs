@@ -140,7 +140,7 @@ namespace FrbaOfertas.gestionUsuarios
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message);
+                    MessageBox.Show("Seleccione un rol válido.");
                     Conexiones.CerrarConexion();
                     password.Clear();
                     password2.Clear();
