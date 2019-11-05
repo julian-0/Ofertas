@@ -82,6 +82,12 @@
       <DependentUpon>UserControlRol.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
+    <Compile Include="CambioContrasenia\contrasenia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambioContrasenia\contrasenia.Designer.cs">
+      <DependentUpon>contrasenia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clases\ValidadorCampos.cs" />
     <Compile Include="ComprarOferta\VentanaComprar.cs">
       <SubType>Form</SubType>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\UserControlRol.resx">
       <DependentUpon>UserControlRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CambioContrasenia\contrasenia.resx">
+      <DependentUpon>contrasenia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ComprarOferta\VentanaComprar.resx">
       <DependentUpon>VentanaComprar.cs</DependentUpon>

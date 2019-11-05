@@ -20,6 +20,7 @@ using FrbaOfertas.ListadoEstadistico;
 using FrbaOfertas.Facturar;
 using FrbaOfertas.EntregarOferta;
 using FrbaOfertas.CragaCredito;
+using FrbaOfertas.CambioContrasenia;
 
 namespace FrbaOfertas.Menu
 {
@@ -176,6 +177,11 @@ namespace FrbaOfertas.Menu
         {
             ventana.ShowDialog();
             Cursor = Cursors.Default;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            abrir(new Contrasenia());
         }
     }
 }

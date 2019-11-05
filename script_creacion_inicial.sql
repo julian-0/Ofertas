@@ -1438,8 +1438,24 @@ BEGIN
 END
 GO
 
-CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50), @rol_id NUMERIC(9)
-	)
+IF OBJECT_ID('NUNCA_INJOIN.cambiarContrasenia', 'P') IS NOT NULL
+	DROP PROCEDURE NUNCA_INJOIN.cambiarContrasenia;
+GO
+
+CREATE PROC NUNCA_INJOIN.cambiarContrasenia (@usuario_id VARCHAR(50), @nuevaContrasenia NVARCHAR(32))
+AS
+BEGIN
+	DECLARE @HashedPass VARBINARY(32)
+
+	SET @HashedPass = hashbytes('SHA2_256', @nuevaContrasenia)
+
+	UPDATE NUNCA_INJOIN.Usuario
+	SET contrasenia = @HashedPass
+	WHERE @usuario_id = usuario_id
+END
+GO
+
+CREATE PROC NUNCA_INJOIN.esUsuarioExistente (@usuario_id VARCHAR(50), @rol_id NUMERIC(9))
 AS
 BEGIN
 	IF NOT EXISTS (
