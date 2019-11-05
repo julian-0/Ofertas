@@ -948,11 +948,16 @@ Los casos que tienen todos los campos iguales salvo [Oferta_Entregado_Fecha],
 [Factura_Nro] y [Factura_Fecha] se apalnaron y se consideraron como una sola compra
 */
 INSERT INTO NUNCA_INJOIN.Cupon (
-	oferta_codigo, cliente_compra_id, factura_id, fecha_compra, fecha_entrega,
+	oferta_codigo,
+	cliente_compra_id,
+	factura_id,
+	fecha_compra,
+	fecha_entrega,
 	-- Droppeado al terminar la migracion de Entrega
 	cantidad_comprada
 	)
-SELECT Oferta_Codigo, (
+SELECT Oferta_Codigo,
+	(
 		SELECT cliente_id
 		FROM NUNCA_INJOIN.Cliente
 		WHERE Cli_Dni = dni
@@ -960,23 +965,42 @@ SELECT Oferta_Codigo, (
 			AND Cli_Apellido = apellido
 			AND Cli_Mail = mail
 			AND Cli_Ciudad = localidad
-		) id_cli, numero_factura, Oferta_Fecha_Compra, fecha_entregado, cant_compra
+		) id_cli,
+	numero_factura,
+	Oferta_Fecha_Compra,
+	fecha_entregado,
+	cant_compra
 FROM (
-	SELECT [Cli_Nombre], [Cli_Apellido], [Cli_Dni], [Oferta_Codigo], [Cli_Mail], 
-		[Cli_Ciudad], Max([Oferta_Entregado_Fecha]) AS fecha_entregado, Max(
-			[Factura_Nro]) AS numero_factura, Max([Factura_Fecha]) AS fecha_factura, 
+	SELECT [Cli_Nombre],
+		[Cli_Apellido],
+		[Cli_Dni],
+		[Oferta_Codigo],
+		[Cli_Mail],
+		[Cli_Ciudad],
+		Max([Oferta_Entregado_Fecha]) AS fecha_entregado,
+		Max([Factura_Nro]) AS numero_factura,
+		Max([Factura_Fecha]) AS fecha_factura,
 		Oferta_Fecha_Compra,
-		-- Consideramos que cada nueva compra en la Maestra siempre tiene esos 3 campos en NULL
-		SUM(CASE 
-				WHEN [Oferta_Entregado_Fecha] IS NULL
-					AND [Factura_Nro] IS NULL
-					AND [Factura_Fecha] IS NULL
-					THEN 1
-				ELSE 0
-				END) AS cant_compra
-	FROM [GD2C2019].[gd_esquema].[Maestra]
-	GROUP BY [Cli_Nombre], [Cli_Apellido], [Cli_Dni], [Oferta_Codigo], [Cli_Mail], 
-		[Cli_Ciudad], Oferta_Fecha_Compra
+		(
+			SELECT COUNT([Oferta_Codigo])
+			FROM [GD2C2019].[gd_esquema].[Maestra] M
+			WHERE [Oferta_Entregado_Fecha] IS NULL
+				AND [Factura_Nro] IS NULL
+				AND [Factura_Fecha] IS NULL
+				AND [Carga_Credito] IS NULL
+				AND M.Oferta_Codigo = ma.Oferta_Codigo
+				AND M.Cli_Dni = ma.Cli_Dni
+			GROUP BY [Cli_Dni],
+				[Oferta_Codigo]
+			) AS cant_compra
+	FROM [GD2C2019].[gd_esquema].[Maestra] ma
+	GROUP BY [Cli_Nombre],
+		[Cli_Apellido],
+		[Cli_Dni],
+		[Oferta_Codigo],
+		[Cli_Mail],
+		[Cli_Ciudad],
+		Oferta_Fecha_Compra
 	) cupones_normales
 WHERE Oferta_Fecha_Compra IS NOT NULL
 
@@ -985,10 +1009,14 @@ INSERT INTO NUNCA_INJOIN.Entrega (
 	--cliente_entrega_id, No vale la pena - no estaba implementado en el sist anterior
 	fecha_consumo
 	)
-SELECT cupon_id, fecha_entrega
+SELECT cupon_id,
+	fecha_entrega
 FROM NUNCA_INJOIN.Cupon
 WHERE fecha_entrega IS NOT NULL
 GO
+
+
+
 
 ALTER TABLE NUNCA_INJOIN.Cupon
 
