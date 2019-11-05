@@ -17,6 +17,7 @@ namespace FrbaOfertas.AbmRol
 {
     public partial class ABMRol : Form
     {
+        public bool noMostrarCartel = false;
 
         public List<string> rolesMostrados = new List<string>();
         public ABMRol()
@@ -123,22 +124,29 @@ namespace FrbaOfertas.AbmRol
         private void button2_Click_1(object sender, EventArgs e)
         {
             actualizarRoles();
+            noMostrarCartel = true;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void ABMRol_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("¿Desea guardar los cambios?", "Actualizar Roles", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!noMostrarCartel)
             {
-                actualizarRoles();
-            }
-            else
-            {
-                MessageBox.Show("No se guardaron los cambios.");
+                if (MessageBox.Show("¿Desea guardar los cambios?", "Actualizar Roles", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    actualizarRoles();
+                }
+                else
+                {
+                    MessageBox.Show("No se guardaron los cambios.");
+                }
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            noMostrarCartel = true;
+            MessageBox.Show("No se guardaron los cambios.");
             this.Close();
         }
     }

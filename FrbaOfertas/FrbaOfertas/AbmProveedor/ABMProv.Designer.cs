@@ -64,6 +64,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.rubroTableAdapter = new FrbaOfertas.GD2C2019DataSetTableAdapters.RubroTableAdapter();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rubroBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2019DataSet)).BeginInit();
@@ -468,6 +469,17 @@
             // 
             this.rubroTableAdapter.ClearBeforeFill = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(425, 51);
+            this.label3.TabIndex = 56;
+            this.label3.Text = "Nota: debido al cambio de Sistema Informático, se les asignó la\r\ncontraseña FRBA2" +
+    "019 a los Proveedores preexistenes, junto a un\r\nusaurio autogenerado";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // ABMProv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -477,13 +489,14 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1305, 873);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ProvExistentes);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ABMProv";
             this.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Text = "Form1";
+            this.Text = "label";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ABMProv_FormClosed);
             this.Load += new System.EventHandler(this.ABMProv_Load);
             this.groupBox1.ResumeLayout(false);
@@ -495,6 +508,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -534,5 +548,6 @@
         private GD2C2019DataSet gD2C2019DataSet;
         private System.Windows.Forms.BindingSource rubroBindingSource;
         private GD2C2019DataSetTableAdapters.RubroTableAdapter rubroTableAdapter;
+        private System.Windows.Forms.Label label3;
     }
 }

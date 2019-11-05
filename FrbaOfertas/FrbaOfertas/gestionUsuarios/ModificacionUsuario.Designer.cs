@@ -39,6 +39,7 @@
             this.password2 = new System.Windows.Forms.MaskedTextBox();
             this.botonCrear = new System.Windows.Forms.Button();
             this.botonCancelar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,9 +113,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.password);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(38, 26);
+            this.groupBox1.Location = new System.Drawing.Point(38, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(393, 356);
+            this.groupBox1.Size = new System.Drawing.Size(393, 370);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nuevo Usuario";
@@ -181,7 +182,7 @@
             this.botonCrear.BackColor = System.Drawing.SystemColors.HotTrack;
             this.botonCrear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonCrear.ForeColor = System.Drawing.Color.White;
-            this.botonCrear.Location = new System.Drawing.Point(260, 397);
+            this.botonCrear.Location = new System.Drawing.Point(260, 456);
             this.botonCrear.Name = "botonCrear";
             this.botonCrear.Size = new System.Drawing.Size(171, 41);
             this.botonCrear.TabIndex = 1;
@@ -195,7 +196,7 @@
             this.botonCancelar.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.botonCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonCancelar.ForeColor = System.Drawing.Color.White;
-            this.botonCancelar.Location = new System.Drawing.Point(38, 397);
+            this.botonCancelar.Location = new System.Drawing.Point(38, 456);
             this.botonCancelar.Name = "botonCancelar";
             this.botonCancelar.Size = new System.Drawing.Size(171, 41);
             this.botonCancelar.TabIndex = 2;
@@ -203,13 +204,24 @@
             this.botonCancelar.UseVisualStyleBackColor = false;
             this.botonCancelar.Click += new System.EventHandler(this.botonCancelar_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(82, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(309, 34);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Si ya utilizabas la plataforma, ya tenés usuario!\r\nContactá al administrador para" +
+    " más información";
+            // 
             // CreacionUsuario
             // 
             this.AcceptButton = this.botonCrear;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(477, 465);
+            this.ClientSize = new System.Drawing.Size(477, 524);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.botonCancelar);
             this.Controls.Add(this.botonCrear);
             this.Controls.Add(this.groupBox1);
@@ -219,6 +231,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -235,5 +248,6 @@
         private System.Windows.Forms.Button botonCancelar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label5;
     }
 }

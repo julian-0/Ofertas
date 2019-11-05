@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAlta = new System.Windows.Forms.Button();
             this.groupMasFiltros = new System.Windows.Forms.GroupBox();
             this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
@@ -59,6 +59,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tablaClientes = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupMasFiltros.SuspendLayout();
             this.ProvExistentes.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -429,14 +430,24 @@
             this.tablaClientes.Name = "tablaClientes";
             this.tablaClientes.ReadOnly = true;
             this.tablaClientes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tablaClientes.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tablaClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.tablaClientes.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tablaClientes.RowTemplate.Height = 24;
             this.tablaClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tablaClientes.Size = new System.Drawing.Size(1219, 362);
             this.tablaClientes.TabIndex = 0;
             this.tablaClientes.SelectionChanged += new System.EventHandler(this.tablaClientes_SelectionChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(406, 51);
+            this.label3.TabIndex = 57;
+            this.label3.Text = "Nota: debido al cambio de Sistema Informático, se les asignó la\r\ncontraseña FRBA2" +
+    "019 a los Clientes preexistenes, junto a un\r\nusaurio autogenerado";
             // 
             // GestionarClientes
             // 
@@ -448,6 +459,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1305, 750);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupMasFiltros);
             this.Controls.Add(this.ProvExistentes);
             this.Controls.Add(this.btnAlta);
@@ -463,6 +475,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaClientes)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -498,5 +511,6 @@
         private System.Windows.Forms.DataGridView tablaClientes;
         private System.Windows.Forms.Button btnSeleccion;
         private System.Windows.Forms.TextBox apellido;
+        private System.Windows.Forms.Label label3;
     }
 }

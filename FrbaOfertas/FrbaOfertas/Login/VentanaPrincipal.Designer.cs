@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.signinbutton = new System.Windows.Forms.Button();
             this.password = new System.Windows.Forms.TextBox();
             this.usuarioTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // signinbutton
@@ -43,7 +46,7 @@
             this.signinbutton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.signinbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signinbutton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.signinbutton.Location = new System.Drawing.Point(25, 195);
+            this.signinbutton.Location = new System.Drawing.Point(72, 369);
             this.signinbutton.Margin = new System.Windows.Forms.Padding(4);
             this.signinbutton.Name = "signinbutton";
             this.signinbutton.Size = new System.Drawing.Size(317, 55);
@@ -54,7 +57,7 @@
             // 
             // password
             // 
-            this.password.Location = new System.Drawing.Point(25, 141);
+            this.password.Location = new System.Drawing.Point(72, 312);
             this.password.Margin = new System.Windows.Forms.Padding(4);
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(316, 22);
@@ -63,7 +66,7 @@
             // 
             // usuarioTxt
             // 
-            this.usuarioTxt.Location = new System.Drawing.Point(25, 56);
+            this.usuarioTxt.Location = new System.Drawing.Point(72, 241);
             this.usuarioTxt.Margin = new System.Windows.Forms.Padding(4);
             this.usuarioTxt.Name = "usuarioTxt";
             this.usuarioTxt.Size = new System.Drawing.Size(316, 22);
@@ -74,7 +77,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(20, 28);
+            this.label3.Location = new System.Drawing.Point(67, 213);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 24);
@@ -85,7 +88,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 113);
+            this.label2.Location = new System.Drawing.Point(67, 284);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 24);
@@ -99,7 +102,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(24, 269);
+            this.button1.Location = new System.Drawing.Point(71, 443);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(317, 55);
@@ -108,13 +111,25 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::FrbaOfertas.Properties.Resources.logo;
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(72, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(317, 156);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
             // Login
             // 
             this.AcceptButton = this.signinbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(368, 346);
+            this.ClientSize = new System.Drawing.Size(463, 532);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.signinbutton);
             this.Controls.Add(this.password);
@@ -125,6 +140,7 @@
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,6 +154,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
