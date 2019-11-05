@@ -120,7 +120,7 @@ namespace FrbaOfertas.CrearOferta
             datosProveedor.Clear();
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     datosProveedor.Add(dataGridView1.Columns[i].Name, row.Cells[i].Value.ToString());
                 }

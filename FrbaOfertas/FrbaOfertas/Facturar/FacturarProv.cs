@@ -41,7 +41,7 @@ namespace FrbaOfertas.Facturar
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {
                     this.datosProveedorSeleccionado = ventanaCreacion.datosProveedor;
-                    textBoxProveedor.Text = datosProveedorSeleccionado["razon_social"].ToString();
+                    textBoxProveedor.Text = datosProveedorSeleccionado["Razon Social"].ToString();
                     haySeleccionado = true;
                 }
             }
@@ -53,7 +53,7 @@ namespace FrbaOfertas.Facturar
             if (camposCompletos())
             {
                 DataTable dt;
-                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["proveedor_id"].ToString());
+                dt = BaseDeDatos.getOfertasProveedor(fechaDesde.Text.ToString(), fechaHasta.Text.ToString(), datosProveedorSeleccionado["ID"].ToString());
                 dataGridView1.DataSource = dt;
             }
             completarTotal();
@@ -100,7 +100,7 @@ namespace FrbaOfertas.Facturar
                     procedure.CommandType = CommandType.StoredProcedure;
                     float total = 0;
                     float.TryParse(textBox1.Text.Trim('$'), out total);
-                    procedure.Parameters.AddWithValue("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
+                    procedure.Parameters.AddWithValue("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["ID"];
                     procedure.Parameters.AddWithValue("@importe", SqlDbType.Int).Value = total;
                     procedure.Parameters.AddWithValue("@fechaFactura", SqlDbType.DateTime).Value = fechaConfig;
                     procedure.Parameters.AddWithValue("@fechaDesde", SqlDbType.DateTime).Value = fechaDesde.Value;

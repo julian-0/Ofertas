@@ -46,7 +46,7 @@ namespace FrbaOfertas.CrearOferta
                 if (ventanaCreacion.ShowDialog() == DialogResult.OK)
                 {
                     this.datosProveedorSeleccionado = ventanaCreacion.datosProveedor;
-                    textBoxProveedor.Text = datosProveedorSeleccionado["razon_social"].ToString();
+                    textBoxProveedor.Text = datosProveedorSeleccionado["Razon Social"].ToString();
                     haySeleccionado = true;
                 }
             }
@@ -69,7 +69,7 @@ namespace FrbaOfertas.CrearOferta
                 SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].CrearOferta", conex);
                 procedure.CommandType = CommandType.StoredProcedure;
                 procedure.Parameters.Add("@oferta_codigo", SqlDbType.NVarChar).Value = ts;
-                procedure.Parameters.Add("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["proveedor_id"];
+                procedure.Parameters.Add("@proveedor_id", SqlDbType.NVarChar).Value = datosProveedorSeleccionado["ID"];
                 procedure.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = textBoxDescripcion.Text;
                 procedure.Parameters.Add("@fecha_publicacion", SqlDbType.NVarChar).Value = fechaDesde.Text.ToString();
                 procedure.Parameters.Add("@fecha_vencimiento", SqlDbType.NVarChar).Value = fechaHasta.Text.ToString();
