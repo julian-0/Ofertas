@@ -766,6 +766,59 @@ VALUES (
  *MIGRACION
  */
 /* CLIENTES */
+GO
+
+CREATE TRIGGER NUNCA_INJOIN.triggerClientes 
+ON NUNCA_INJOIN.Cliente 
+AFTER INSERT
+AS
+BEGIN
+BEGIN TRANSACTION
+
+DECLARE @id numeric(9,0)
+DECLARE @usuario NVARCHAR(50)
+DECLARE @HashedPass VARBINARY(32)
+DECLARE @contrasenia NVARCHAR(32)
+SET @contrasenia = 'FRBA2019'
+SET @HashedPass = hashbytes('SHA2_256', @contrasenia)
+
+DECLARE cli_cursor CURSOR LOCAL
+FOR
+SELECT cliente_id
+FROM inserted
+
+OPEN cli_cursor
+
+FETCH cli_cursor
+INTO @id
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	SET @usuario = 'FRBA' + CAST(@id AS NVARCHAR(9))
+
+	INSERT INTO NUNCA_INJOIN.Usuario (usuario_id, rol_id, contrasenia)
+	VALUES (
+	@usuario, 
+	3, 
+	@HashedPass
+	)
+
+	UPDATE NUNCA_INJOIN.Cliente
+	SET usuario_id = @usuario
+	WHERE cliente_id = @id
+
+	FETCH cli_cursor
+	INTO @id
+END
+
+CLOSE cli_cursor
+
+DEALLOCATE cli_cursor
+
+COMMIT
+END
+GO
+
 INSERT INTO NUNCA_INJOIN.Cliente (nombre, apellido, dni, mail, telefono, domicilio, localidad, fecha_nac
 	)
 SELECT DISTINCT Cli_Nombre, Cli_Apellido, Cli_Dni, Cli_Mail, Cli_Telefono, 
@@ -773,11 +826,7 @@ SELECT DISTINCT Cli_Nombre, Cli_Apellido, Cli_Dni, Cli_Mail, Cli_Telefono,
 FROM gd_esquema.Maestra
 GO
 
-INSERT INTO NUNCA_INJOIN.Cliente (nombre, apellido, dni, mail, telefono, domicilio, localidad, fecha_nac
-	)
-SELECT DISTINCT Cli_Dest_Nombre, Cli_Dest_Apellido, Cli_Dest_Dni, Cli_Dest_Mail, 
-	Cli_Dest_Telefono, Cli_Dest_Direccion, Cli_Dest_Ciudad, Cli_Dest_Fecha_Nac
-FROM gd_esquema.Maestra
+DROP TRIGGER NUNCA_INJOIN.triggerClientes
 GO
 
 /* VER QUE HACER CON LAS CARGAS DE MARGA SUAREZ */
@@ -786,6 +835,62 @@ INSERT INTO NUNCA_INJOIN.Rubro (nombre_rubro)
 SELECT DISTINCT Provee_Rubro
 FROM gd_esquema.Maestra
 WHERE Provee_Rubro IS NOT NULL
+GO
+
+GO
+
+CREATE TRIGGER NUNCA_INJOIN.triggerProveedores
+ON NUNCA_INJOIN.Proveedor
+AFTER INSERT
+AS
+BEGIN
+BEGIN TRANSACTION
+
+DECLARE @id numeric(9,0)
+DECLARE @cantidadUsuariosYaCreados numeric(9,0)
+DECLARE @usuario NVARCHAR(50)
+DECLARE @HashedPass VARBINARY(32)
+DECLARE @contrasenia NVARCHAR(32)
+SET @contrasenia = 'FRBA2019'
+SET @HashedPass = hashbytes('SHA2_256', @contrasenia)
+
+SET @cantidadUsuariosYaCreados = (SELECT count(*) FROM NUNCA_INJOIN.Cliente)
+
+DECLARE provee_cursor CURSOR LOCAL
+FOR
+SELECT proveedor_id
+FROM inserted
+
+OPEN provee_cursor
+
+FETCH provee_cursor
+INTO @id
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	SET @usuario = 'FRBA' + CAST((@id + @cantidadUsuariosYaCreados) AS NVARCHAR(9))
+
+	INSERT INTO NUNCA_INJOIN.Usuario (usuario_id, rol_id, contrasenia)
+	VALUES (
+	@usuario, 
+	3, 
+	@HashedPass
+	)
+
+	UPDATE NUNCA_INJOIN.Proveedor
+	SET usuario_id = @usuario
+	WHERE proveedor_id = @id
+
+	FETCH provee_cursor
+	INTO @id
+END
+
+CLOSE provee_cursor
+
+DEALLOCATE provee_cursor
+
+COMMIT
+END
 GO
 
 /* PROVEEDORES */
@@ -798,6 +903,9 @@ SELECT DISTINCT Provee_RS, Provee_Telefono, Provee_Dom, Provee_Ciudad, Provee_CU
 		)
 FROM gd_esquema.Maestra
 WHERE Provee_CUIT IS NOT NULL
+GO
+
+DROP TRIGGER NUNCA_INJOIN.triggerProveedores
 
 /* OFERTAS */
 INSERT INTO NUNCA_INJOIN.Oferta (
