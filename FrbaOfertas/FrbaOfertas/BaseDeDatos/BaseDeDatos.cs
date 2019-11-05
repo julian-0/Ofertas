@@ -147,6 +147,11 @@ namespace FrbaOfertas.Datos
             Conexiones.CerrarConexion();
         }
 
+        public static bool existeUsuario(String usuario)
+        {
+            return solicitar("SELECT * FROM NUNCA_INJOIN.Usuario").Select("usuario_id LIKE '" + usuario + "'").Any();
+        }
+
         public static bool existeCliente(int p)
         {
             return getClientes().Select("cliente_id = " + p).Any();

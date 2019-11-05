@@ -873,7 +873,7 @@ BEGIN
 	INSERT INTO NUNCA_INJOIN.Usuario (usuario_id, rol_id, contrasenia)
 	VALUES (
 	@usuario, 
-	3, 
+	4, 
 	@HashedPass
 	)
 

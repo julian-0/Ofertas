@@ -51,16 +51,24 @@ namespace FrbaOfertas.CambioContrasenia
             this.Close();
         }
 
-        private bool CamposCompletos()
+        private void verificarCampos()
         {
-            return usuarioTxt.Text != "" && contraseniaTxt.Text != "";
+            if (usuarioTxt.Text == "" || contraseniaTxt.Text == "")
+            {
+                throw new ArgumentException("Complete los campos");
+            }
+            else if (!BaseDeDatos.existeUsuario(usuarioTxt.Text.ToString()))
+            {
+                throw new ArgumentException("No existe el usuario '" + usuarioTxt.Text.ToString() + "'");
+            }
         }
 
         private void cambiarButton_Click(object sender, EventArgs e)
         {
-            SqlConnection conex = Conexiones.AbrirConexion();
-            if (this.CamposCompletos())
+            try
             {
+                verificarCampos();
+                SqlConnection conex = Conexiones.AbrirConexion();
                 SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].cambiarContrasenia", conex);
                 procedure.CommandType = CommandType.StoredProcedure;
                 procedure.Parameters.Add("@usuario_id", SqlDbType.NVarChar).Value = usuarioTxt.Text;
@@ -70,8 +78,14 @@ namespace FrbaOfertas.CambioContrasenia
                 MessageBox.Show("Contraseña cambiada correctamente", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
-            else
-                MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + ". No se cambio la contraseña.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " No se cambio la contraseña.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

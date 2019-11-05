@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Datos;
+using System.Reflection;
 
 namespace FrbaOfertas.gestionUsuarios
 {
@@ -44,6 +45,12 @@ namespace FrbaOfertas.gestionUsuarios
         private void updateHeadersStyle()
         {
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 9.75F, FontStyle.Bold);
+            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dataGridView1.AutoSize = false;
+            Type dgvType = dataGridView1.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dataGridView1, null);
         }
 
         private void button1_Click(object sender, EventArgs e)
