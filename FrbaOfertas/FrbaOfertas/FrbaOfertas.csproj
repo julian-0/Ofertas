@@ -150,6 +150,12 @@
     <Compile Include="gestionUsuarios\ABMUsuarios.Designer.cs">
       <DependentUpon>ABMUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="gestionUsuarios\DatosUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gestionUsuarios\DatosUsuario.Designer.cs">
+      <DependentUpon>DatosUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="gestionUsuarios\ModificacionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gestionUsuarios\ABMUsuarios.resx">
       <DependentUpon>ABMUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gestionUsuarios\DatosUsuario.resx">
+      <DependentUpon>DatosUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gestionUsuarios\ModificacionUsuario.resx">
       <DependentUpon>ModificacionUsuario.cs</DependentUpon>

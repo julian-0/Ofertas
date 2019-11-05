@@ -35,6 +35,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.resetRol = new System.Windows.Forms.Button();
             this.mostrarHabilitados = new System.Windows.Forms.CheckBox();
             this.mostrarInhabilitados = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.gD2C2019DataSet = new FrbaOfertas.GD2C2019DataSet();
             this.rolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rolTableAdapter = new FrbaOfertas.GD2C2019DataSetTableAdapters.RolTableAdapter();
-            this.resetRol = new System.Windows.Forms.Button();
             this.UsuExistentes.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -106,6 +106,7 @@
             this.button3.TabIndex = 0;
             this.button3.Text = "Ver datos del seleccionado";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox2
             // 
@@ -126,6 +127,20 @@
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // resetRol
+            // 
+            this.resetRol.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.resetRol.FlatAppearance.BorderSize = 0;
+            this.resetRol.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.resetRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetRol.Location = new System.Drawing.Point(258, 89);
+            this.resetRol.Name = "resetRol";
+            this.resetRol.Size = new System.Drawing.Size(24, 27);
+            this.resetRol.TabIndex = 2;
+            this.resetRol.Text = "X";
+            this.resetRol.UseVisualStyleBackColor = true;
+            this.resetRol.Click += new System.EventHandler(this.resetRol_Click);
             // 
             // mostrarHabilitados
             // 
@@ -242,20 +257,6 @@
             // rolTableAdapter
             // 
             this.rolTableAdapter.ClearBeforeFill = true;
-            // 
-            // resetRol
-            // 
-            this.resetRol.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.resetRol.FlatAppearance.BorderSize = 0;
-            this.resetRol.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.resetRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetRol.Location = new System.Drawing.Point(258, 89);
-            this.resetRol.Name = "resetRol";
-            this.resetRol.Size = new System.Drawing.Size(24, 27);
-            this.resetRol.TabIndex = 2;
-            this.resetRol.Text = "X";
-            this.resetRol.UseVisualStyleBackColor = true;
-            this.resetRol.Click += new System.EventHandler(this.resetRol_Click);
             // 
             // ABMUsuarios
             // 

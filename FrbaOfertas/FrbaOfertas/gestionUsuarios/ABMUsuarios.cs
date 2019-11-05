@@ -18,6 +18,8 @@ namespace FrbaOfertas.gestionUsuarios
     {
         DataTable dt = new DataTable();
         DataTable dtRoles = new DataTable();
+        public Dictionary<string, string> datosUsuario = new Dictionary<string, string>();
+        
 
         public ABMUsuarios()
         {
@@ -106,7 +108,16 @@ namespace FrbaOfertas.gestionUsuarios
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {        }
+        {
+            datosUsuario.Clear();
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    datosUsuario.Add(dataGridView1.Columns[i].Name, row.Cells[i].Value.ToString());
+                }
+            }
+        }
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
@@ -117,6 +128,23 @@ namespace FrbaOfertas.gestionUsuarios
         {
             rol.ResetText();
             rol.SelectedIndex = -1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            String usuario = datosUsuario["Usuario"].ToString();
+            String rol = datosUsuario["Rol"].ToString();
+
+            Cursor = Cursors.WaitCursor;
+            using (DatosUsuario ventanaCreacion = new DatosUsuario(usuario, rol))
+            {
+                if (ventanaCreacion.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            Cursor = Cursors.Default;
+
+
         }
     }
 }

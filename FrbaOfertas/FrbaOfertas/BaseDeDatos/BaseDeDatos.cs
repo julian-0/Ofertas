@@ -161,6 +161,15 @@ namespace FrbaOfertas.Datos
         {
             return solicitar("SELECT * FROM NUNCA_INJOIN.Cupon").Select("cupon_id = " + cupon).Any();
         }
+
+        public static DataTable getInfoUsuario(String usuario, String rol)
+        {
+            if(rol == "cliente")
+            return solicitar("SELECT * FROM NUNCA_INJOIN.Cliente where usuario_id like '" + usuario + "'");
+            else if(rol == "proveedor")
+                return solicitar("SELECT * FROM NUNCA_INJOIN.Proveedor where usuario_id like '" + usuario + "'");
+            else return solicitar("SELECT [usuario_id] ,[rol_id] ,[intentos_fallidos] ,[baja_logica] FROM NUNCA_INJOIN.Usuario where usuario_id like '" + usuario + "'");
+        }
     }
 
     class InfoUsuario
