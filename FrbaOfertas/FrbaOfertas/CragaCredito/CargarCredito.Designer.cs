@@ -33,7 +33,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboTipo = new System.Windows.Forms.ComboBox();
             this.lblTipo = new System.Windows.Forms.Label();
-            this.btnInfoTarjeta = new System.Windows.Forms.Button();
             this.comboNumero = new System.Windows.Forms.ComboBox();
             this.lblNumero = new System.Windows.Forms.Label();
             this.btnAgregarTarjeta = new System.Windows.Forms.Button();
@@ -43,6 +42,8 @@
             this.labelUsuario = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.btnInfoCLiente = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.monto)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -80,9 +81,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.comboTipo);
             this.groupBox2.Controls.Add(this.lblTipo);
-            this.groupBox2.Controls.Add(this.btnInfoTarjeta);
             this.groupBox2.Controls.Add(this.comboNumero);
             this.groupBox2.Controls.Add(this.lblNumero);
             this.groupBox2.Controls.Add(this.btnAgregarTarjeta);
@@ -97,6 +99,7 @@
             // 
             // comboTipo
             // 
+            this.comboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTipo.FormattingEnabled = true;
             this.comboTipo.Items.AddRange(new object[] {
             "Crédito",
@@ -106,8 +109,9 @@
             this.comboTipo.Name = "comboTipo";
             this.comboTipo.Size = new System.Drawing.Size(160, 24);
             this.comboTipo.TabIndex = 110;
+            this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged_1);
             this.comboTipo.SelectionChangeCommitted += new System.EventHandler(this.comboTipo_SelectionChangeCommitted);
-            this.comboTipo.DropDownClosed += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            this.comboTipo.SelectedValueChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged_1);
             // 
             // lblTipo
             // 
@@ -119,35 +123,18 @@
             this.lblTipo.TabIndex = 109;
             this.lblTipo.Text = "Tipo";
             // 
-            // btnInfoTarjeta
-            // 
-            this.btnInfoTarjeta.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.btnInfoTarjeta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnInfoTarjeta.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnInfoTarjeta.FlatAppearance.BorderSize = 0;
-            this.btnInfoTarjeta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInfoTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInfoTarjeta.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnInfoTarjeta.Location = new System.Drawing.Point(55, 156);
-            this.btnInfoTarjeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnInfoTarjeta.Name = "btnInfoTarjeta";
-            this.btnInfoTarjeta.Size = new System.Drawing.Size(229, 30);
-            this.btnInfoTarjeta.TabIndex = 108;
-            this.btnInfoTarjeta.TabStop = false;
-            this.btnInfoTarjeta.Text = "Ver informacion de la tarjeta";
-            this.btnInfoTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInfoTarjeta.UseVisualStyleBackColor = false;
-            this.btnInfoTarjeta.Click += new System.EventHandler(this.btnInfoTarjeta_Click);
-            // 
             // comboNumero
             // 
+            this.comboNumero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboNumero.FormattingEnabled = true;
             this.comboNumero.Location = new System.Drawing.Point(103, 124);
             this.comboNumero.Margin = new System.Windows.Forms.Padding(4);
             this.comboNumero.Name = "comboNumero";
             this.comboNumero.Size = new System.Drawing.Size(160, 24);
             this.comboNumero.TabIndex = 29;
-            this.comboNumero.SelectedIndexChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged);
+            this.comboNumero.SelectedIndexChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged_1);
+            this.comboNumero.SelectionChangeCommitted += new System.EventHandler(this.comboNumero_SelectedIndexChanged_1);
+            this.comboNumero.SelectedValueChanged += new System.EventHandler(this.comboNumero_SelectedIndexChanged_1);
             // 
             // lblNumero
             // 
@@ -252,6 +239,23 @@
             this.btnInfoCLiente.UseVisualStyleBackColor = false;
             this.btnInfoCLiente.Click += new System.EventHandler(this.btnInfoCLiente_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 161);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.TabIndex = 111;
+            this.label1.Text = "Dueño";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(103, 161);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(160, 22);
+            this.textBox1.TabIndex = 112;
+            // 
             // CargarCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -289,10 +293,11 @@
         private System.Windows.Forms.Button btnInfoCLiente;
         private System.Windows.Forms.NumericUpDown monto;
         private System.Windows.Forms.Button btnAgregarTarjeta;
-        private System.Windows.Forms.Button btnInfoTarjeta;
         private System.Windows.Forms.ComboBox comboNumero;
         private System.Windows.Forms.Label lblNumero;
         private System.Windows.Forms.ComboBox comboTipo;
         private System.Windows.Forms.Label lblTipo;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
