@@ -30,6 +30,8 @@ namespace FrbaOfertas.CragaCredito
         {
             InitializeComponent();
             comboNumero.Enabled = false;
+            comboTipo.Enabled = false;
+
             btnAgregarTarjeta.Enabled = false;
 
             if (InfoUsuario.rolUsuario > 2)
@@ -39,9 +41,10 @@ namespace FrbaOfertas.CragaCredito
                 txtCliente.Text = InfoUsuario.nombreUsuario;
                 datosClienteSeleccionado = InfoUsuario.datosCuenta;
                 haySeleccionado = true;
+                comboTipo.Enabled = true;
                 btnAgregarTarjeta.Enabled = true;
-            } 
-
+            }
+            comboTipo.SelectedIndex = 0;
         }
 
         private void btnInfoCLiente_Click(object sender, EventArgs e)
@@ -62,6 +65,9 @@ namespace FrbaOfertas.CragaCredito
                     txtCliente.Text = datosClienteSeleccionado["Nombre"].ToString() + " " + datosClienteSeleccionado["Apellido"].ToString();
                     haySeleccionado = true;
                     btnAgregarTarjeta.Enabled = true;
+                    comboTipo.Enabled = true;
+                    comboNumero.Enabled = true;
+                    cargarComboTarjetas();
                 }
             }
             Cursor = Cursors.Default;
@@ -69,19 +75,23 @@ namespace FrbaOfertas.CragaCredito
 
         private void cargarComboTarjetas()
         {
-            string tipo = comboTipo.SelectedText;
-
-            dt.Columns.Clear();
-            dt.Rows.Clear();
-            comboNumero.DataSource = dt;
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero FROM NUNCA_INJOIN.Tarjeta WHERE tipo_pago = '"+tipo+"'", conexion);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            comboNumero.ValueMember = "tarjeta_id";
-            comboNumero.DisplayMember = "numero";
-            comboNumero.DataSource = dt;
-            Conexiones.CerrarConexion();
+           if(haySeleccionado)
+           {
+                string tipo = comboTipo.SelectedItem.ToString();
+                dt.Columns.Clear();
+                dt.Rows.Clear();
+                comboNumero.DataSource = dt;
+                SqlConnection conexion = Conexiones.AbrirConexion();
+                SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero FROM NUNCA_INJOIN.Tarjeta WHERE tipo_pago = '" + tipo + "' AND cliente_id = '" + datosClienteSeleccionado["ID"] + "'", conexion);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dt);
+                comboNumero.ValueMember = "tarjeta_id";
+                comboNumero.DisplayMember = "numero";
+                comboNumero.DataSource = dt;
+                Conexiones.CerrarConexion();
+        }
+            try { comboNumero.SelectedIndex = 0; }
+            catch { }
         }
 
         private void comboTipo_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,24 +108,35 @@ namespace FrbaOfertas.CragaCredito
 
         private void btnInfoTarjeta_Click(object sender, EventArgs e)
         {
-            dt.Columns.Clear();
-            dt.Rows.Clear();
-            SqlConnection conexion = Conexiones.AbrirConexion();
-            SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero,tipo_pago FROM NUNCA_INJOIN.Tarjeta WHERE tipo_pago = '" + comboTipo.SelectedText + "'", conexion);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(dt);
-            Conexiones.CerrarConexion();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                foreach (DataColumn column in dt.Columns)
+  
+                if (haySeleccionado && comboNumero.SelectedItem.ToString() != "" )
                 {
-                    datosTarjetaSeleccionada.Add(column.ColumnName.ToString(), row[column].ToString());
-                }
-            }
+                    String cliente = datosClienteSeleccionado["ID"].ToString();
+                    String numero = comboNumero.SelectedItem.ToString();
+                    String tipo = comboTipo.SelectedItem.ToString();
+                    DataTable dt2 = new DataTable();
+                    SqlConnection conexion = Conexiones.AbrirConexion();
+                    SqlCommand command = new SqlCommand("SELECT tarjeta_id,duenio,numero,tipo_pago FROM NUNCA_INJOIN.Tarjeta WHERE tipo_pago = '" + tipo
+                    + "' AND "+
+                    "cliente_id = " + cliente +
+                    " AND numero = " + numero, conexion);
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dt2);
+                    Conexiones.CerrarConexion();
 
-            var lines = datosTarjetaSeleccionada.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
-            MessageBox.Show(string.Join(Environment.NewLine, lines));
+                    datosTarjetaSeleccionada.Clear();
+                    foreach (DataRow row in dt2.Rows)
+                    {
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            datosTarjetaSeleccionada.Add(column.ColumnName.ToString(), row[column].ToString());
+                        }
+                    }
+
+                    var lines = datosTarjetaSeleccionada.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+                    MessageBox.Show(string.Join(Environment.NewLine, lines));
+                }
+  
         }
 
         private void btnAgregarTarjeta_Click(object sender, EventArgs e)
@@ -126,6 +147,8 @@ namespace FrbaOfertas.CragaCredito
             else
                 MessageBox.Show("Seleccione un cliente para vincular la tarjeta", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             Cursor = Cursors.Default;
+            comboTipo.Enabled = true;
+            cargarComboTarjetas();
         }
 
         private bool seleccionoCliente()
@@ -155,6 +178,12 @@ namespace FrbaOfertas.CragaCredito
             }
             else
                 MessageBox.Show("Complete todos los campos para seguir", "FrbaOfertas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void comboTipo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            cargarComboTarjetas();
+            seleccionoTipo = true;
         }
     }
 }

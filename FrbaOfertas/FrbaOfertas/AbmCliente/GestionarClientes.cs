@@ -153,8 +153,13 @@ namespace FrbaOfertas.AbmCliente
         {
             if (buscarWasClicked)
             {
-                AltaCliente ventanaModificacion = new AltaCliente(null, datosFilaCliente);
-                ventanaModificacion.Show();
+                using (AltaCliente ventanaModificacion = new AltaCliente(null, datosFilaCliente))
+                {
+                    if (ventanaModificacion.ShowDialog() == DialogResult.OK)
+                    {
+                        buscar();
+                    }
+                }
             }
             else MessageBox.Show("Seleccione un cliente");
         }

@@ -35,7 +35,7 @@ namespace FrbaOfertas.CragaCredito
                 SqlCommand procedure = new SqlCommand("[NUNCA_INJOIN].crearTarjeta", conex);
                 procedure.CommandType = CommandType.StoredProcedure;
                 procedure.Parameters.Add("@cliente", SqlDbType.Int).Value = cliente;
-                procedure.Parameters.Add("@tarjeta_tipo", SqlDbType.NVarChar).Value = comboTipo.SelectedText.ToString();
+                procedure.Parameters.Add("@tarjeta_tipo", SqlDbType.NVarChar).Value = comboTipo.SelectedItem.ToString();
                 procedure.Parameters.Add("@duenio", SqlDbType.NVarChar).Value = txtNombre.Text.ToString();
                 procedure.Parameters.Add("@tarjeta_numero", SqlDbType.Int).Value = Int32.Parse(txtNumero.Text.ToString());
                 procedure.ExecuteNonQuery();

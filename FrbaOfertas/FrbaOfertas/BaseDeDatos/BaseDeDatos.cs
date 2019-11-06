@@ -217,6 +217,9 @@ namespace FrbaOfertas.Datos
             }
 
             Conexiones.CerrarConexion();
+
+            datosCuenta.Clear();
+
             foreach (DataRow row in dt.Rows)
             {
                 foreach (DataColumn column in dt.Columns)

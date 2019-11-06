@@ -102,6 +102,7 @@ namespace FrbaOfertas.AbmCliente
                         altaCliente();
                     else
                         modificarCliente();
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                     InfoUsuario.Actualizar();
                 }

@@ -106,7 +106,8 @@
             this.comboTipo.Name = "comboTipo";
             this.comboTipo.Size = new System.Drawing.Size(160, 24);
             this.comboTipo.TabIndex = 110;
-            this.comboTipo.SelectedIndexChanged += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
+            this.comboTipo.SelectionChangeCommitted += new System.EventHandler(this.comboTipo_SelectionChangeCommitted);
+            this.comboTipo.DropDownClosed += new System.EventHandler(this.comboTipo_SelectedIndexChanged);
             // 
             // lblTipo
             // 

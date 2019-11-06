@@ -110,8 +110,15 @@ namespace FrbaOfertas.AbmProveedor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ModProv ventanaModificacion = new ModProv(null, null);
-            ventanaModificacion.Show();
+            {
+                using (ModProv ventanaModificacion = new ModProv(null, null))
+                {
+                    if (ventanaModificacion.ShowDialog() == DialogResult.OK)
+                    {
+                        generarBusqueda();
+                    }
+                }
+            }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)

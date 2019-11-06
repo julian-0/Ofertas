@@ -137,6 +137,7 @@ namespace FrbaOfertas.AbmProveedor
                     else
                         modificarProveedor();
                     InfoUsuario.Actualizar();
+                    DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else

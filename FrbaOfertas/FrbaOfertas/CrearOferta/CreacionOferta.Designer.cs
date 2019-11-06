@@ -101,10 +101,20 @@
             2328306,
             0,
             0});
+            this.numericPrecioOferta.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericPrecioOferta.Name = "numericPrecioOferta";
             this.numericPrecioOferta.Size = new System.Drawing.Size(139, 30);
             this.numericPrecioOferta.TabIndex = 4;
             this.numericPrecioOferta.ThousandsSeparator = true;
+            this.numericPrecioOferta.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericPrecioOriginal
             // 
@@ -116,10 +126,20 @@
             2328306,
             0,
             0});
+            this.numericPrecioOriginal.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericPrecioOriginal.Name = "numericPrecioOriginal";
             this.numericPrecioOriginal.Size = new System.Drawing.Size(139, 30);
             this.numericPrecioOriginal.TabIndex = 3;
             this.numericPrecioOriginal.ThousandsSeparator = true;
+            this.numericPrecioOriginal.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
