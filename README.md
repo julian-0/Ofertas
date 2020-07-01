@@ -1,3 +1,3 @@
 # Ofertas-GDD
 
-DER: https://www.lucidchart.com/documents/edit/dc814552-f0e3-434c-8751-f581bdd58226/0_0?shared=true
+![Entity–relationship model](https://github.com/julian-0/Ofertas/blob/master/DER%20Ofertas%202C2019%20NUNCA_INJOIN.jpeg)
